@@ -1,0 +1,1354 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="Keywords"
+        content="代码托管、项目管理、需求管理、缺陷管理、代码评审、代码分析扫描、Bug Tracking、Bug管理、Code Review、敏捷开发、看板、迭代、API 文档管理、Wiki、DevOps、Git、SVN、持续集成、CI、Jenkins、CD、测试管理、自动化测试、自动构建、Pages 服务、研发管理">
+    <meta name="Description"
+        content="CODING 是一站式软件研发管理协作平台，提供 Git/SVN 代码托管、项目协同、测试管理、制品库、CI/CD 等一系列在线工具，帮助研发团队快速落地敏捷开发与 DevOps 开发方式，提升研发管理效率，实现研发效能升级。">
+    <link rel="icon" type="image/x-icon" href="https://dn-coding-net-production-static.codehub.cn/platform/favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="https://dn-coding-net-production-static.codehub.cn/platform/favicon.ico">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-65952334-7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-65952334-7');
+</script>
+    <title>CODING - 一站式软件研发管理平台</title>
+    <link rel="stylesheet" href="https://libs.cdnjs.net/Swiper/5.4.5/css/swiper.min.css">
+    <meta name="renderer" content="webkit">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+<link href="https://assets.codehub.cn/css/index.85491c02.css" rel="stylesheet"></head>
+
+<body>
+    <!-- <div class="workshop">
+        <img class="workshop-close" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEwAAABMCAMAAADwSaEZAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAACTUExURQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAExpcQAAAP////39/eHh4RwcHPv7+/f39/7+/o2NjQ4ODjY2NltbW+3t7bq6utzc3PDw8IWFhdra2vHx8fr6+tHR0erq6tbW1kJCQvr6+nt7e/X19eXl5cnJydfX1/z8/NPT01VVVfr6+kJCQvLy8v///6urq8jIyP///9dCqmoAAAAwdFJOUwEQCA4FCxMzAAL7xqs35eH0KTU9R8Z5pHhWU9Gjkr6cP+5S27OKTLVLHqkbf+xuh7OvG04AAAMdSURBVHjarZiLdqIwEIZhcZMuN0GtcrEq2nq39f2fbmeGNJEYqT1n/tPaUyQf808yIYn30iPPod77fwL9u5EG/gpmgwYDG/g07IY0sGR4zoZulAb96UgD3TjvMYpAf0lB0P5VQI3rh3VQRAl8rYCYHZwNs1kGhSDREQIVzkXzbJZCAQlBh+o8j9JLGF7SaH6uDggEHuE0zQlTYWlUXkThtaMwKnKNU8FZMIsFBhG13ymSxdvtAQdmHTTPwQoCIbaRaZ5u6nqTGnS0FSIIHDTvlqUs+iI/qnbDeLpOJClZT+OhunzMhd9a7dA8F6vKqEkzK6WlctbQV1nlonl3LCEKcpQtx9Kh8TIj74UQFs2CEes0p5vjiXygSUwPm5+IZsFMYMjKI8pVKXtUUu6iHGid0DyLdSLW60r2avVKtJNFow/N8gV5nI3kDxrNyKnwNY04OjBiFXjPh3xCH3hnQTQdGv4ak1WIccmnhLGFlTFKMBOYyDPMl/HY7xTzluXiJjTPBOaLI/bjSj6p1RBrAYzq0OBHB7bFwEv5tEpMypZCUzB0iYFB9nFUxPIXinF8qNDQp2cC22MOJrpsFumbC/CWLsa6FjDHex0awVTGdvDN0jTCMN3BmIcs4b+d8LFDDYy6EjLQmNr+uoLeR1YPvuPVL1P1DWRZdSjCtMuiO8QSqphFcstKFlRrSXewFdrnN6xNf+lo2csv2y5QMN2XB3A5dHiqx9pT7XA+BJ8H3Z/fKascCY+JtlJjFFjuWyqVNJOyM1ydSktLbL+Z0DDYXKm3LU3h4tkkjWDt3LO+H1U0U06ARfPh/chbtzORBYvAfPJgpknX6/TB3JSE2AM2LIU20qEpFmDTYNlOpUPYzsDU+L9AcuRDmmHZglReVA2YKocmtXTqM0NW9imdquExUOvcMFabTB3APDT4By1rOTEWOusUxD05sk7bbC8U3lcd80uYdXnAt3BhWlLp1R7nYo9zGcq6QOZcurNuKji3O5wbMdYtIufmlXNbzbnh5zyK4Dwk4Ty+4TxY4jzy4jyMYz0m5D/A5D9a5T/0ZT2O/g8frRBeF79swAAAAABJRU5ErkJggg==" alt="">
+        <a href="https://workshop.coding.io/?utm_source=coding-right&utm_medium=banner&utm_campaign=workshop">
+            <img class="workshop-card" src="https://assets.codehub.cn/images/workshop-card-img.bf087459.png" alt="">
+        </a>
+    </div> -->
+
+    <!-- <div class="tips">
+        <img class="tips-bg" src="https://assets.codehub.cn/images/tips-bg1.8bfad937.png" alt="">
+        <div class="tips-content">
+                <span class="tips-content-inner">
+                    <span class="tips-tit">
+                        有奖体验 CODING 产品，iPad Pro 等超级礼包等你来！
+                        <a href="https://workshop.coding.io/?utm_source=coding-right&utm_medium=banner&utm_campaign=workshop">
+                            立即参与
+                            <img width="14" height="14" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTYgMTYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE2IDE2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I2ZmZjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggaWQ9IlBhdGgiIGNsYXNzPSJzdDAiIGQ9Ik00LjcsMTIuNmwwLjYsMC44YzAuMiwwLjIsMC41LDAuMiwwLjcsMC4xTDEyLjYsOGwwLDBMNiwyLjZDNS44LDIuNCw1LjUsMi40LDUuMywyLjZMNC43LDMuNAoJCUM0LjUsMy42LDQuNSwzLjksNC43LDQuMUw5LjQsOGwwLDBsLTQuNywzLjlDNC41LDEyLjEsNC41LDEyLjQsNC43LDEyLjZ6Ii8+CjwvZz4KPC9zdmc+Cg==" />
+                            <img width="14" height="14" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTYgMTYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE2IDE2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I2ZmZjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggaWQ9IlBhdGgiIGNsYXNzPSJzdDAiIGQ9Ik00LjcsMTIuNmwwLjYsMC44YzAuMiwwLjIsMC41LDAuMiwwLjcsMC4xTDEyLjYsOGwwLDBMNiwyLjZDNS44LDIuNCw1LjUsMi40LDUuMywyLjZMNC43LDMuNAoJCUM0LjUsMy42LDQuNSwzLjksNC43LDQuMUw5LjQsOGwwLDBsLTQuNywzLjlDNC41LDEyLjEsNC41LDEyLjQsNC43LDEyLjZ6Ii8+CjwvZz4KPC9zdmc+Cg==" />
+                        </a>
+                    </span>
+                </span>
+            <div class="tips-close"></div>
+        </div>
+    </div> -->
+
+    <!-- <div class="header-banner">
+        <span class="header-title">
+            <span>CODING 现已开放所有基础功能（项目协同、代码托管、CI/CD 等）免费使用，不限成员数，零成本开始研发协作。
+                <a class="header-link" href="https://coding.net/pricing">了解详情
+                    <img width="14" height="14"
+                    src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTYgMTYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE2IDE2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I2ZmZjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggaWQ9IlBhdGgiIGNsYXNzPSJzdDAiIGQ9Ik00LjcsMTIuNmwwLjYsMC44YzAuMiwwLjIsMC41LDAuMiwwLjcsMC4xTDEyLjYsOGwwLDBMNiwyLjZDNS44LDIuNCw1LjUsMi40LDUuMywyLjZMNC43LDMuNAoJCUM0LjUsMy42LDQuNSwzLjksNC43LDQuMUw5LjQsOGwwLDBsLTQuNywzLjlDNC41LDEyLjEsNC41LDEyLjQsNC43LDEyLjZ6Ii8+CjwvZz4KPC9zdmc+Cg==" />
+                </a>
+            </span>
+            <span class="cancel-btn" />
+        </div> -->
+
+    <div class="header-banner">
+        <span class="header-title">
+            <img id="announcement-img" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTdweCIgaGVpZ2h0PSIxNHB4IiB2aWV3Qm94PSIwIDAgMTcgMTQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+U3RhdHVzL0V4Y2xhbWF0aW9uIFRyaWFuZ2xlPC90aXRsZT4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJHcm91cCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC44OTIwMDUsIC0xLjAwMDAwMCkiIGZpbGw9IiNmOGE0MDIiIGZpbGwtcnVsZT0ibm9uemVybyI+CiAgICAgICAgICAgIDxnIGlkPSJQYXRoIj4KICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik02LjI4NTY3NjA4LDEuOTcwNjMzNzEgQzcuMDYyMTgzMDUsMC42NzY0NTU0MyA4LjkzNzgxNjk1LDAuNjc2NDU1NDMgOS43MTQzMjM5MiwxLjk3MDYzMzcxIEw5LjcxNDMyMzkyLDEuOTcwNjMzNzEgTDE1LjcxMjAwODEsMTEuOTY2Nzc0IEMxNi41MTE1Mjg4LDEzLjI5OTMwODUgMTUuNTUxNjczMSwxNC45OTQ1OTY1IDEzLjk5NzY4NDIsMTQuOTk0NTk2NSBMMTMuOTk3Njg0MiwxNC45OTQ1OTY1IEwyLjAwMjMxNTgxLDE0Ljk5NDU5NjUgQzAuNDQ4MzI2ODc2LDE0Ljk5NDU5NjUgLTAuNTExNTI4ODI1LDEzLjI5OTMwODUgMC4yODc5OTE4ODMsMTEuOTY2Nzc0IEwwLjI4Nzk5MTg4MywxMS45NjY3NzQgWiBNOCwyLjk5OTIyODA2IEwyLjAwMjMxNTgxLDEyLjk5NTM2ODQgTDEzLjk5NzY4NDIsMTIuOTk1MzY4NCBMOCwyLjk5OTIyODA2IFogTTgsOS45OTY1MjYyOSBDOC42MzQ4ODIzMiw5Ljk5NjUyNjI5IDkuMTQ5NTU2MTQsMTAuNTExMjAwMSA5LjE0OTU1NjE0LDExLjE0NjA4MjQgQzkuMTQ5NTU2MTQsMTEuNzgwOTY0OCA4LjYzNDg4MjMyLDEyLjI5NTYzODYgOCwxMi4yOTU2Mzg2IEM3LjM2NTExNzY4LDEyLjI5NTYzODYgNi44NTA0NDM4NiwxMS43ODA5NjQ4IDYuODUwNDQzODYsMTEuMTQ2MDgyNCBDNi44NTA0NDM4NiwxMC41MTEyMDAxIDcuMzY1MTE3NjgsOS45OTY1MjYyOSA4LDkuOTk2NTI2MjkgWiBNOC40OTk2MTQwMyw1LjQ5ODI2MzE1IEM4Ljc3NTc1NjQxLDUuNDk4MjYzMTUgOC45OTk2MTQwMyw1LjcyMjEyMDc3IDguOTk5NjE0MDMsNS45OTgyNjMxNSBMOC45OTk2MTQwMyw4Ljk5NjcxOTI4IEM4Ljk5OTYxNDAzLDkuMjcyODYxNjUgOC43NzU3NTY0MSw5LjQ5NjcxOTI4IDguNDk5NjE0MDMsOS40OTY3MTkyOCBMNy41MDAzODU5Nyw5LjQ5NjcxOTI4IEM3LjIyNDI0MzU5LDkuNDk2NzE5MjggNy4wMDAzODU5Nyw5LjI3Mjg2MTY1IDcuMDAwMzg1OTcsOC45OTY3MTkyOCBMNy4wMDAzODU5Nyw1Ljk5ODI2MzE1IEM3LjAwMDM4NTk3LDUuNzIyMTIwNzcgNy4yMjQyNDM1OSw1LjQ5ODI2MzE1IDcuNTAwMzg1OTcsNS40OTgyNjMxNSBMOC40OTk2MTQwMyw1LjQ5ODI2MzE1IFoiPjwvcGF0aD4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+" alt="">
+            <span>
+            </span>
+    </div>
+
+    
+    <div class="common-header header-container clearfix login-checked no-touch">
+
+    <div class="common-header-content">
+        <div class="header-body">
+            <div class="icon">
+                <span class="nav-trigger"></span>
+            </div>
+            <div class="logo">
+                <a href="https://cloud.tencent.com?fromSource=gwzcw.5565740.5565740.5565740&utm_medium=cpc&utm_id=gwzcw.5565740.5565740.5565740" target="_blank">
+                    <img src="https://help-assets.codehub.cn/enterprise/guanwang/tencent-cloud.svg" />
+                    <img src="https://help-assets.codehub.cn/enterprise/guanwang/tencent-cloud-white.svg">
+                </a>
+                <div class="divide-line"></div>
+                <a href="https://coding.net" class="coding-icon">
+                    <img src="https://help-assets.codehub.cn/enterprise/guanwang/CODING-logo.svg" />
+                    <img src="https://help-assets.codehub.cn/enterprise/guanwang/CODING-logo-white.svg">
+                </a>
+            </div>
+            <div class="nav">
+                <div class="nav-item nav-drop-down-wrap">
+                    <span>产品</span>
+                    <div class="nav-drop-down-container">
+                        <div class="nav-drop-down chanpin">
+                            <div class="left-menu-container">
+                                <ul class="menu-list">
+                                    <li class="selected">CODING DevOps</li>
+                                    <li class="menuItem">云原生开发环境</li>
+                                </ul>
+                            </div>
+                            <div class="header-tab-content">
+                                <div class="content-detail show">
+                                    <div class="drop-down-box">
+                                        <div class="item-container">
+                                            <div class="item-link">
+                                                <img src="https://assets.codehub.cn/comassets/daima.75ff055d.svg">
+                                                <div>
+                                                    <a href="https://coding.net/products/repo">代码托管</a>
+                                                    <a href="https://coding.net/products/repo" class="desc">Git/SVN 代码协作、开发 </a>
+                                                </div>
+                                            </div>
+                                            <div class="item-link">
+                                                <img src="https://assets.codehub.cn/comassets/jicheng.a619aa09.svg">
+                                                <div>
+                                                    <a href="https://coding.net/products/ci">持续集成</a>
+                                                    <a href="https://coding.net/products/ci" class="desc">自动化测试，持续构建软件服务</a>
+                                                </div>
+                                            </div>
+                                            <div class="item-link">
+                                                <img src="https://assets.codehub.cn/comassets/artifacts.08546673.svg">
+                                                <div>
+                                                    <a href="https://coding.net/products/artifact">制品库</a>
+                                                    <a href="https://coding.net/products/artifact" class="desc">构建制品管理、版本控制</a>
+                                                </div>
+                                            </div>
+                                            <div class="item-link">
+                                                <img src="https://assets.codehub.cn/comassets/bushu.2a230c80.svg">
+                                                <div>
+                                                    <a href="https://coding.net/products/cd">持续部署</a>
+                                                    <a href="https://coding.net/products/cd" div class="desc">持续、可控、自动化地发布软件</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="drop-down-box">
+                                        <div class="item-container">
+                                            <div class="item-link">
+                                                <img src="https://assets.codehub.cn/comassets/minjie.aea357bf.svg">
+                                                <div>
+                                                    <a href="https://coding.net/products/agile">项目协同</a>
+                                                    <a href="https://coding.net/products/agile" class="desc">帮助团队高效地实现项目管理与协作</a>
+                                                </div>
+                                            </div>
+                                            <div class="item-link">
+                                                <img src="https://assets.codehub.cn/comassets/ceshi.7e9c3333.svg">
+                                                <div>
+                                                    <a href="https://coding.net/products/testing">测试管理</a>
+                                                    <a href="https://coding.net/products/testing" class="desc">测试用例编写及计划，规范测试过程</a>
+                                                </div>
+                                            </div>
+                                            <div class="item-link">
+                                                <img src="https://assets.codehub.cn/comassets/api.4b69390e.svg">
+                                                <div>
+                                                    <a href="https://coding.net/products/api">API 文档管理</a>
+                                                    <a href="https://coding.net/products/api" class="desc">在线的 API 协作方式</a>
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-detail hide">
+                                    <div class="drop-down-box">
+                                        <div class="item-container">
+                                            <div class="item-link">
+                                                <img src="https://assets.codehub.cn/comassets/Nocalhost.b749e17d.svg">
+                                                <div>
+                                                    <a href="https://nocalhost.dev/zh-CN/" target="_blank">Nocalhost</a>
+                                                    <a href="https://nocalhost.dev/zh-CN/" target="_blank" class="desc">
+                                                        基于 Kubernetes 的云端开发环境</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="drop-down-box">
+                                        <div class="item-container">
+                                            <div class="item-link">
+                                                <img src="https://assets.codehub.cn/comassets/cs.19b7ca95.svg">
+                                                <div>
+                                                    <a href="https://cloudstudio.net" target="_blank">Cloud Studio</a>
+                                                    <a href="https://cloudstudio.net" target="_blank" class="desc">在线
+                                                        IDE，打开浏览器即可编写代码</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="drop-down-box last-box">
+                                <div class="item-container has-down-link">
+                                    <div class="item-link">
+                                        <div>
+                                            <a href="https://help.coding.net/insight">洞见 </a>
+                                            <a href="https://help.coding.net/insight"
+                                                class="desc">看见 CODING 最新的行业观点与技术实践 </a>
+                                        </div>
+                                    </div>
+                                    <div class="item-link">
+                                        <div>
+                                            <a href="https://coding.net/training">培训与认证</a>
+                                            <a href="https://coding.net/page/uperform" class="desc">学习敏捷开发及 DevOps 相关</a>
+                                        </div>
+                                    </div>
+                                    <div class="item-link">
+                                        <div>
+                                            <a href="https://coding.net/changelog">产品更新</a>
+                                            <a href="https://coding.net/changelog" class="desc">查看每个功能产品的最新发布和计划</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item nav-drop-down-wrap">
+                    <span>解决方案</span>
+                    <div class="nav-drop-down-container example-menu-container example-container-box" style="height: 396px;">
+                        <div class="nav-drop-down solutions">
+                            <div class="drop-down-box example-box special-box">
+                                <p class="label">通用解决方案</p>
+                                <div class="item-container">
+                                    <div class="item-link">
+                                        <div>
+                                            <a href="https://coding.net/solutions/devops" class="example-image-link">
+                                                DevOps
+                                            </a>
+                                            <a href="https://coding.net/solutions/devops" class="desc">从需求到部署的研发全流程管理</a>
+                                        </div>
+                                    </div>
+                                    <div class="item-link">
+                                        <div>
+                                            <a href="https://coding.net/solutions/agile" class="example-image-link">
+                                                敏捷研发
+                                            </a>
+                                            <a href="https://coding.net/solutions/agile" class="desc">实践基于 Scrum 过程的敏捷开发方式</a>
+                                        </div>
+                                    </div>
+                                    <div class="item-link">
+                                        <div>
+                                            <a href="https://coding.net/solutions/classic" class="example-image-link">
+                                                传统研发
+                                            </a>
+                                            <a href="https://coding.net/solutions/classic" class="desc">渐进式研发数字化转型</a>
+                                        </div>
+                                    </div>
+                                    <div class="item-link">
+                                        <div>
+                                            <a href="https://coding.net/solutions/code-quality" class="example-image-link">
+                                                代码质量
+                                            </a>
+                                            <a href="https://coding.net/solutions/code-quality" class="desc">代码分析及自动化测试，提高代码质量</a>
+                                        </div>
+                                    </div>
+                                    <div class="item-link">
+                                        <div>
+                                            <a href="https://coding.net/solutions/okr" class="example-image-link">
+                                                OKR
+                                            </a>
+                                            <a href="https://coding.net/solutions/okr" class="desc">帮助团队建立可视化的目标管理过程</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="drop-down-box example-box special-box">
+                                <p class="label">行业解决方案</p>
+                                <div class="item-container">
+                                    <div class="item-link">
+                                        <div>
+                                            <a href="https://coding.net/solutions/internet" class="example-image-link">
+                                                互联网 
+                                            </a>
+                                            <a href="https://coding.net/solutions/internet" class="desc">帮助互联网团队在快速迭代中获得创新力量</a>
+                                        </div>
+                                    </div>
+                                    <div class="item-link">
+                                        <div>
+                                            <a href="https://coding.net/solutions/financial" class="example-image-link">
+                                                金融
+                                            </a>
+                                            <a href="https://coding.net/solutions/financial" class="desc">为金融企业提供稳定可靠的研发基座</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item sepc">
+                    <span><a href="https://coding.net/customers/index.html">客户案例</a></span>
+                </div>
+                <div class="nav-item spec">
+                    <span><a href="https://coding.net/pricing">价格</a></span>
+                </div>
+                <div class="nav-item nav-drop-down-wrap">
+                    <span>支持</span>
+                    <div class="nav-drop-down-container zhichi-container">
+                        <div class="nav-drop-down zhichi">
+                            <div class="drop-down-box">
+                                <div class="item-container">
+                                    <div class="item-link">
+                                        <div>
+                                            <a href="https://help.coding.net" target="_blank">帮助中心</a>
+                                            <a href="https://help.coding.net" class="desc">查看入门指南，解决使用疑问</a>
+                                        </div>
+                                    </div>
+                                    <div class="item-link">
+                                        <div>
+                                            <a href="https://help.coding.net/insight"
+                                                target="_blank">洞见</a>
+                                            <a href="https://help.coding.net/insight"
+                                                class="desc">看见 CODING 最新的行业观点与技术实践</a>
+                                        </div>
+                                    </div>
+                                    <div class="item-link">
+                                        <div>
+                                            <a href="https://coding.net/training.html"
+                                                target="_blank">培训与认证</a>
+                                            <a href="https://coding.net/training.html"
+                                                class="desc">学习敏捷开发及 DevOps 相关</a>
+                                        </div>
+                                    </div>
+                                    <div class="item-link">
+                                        <div>
+                                            <a href="https://coding.net/cifcon"
+                                                target="_blank">市场活动</a>
+                                            <a href="https://coding.net/cifcon"
+                                                class="desc">2021 腾讯云 CIF 工程效能峰会</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="login-zone">
+                
+                <div class="login">
+                    <a href="https://e.coding.net/login" class="button">登录</a>
+                </div>
+                <div class="register">
+                    <a href="https://e.coding.net/register" class="button">注册</a>
+                </div>
+            </div>
+            <div class="mobile-nav">
+                <div class="dropdown-list">
+                    <ul>
+                        <li class="dropdown has-submenu is-active">
+                            <span class="label">产品</span>
+                            <div class="content">
+                                <div class="menu has-subsubmenu">
+                                    <span class="label">CODING DevOps</span>
+                                    <div class="content">
+                                        <div class="content-label"><a href="https://coding.net/products/agile">项目协同</a>
+                                        </div>
+                                        <div class="content-label"><a href="https://coding.net/products/repo">代码托管</a>
+                                        </div>
+                                        <div class="content-label"><a href="https://coding.net/products/testing">测试管理</a>
+                                        </div>
+                                        <div class="content-label"><a href="https://coding.net/products/ci">持续集成</a>
+                                        </div>
+                                        <div class="content-label"><a href="https://coding.net/products/artifact">制品库</a>
+                                        </div>
+                                        <div class="content-label"><a href="https://coding.net/products/cd">持续部署</a>
+                                        </div>
+                                        <div class="content-label"><a href="https://coding.net/products/api">API
+                                                文档管理</a></div>
+                                    </div>
+                                </div>
+                                <div class="menu has-subsubmenu">
+                                    <span class="label">云原生开发环境</span>
+                                    <div class="content">
+                                        <div class="content-label"><a href="https://nocalhost.dev/zh-CN/" target="_blank">Nocalhost</a></div>
+                                        <div class="content-label"><a href="https://cloudstudio.net" target="_blank">Cloud
+                                                Studio</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown has-submenu">
+                            <span class="label">解决方案</span>
+                            <div class="content">
+                                <div class="menu has-subsubmenu">
+                                    <span class="label">通用解决方案</span>
+                                    <div class="content">
+                                        <div class="content-label"><a href="https://coding.net/solutions/devops" target="_blank">DevOps</a></div>
+                                        <div class="content-label"><a href="https://coding.net/solutions/agile" target="_blank">敏捷研发</a></div>
+                                        <div class="content-label"><a href="https://coding.net/solutions/classic" target="_blank">传统研发</a></div>
+                                        <div class="content-label"><a href="https://coding.net/solutions/code-quality" target="_blank">代码质量</a></div>
+                                        <div class="content-label"><a href="https://coding.net/solutions/okr" target="_blank">OKR</a></div>
+                                    </div>
+                                </div>
+                                <div class="menu has-subsubmenu">
+                                    <span class="label">行业解决方案</span>
+                                    <div class="content">
+                                        <div class="content-label"><a href="https://coding.net/solutions/internet" target="_blank">互联网</a></div>
+                                        <div class="content-label"><a href="https://coding.net/solutions/financial" target="_blank">金融</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <span class="label"><a href="https://coding.net/customers/index.html">客户案例</a></span>
+                        </li>
+                        <li class="dropdown">
+                            <span class="label"><a href="https://coding.net/pricing">价格</a></span>
+                        </li>
+                        <li class="dropdown has-submenu">
+                            <span class="label">支持</span>
+                            <div class="content">
+                                <div class="menu">
+                                    <div class="content-label"><a href="https://help.coding.net"
+                                            target="_blank">帮助中心</a></div>
+                                    <div class="content-label">
+                                        <a href="https://help.coding.net/insight"
+                                            target="_blank">洞见</a>
+                                    </div>
+                                    <div class="content-label">
+                                        <a href="https://coding.net/training.html"
+                                            target="_blank">培训与认证</a>
+                                    </div>
+                                    <div class="content-label">
+                                        <a href="https://coding.net/cifcon"
+                                            target="_blank">市场活动</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="icon-user">登录/注册</div>
+            <div class="mobile-login-zone">
+                <div class="dropdown-list">
+                    <ul>
+                        <li class="dropdown">
+                            <div class="btn register">
+                                <a href="https://e.coding.net/register">免费注册</a>
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <div class="btn login">
+                                <a href="https://e.coding.net/login">登录</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="container index-container">
+        <div class="content layout">
+            <section class="banner-section">
+                <div class="header-motion">
+                    <div class="motion-placeholder"
+                        data-large="https://assets.codehub.cn/images/full-image.c3b51b6e.png">
+                        <img src="data:image/jpeg;base64, iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAABSklEQVR4AY2Pw8JcQRgF6zTuP56JsYmNV8jjh8sYm9ga9+3uLzZrf1Aqi0cPJQ3MjP8h56oYnFmpvE6OF2XMtERWFdpcZiHRDMX7Qv5e6OQowKXnldNbRaNMtoiIeIRhJKSwZMNk4m8PJcdivuL2gyn3Fh2ePIMzRzskGtoC62IsM6yKLGQa7PMCgOAzBggDgoQLxp3Hb7lyf4rf6HBq34j+RiQlsSqVthqNM3R/Ud86GDoMgGz8gIC+B5XELInXy0yryOu5Z+92kQrMW8NJeGfTsFhD14vgjFTFonyvCps74ASPV4FehEPb4/sCCBhmwjnoRsFny/BygZ90IXvH2zWsKwgwIDgQsCowbQPFwQ4Z6wr9nmPQQPSQKswSTFf48Hapc9O19T2yUsH4VigHLwCAtsCOBoLlYDXmm08hBhh3YHcftmygcdT8HcO5qszgeBJzAAAAAElFTkSuQmCC"
+                            class="small-image loaded">
+                    </div>
+                    <video autoplay muted id="motion-enter">
+                        <source src="https://assets.codehub.cn/images/complete.0353b892.mp4"
+                            type="video/mp4">
+                    </video>
+                    <video loop muted id="motion-loop">
+                        <source src="https://assets.codehub.cn/images/loop.82657cd6.mp4"
+                            type="video/mp4">
+                    </video>
+                </div>
+                <div class="section-container">
+                    <div class="info">
+                        <div class="pc-h2">
+                            <div class="box">
+                                <img src="https://assets.codehub.cn/images/banner-title.ace98cc8.svg" />
+                            </div>
+                            <div class="box" style="margin-top: -5px">
+                                <img src="https://assets.codehub.cn/images/banner-title2.80897f4d.svg" />
+                            </div>
+                        </div>
+                        <div class="mb-h2">
+                            <img width="223" height="40"
+                                data-original="https://assets.codehub.cn/images/banner-title.ace98cc8.svg" />
+                            <img width="223" height="36"
+                                data-original="https://assets.codehub.cn/images/banner-title2.80897f4d.svg" />
+                        </div>
+                        <div class="pc-p">
+                            <div class="box">
+                                <p class="p1">提供一站式开发协作工具，帮助研发团队快速落地敏捷开发与 DevOps 开发方式，实现研发效能升级 </p>
+                            </div>
+                        </div>
+                        <div class="mb-p flex-center">
+                            <div class="box">
+                                <p class="p1">提供一站式开发协作工具，帮助研发团队快速落地敏捷开发与 DevOps 开发方式，实现研发效能升级 </p>
+                            </div>
+                        </div>
+                        <div class="btn-area">
+                            <div class="btn">
+                                <a href="https://e.coding.net/register">
+                                    免费使用
+                                </a>
+                            </div>
+                            <div class="sample-room">体验演示系统</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="header-bottom-banner"></div>
+                <!-- PC端 -->
+                <div class="tab-section">
+                    <div class="section-bg">
+                        <span class="tab-title">
+                            <img width="396" src="https://assets.codehub.cn/images/shiyong.43540372.svg" />
+                        </span>
+                        <div class="gird-box">
+                            <div class="gird-cell" data-aos="zoom-in">
+                                <img width="72" height="72"
+                                    src="https://assets.codehub.cn/images/icon-quick.b51e0cd5.svg" />
+                                <h2 class="title">实践敏捷开发</h2>
+                                <p class="desc">打开即用的 Scrum 敏捷开发工作流，适用于团队项目管理与协作。</p>
+                            </div>
+                            <div class="gird-cell" data-aos="zoom-in" data-aos-delay="150">
+                                <img width="72" height="72"
+                                    src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNzJweCIgaGVpZ2h0PSI3MnB4IiB2aWV3Qm94PSIwIDAgNzIgNzIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+57yW57uEIDEwPC90aXRsZT4KICAgIDxnIGlkPSLlrpjnvZEtMy4wIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0i6aaW6aG1LS0tU2xpY2UiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zNjc3LjAwMDAwMCwgLTQ0LjAwMDAwMCkiPgogICAgICAgICAgICA8ZyBpZD0i57yW57uELTEwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNjc3LjAwMDAwMCwgNDQuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8cmVjdCBpZD0i55+p5b2iIiB4PSIwIiB5PSItMi44NDIxNzA5NGUtMTQiIHdpZHRoPSI3MiIgaGVpZ2h0PSI3MiI+PC9yZWN0PgogICAgICAgICAgICAgICAgPGcgaWQ9Ikdyb3VwLTQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQuMDAwMDAwLCA0LjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxnIGlkPSJHcm91cC04IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNi4wMDAwMDAsIDAuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0yMCwxMy4yNDY3MzcxIEMyMCwxMC45MDEzMjkgMTguMjA5MTM5LDkgMTYsOSBDMTMuNzkwODYxLDkgMTIsMTAuOTAxMzI5IDEyLDEzLjI0NjczNzEgTDEyLDMwIEwxMiwzMCBMOCwzMCBMOCwxMi40NzM0MzQyIEM4LjI2MTU5MTg4LDkuMzIzODA5NjEgOS4yMTQ4MDU1MSw2LjUyNjg1ODc1IDEwLjg1OTY0MDksNC4wODI1ODE2MSBDMTIuNDA3NDU2NiwxLjc4MjQ3ODY2IDE0LjAxNjAzNDEsMC40NDE3NTIzNiAxNS42ODUzNzMyLDAuMDYwNDAyNzExNSBMMTUuOTEzMzgwNSwwLjAxNDMxMDUyMDEgQzE1Ljk3MTAzNzcsMC4wMDQxODQ5NjIzMyAxNi4wMjk3MTQ2LDAuMDAxMTI4NDU1NSAxNi4wODgxMTE4LDAuMDA1MjA4NjgxMiBDMTcuOTI1NTA3NCwwLjEzMzU4Nzk1MyAxOS42NDc0NzE1LDEuNDkyNzEyMjYgMjEuMjU0MDA0MSw0LjA4MjU4MTYxIEMyMi44ODYxOTExLDYuNzEzODA4MjggMjMuODAxNTIzMSw5LjUxMDc1OTE0IDI0LDEyLjQ3MzQzNDIgTDI0LDMwIEwyMCwzMCBMMjAsMTMuMjQ2NzM3MSBMMjAsMTMuMjQ2NzM3MSBaIiBpZD0iQ29tYmluZWQtU2hhcGUiIGZpbGw9IiMwMDY2RkYiPjwvcGF0aD4KICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTMuODY1MzUyNDhlLTEyLDMxIEMzLjg2NTM1MjQ4ZS0xMiwyOC41Njc3NDExIDAuNTI0OTE0ODkzLDI2LjcxNDEwOTMgMS41NzQ3NDQ2OCwyNS40MzkxMDQ3IEMzLjAzNzIyNTQzLDIzLjcwMDExMzYgMy4wNTkzNDc4OSwyMy44NjE5NDk5IDYuMDMwMjU1NzksMjEuNjA1NjA1NSBDOS4wMDExNjM2OSwxOS4zNDkyNjEgMTAuMzI4NTc4LDE0IDE1Ljg4OTQ0NTgsMTQgQzIxLjQ1MDMxMzcsMTQgMjMuMDQwMTUyLDE5LjYwNTI5MDIgMjUuNTQwMzU0OCwyMS42MDU2MDU1IEMyOC4wNDA1NTc2LDIzLjYwNTkyMDcgMjguNzk3MTk0NiwyMy40MjM3MzcxIDMwLjM5ODU5NzMsMjUuNDM5MTA0NyBDMzEuNDY2MTk5MSwyNi43ODI2ODMgMzIsMjguNjM2MzE0OCAzMiwzMSBMMy44NjUzNTI0OGUtMTIsMzEgWiIgaWQ9IlBhdGgtOCIgZmlsbD0iIzA3RDlGMCI+PC9wYXRoPgogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMTUuODg5NDQ1OCwxNCBDMjAuMjUwODQwNCwxNCAyMi4xNjk1NDI5LDE3LjQ0Nzk3MiAyNC4wMDA1NjA4LDE5LjkwMDQ2MzEgTDI0LDMxIEw4LDMxIEw4LjAwMDQ2MjE3LDE5LjUxOTQyNDMgQzkuOTAzMjc4NTIsMTcuMDUzMzY4NCAxMS42ODgxMzA1LDE0IDE1Ljg4OTQ0NTgsMTQgWiIgaWQ9IuW9oueKtue7k+WQiCIgZmlsbD0iIzNERTZGNSI+PC9wYXRoPgogICAgICAgICAgICAgICAgICAgICAgICA8ZyBpZD0iR3JvdXAtNyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOC4wMDAwMDAsIDMyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgaWQ9Iue8lue7hC05IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwgMC4wMTA0NjMpIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNOCwtMS42NTAyMzU1ZS0xMiBDMTIuNDE4Mjc4LC0xLjY1MDIzNTVlLTEyIDE2LDMuNTgxNzIyIDE2LDggQzE2LDguNjkwMzY3MjEgMTUuOTEyNTUyOCw5LjM2MDMxMDAzIDE1Ljc0ODEzMDgsOS45OTkzNTU5NiBMMTYsMTAgTDEwLjMxNTM4NiwzMiBMNS42NTAyNDM2NywzMiBMLTUuNTgzOTc3NzJlLTEyLDEwIEwwLjI1MTg2OTIzNSw5Ljk5OTM1NTk2IEMwLjA4NzQ0NzI0MTgsOS4zNjAzMTAwMyAwLDguNjkwMzY3MjEgMCw4IEMwLDMuNTgxNzIyIDMuNTgxNzIyLC0xLjY1MDIzNTVlLTEyIDgsLTEuNjUwMjM1NWUtMTIgWiIgaWQ9IkNvbWJpbmVkLVNoYXBlIiBmaWxsPSIjRjlDQjhGIj48L3BhdGg+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTksMS42OTE5Nzk4OWUtMTIgQzEyLjMxMzcwODUsMS42OTE5Nzk4OWUtMTIgMTUsMi42ODYyOTE1IDE1LDYgQzE1LDYuMzQwNjQ1MzMgMTQuOTcxNjEyNCw2LjY3NDY2MDM3IDE0LjkxNzA3MzcsNi45OTk4MDg0OCBMMTUsNyBDMTAuOTg2ODU5LDIzLjY2NjY2NjcgOC45ODAyODg0OSwzMiA4Ljk4MDI4ODQ5LDMyIEM4Ljk4MDI4ODQ5LDMyIDYuOTg2ODU4OTksMjMuNjY2NjY2NyAzLDcgTDMsNyBMMy4wODI5MjYzMSw2Ljk5OTgwODQ4IEMzLjAyODM4NzY1LDYuNjc0NjYwMzcgMyw2LjM0MDY0NTMzIDMsNiBDMywyLjY4NjI5MTUgNS42ODYyOTE1LDEuNjkxOTc5ODllLTEyIDksMS42OTE5Nzk4OWUtMTIgWiIgaWQ9IkNvbWJpbmVkLVNoYXBlIiBmaWxsPSIjRkNBRjQ2Ij48L3BhdGg+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTguNSw4LjA4Njg2NDUxZS0xMyBDMTAuNDMyOTk2Niw4LjA4Njg2NDUxZS0xMyAxMiwxLjU2NzAwMzM4IDEyLDMuNSBDMTIsMy42Njk3NDM0MyAxMS45ODc5MTY1LDMuODM2NjY0NiAxMS45NjQ1NjI3LDMuOTk5OTUwMjUgTDEyLDQgQzkuNjU5MDAxMDgsMTQuNjY2NjY2NyA4LjQ4ODUwMTYyLDIwIDguNDg4NTAxNjIsMjAgQzguNDg4NTAxNjIsMjAgNy4zMjU2Njc3NCwxNC42NjY2NjY3IDUsNCBMNSw0IEw1LjAzNTQzNzMxLDMuOTk5OTUwMjUgQzUuMDEyMDgzNTMsMy44MzY2NjQ2IDUsMy42Njk3NDM0MyA1LDMuNSBDNSwxLjU2NzAwMzM4IDYuNTY3MDAzMzgsOC4wODY4NjQ1MWUtMTMgOC41LDguMDg2ODY0NTFlLTEzIFoiIGlkPSJDb21iaW5lZC1TaGFwZSIgZmlsbD0iI0ZGOTAwRSI+PC9wYXRoPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgICAgIDxnIGlkPSJHcm91cC02IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwgMzUuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0yOCwxMCBMNTYsMTAgTDU2LDI3IEM1NiwyOC4xMDQ1Njk1IDU1LjEwNDU2OTUsMjkgNTQsMjkgTDI4LDI5IEwyOCwyOSBMMjgsMTAgWiIgaWQ9IlJlY3RhbmdsZSIgZmlsbD0iI0NBRDFEQiI+PC9wYXRoPgogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNOSwxMCBMMjgsMTAgTDI4LDI5IEwxMSwyOSBDOS44OTU0MzA1LDI5IDksMjguMTA0NTY5NSA5LDI3IEw5LDEwIEw5LDEwIFoiIGlkPSJSZWN0YW5nbGUiIGZpbGw9IiNFNkU5RUQiPjwvcGF0aD4KICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTI4LDEwIEwzNS42OTk3NTYsMC4zNzUzMDQ5NTIgQzM1Ljg4OTUyODIsMC4xMzgwODk3MTkgMzYuMTc2ODQxMSw1LjU4MDQxNjQ0ZS0xNyAzNi40ODA2MjQ4LDAgTDYxLjkxOTM3NTIsMCBDNjIuNDcxNjU5OSwtNi42NTE3Njg5MWUtMTUgNjIuOTE5Mzc1MiwwLjQ0NzcxNTI1IDYyLjkxOTM3NTIsMSBDNjIuOTE5Mzc1MiwxLjIyNzA3MTUgNjIuODQyMDk0NCwxLjQ0NzM4MiA2Mi43MDAyNDQsMS42MjQ2OTUwNSBMNTYsMTAgTDU2LDEwIEwyOCwxMCBaIiBpZD0iUGF0aC00IiBmaWxsPSIjRENFMEU1Ij48L3BhdGg+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik03LjA0ODU4Mzk0ZS0xMiwxMCBMOC43MDIwNjgyNiwwLjMzMTAzNTI2OCBDOC44OTE3MTA3MywwLjEyMDMyMTQwOCA5LjE2MTg3NTksLTQuNTE0OTc1NjdlLTE2IDkuNDQ1MzYyNCwwIEwyNS43NTQ2Mzc2LDAgQzI2LjMwNjkyMjMsLTEuMDE0NTMwNjNlLTE2IDI2Ljc1NDYzNzYsMC40NDc3MTUyNSAyNi43NTQ2Mzc2LDEgQzI2Ljc1NDYzNzYsMS4yNDcwNDE3OCAyNi42NjMxOTQsMS40ODUzNDAwMiAyNi40OTc5MzE3LDEuNjY4OTY0NzMgTDE5LDEwIEwxOSwxMCBMNy4wNDg1ODM5NGUtMTIsMTAgWiIgaWQ9IlBhdGgtNCIgZmlsbD0iI0RDRTBFNSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTQuMDAwMDAwLCA1LjAwMDAwMCkgc2NhbGUoLTEsIDEpIHRyYW5zbGF0ZSgtMTQuMDAwMDAwLCAtNS4wMDAwMDApICI+PC9wYXRoPgogICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+" />
+                                <h2 class="title">构建 DevOps 工作方式</h2>
+                                <p class="desc">一站式 DevOps 工具，适用于研发团队快速搭建 DevOps ，实现可持续发布。</p>
+                            </div>
+                            <div class="gird-cell" data-aos="zoom-in" data-aos-delay="300">
+                                <img width="72" height="72"
+                                    src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjcyIiB2aWV3Qm94PSIwIDAgNzIgNzIiIHdpZHRoPSI3MiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Im0wIDBoNzJ2NzJoLTcyeiIvPjxwYXRoIGQ9Im0xMiA1Mmg0OHY4aC00OHoiIGZpbGw9IiNlNmU5ZWQiLz48ZWxsaXBzZSBjeD0iMzYiIGN5PSI2MCIgZmlsbD0iI2U2ZTllZCIgcng9IjI0IiByeT0iNyIvPjxlbGxpcHNlIGN4PSIzNiIgY3k9IjUyIiBmaWxsPSIjY2FkMWRiIiByeD0iMjQiIHJ5PSI3Ii8+PHBhdGggZD0ibTEyIDM3aDQ4djhoLTQ4eiIgZmlsbD0iI2U2ZTllZCIvPjxlbGxpcHNlIGN4PSIzNiIgY3k9IjQ1IiBmaWxsPSIjZTZlOWVkIiByeD0iMjQiIHJ5PSI3Ii8+PGVsbGlwc2UgY3g9IjM2IiBjeT0iMzciIGZpbGw9IiNjYWQxZGIiIHJ4PSIyNCIgcnk9IjciLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4IDUpIj48cGF0aCBkPSJtMjMuOTk5NDQ1IDBjMS4xMDQ1Njk1IDAgMiAuODk1NDMwNSAyIDJ2MTYuOTJsLS4wMDQ0NDUuMDc5LjAwNS4wMDEtLjAxMjUwMSA2LTUuODIyNDk5LTVoLTE4LjE2NWMtMS4xMDQ1Njk1IDAtMi0uODk1NDMwNS0yLTJ2LTE2YzAtMS4xMDQ1Njk1Ljg5NTQzMDUtMiAyLTJ6IiBmaWxsPSIjMDdkOWYwIi8+PGcgZmlsbD0iI2ZmZiI+PHBhdGggZD0ibTcgM2gxNHYyaC0xNHoiLz48cGF0aCBkPSJtNyAxM2g5djJoLTl6IiBvcGFjaXR5PSIuNiIvPjxwYXRoIGQ9Im03IDZoNnYyaC02eiIvPjxwYXRoIGQ9Im0xNCA2aDl2MmgtOXoiIG9wYWNpdHk9Ii42Ii8+PHBhdGggZD0ibTcgOWgxMHYyaC0xMHoiLz48cGF0aCBkPSJtMyAzaDJ2MmgtMnoiIG9wYWNpdHk9Ii42Ii8+PHBhdGggZD0ibTMgMTNoMnYyaC0yeiIgb3BhY2l0eT0iLjYiLz48cGF0aCBkPSJtMyA2aDJ2MmgtMnoiIG9wYWNpdHk9Ii42Ii8+PHBhdGggZD0ibTMgOWgydjJoLTJ6IiBvcGFjaXR5PSIuNiIvPjwvZz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzggMTIpIj48cGF0aCBkPSJtMjMuOTk5NDQ1IDBjMS4xMDQ1Njk1IDAgMiAuODk1NDMwNSAyIDJ2MTYuOTJsLS4wMDQ0NDUuMDhoLjAwNWwtLjAxMjUwMSA2LTUuODIzNDk5LTVoLTE4LjE2NGMtMS4xMDQ1Njk1IDAtMi0uODk1NDMwNS0yLTJ2LTE2YzAtMS4xMDQ1Njk1Ljg5NTQzMDUtMiAyLTJ6IiBmaWxsPSIjMDZmIiB0cmFuc2Zvcm09Im1hdHJpeCgtMSAwIDAgMSAyNiAwKSIvPjxwYXRoIGQ9Im0xOCA2LTYuMjc3NDQxNSA4LTMuNzIyNTU4NS00LjU3Njc3NTkgMi4zMDIxMzI2LS4wMjI3MDUyNiAxLjQyMDQyNTkgMS43ODAzOTEwNiA0LjA1NDQ4MDQtNS4xODA5MDk5eiIgZmlsbD0iI2ZmZiIgZmlsbC1ydWxlPSJub256ZXJvIi8+PC9nPjwvZz48L3N2Zz4=" />
+                                <h2 class="title">代码开发协同</h2>
+                                <p class="desc">Git/SVN 代码仓库服务，免费、超大高可用仓库，适用于研发团队协作开发。</p>
+                            </div>
+                            <div class="gird-cell" data-aos="zoom-in" data-aos-delay="450">
+                                <img width="72" height="72"
+                                    src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjcyIiB2aWV3Qm94PSIwIDAgNzIgNzIiIHdpZHRoPSI3MiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Im0wIDBoNzJ2NzJoLTcyeiIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQgNCkiPjxwYXRoIGQ9Im04LjA0IDJoNDcuOTJjMS4xMjY2NjA5IDAgMi4wNC45MTMzMzkxMSAyLjA0IDIuMDR2NTUuOTJjMCAxLjEyNjY2MDktLjkxMzMzOTEgMi4wNC0yLjA0IDIuMDRoLTQ3LjkyYy0xLjEyNjY2MDg5IDAtMi4wNC0uOTEzMzM5MS0yLjA0LTIuMDR2LTU1LjkyYzAtMS4xMjY2NjA4OS45MTMzMzkxMS0yLjA0IDIuMDQtMi4wNHoiIGZpbGw9IiNlNmU5ZWQiLz48cGF0aCBkPSJtMTQgOWgzNmMxLjEwNDU2OTUgMCAyIC44OTU0MzA1IDIgMnYzNmwtOCA4aC0zMGMtMS4xMDQ1Njk1IDAtMi0uODk1NDMwNS0yLTJ2LTQyYzAtMS4xMDQ1Njk1Ljg5NTQzMDUtMiAyLTJ6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0ibTMyLjUgMGMyLjMxNjM3ODggMCA0LjIyMzk4MTQgMS43NTAxNzg4IDQuNDcyNTY4NCA0LjAwMDI5NzA0bC4wMjc0MzE2LS4wMDAyOTcwNC0uMDAxIDJoOS4wMDFjLjU1MjI4NDcgMCAxIC40NDc3MTUyNSAxIDF2NWgtMjl2LTVjMC0uNTUyMjg0NzUuNDQ3NzE1My0xIDEtMWg4Ljk5OWwuMDAxLTIgLjAyNzQzMTYuMDAwMjk3MDRjLjI0ODU4Ny0yLjI1MDExODI0IDIuMTU2MTg5Ni00LjAwMDI5NzA0IDQuNDcyNTY4NC00LjAwMDI5NzA0eiIgZmlsbD0iIzFiNzZmZiIvPjxwYXRoIGQ9Im00NiA0N2g2bC04IDh2LTZjMC0xLjEwNDU2OTUuODk1NDMwNS0yIDItMnoiIGZpbGw9IiNjYWQxZGIiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxOCAxNikiPjxwYXRoIGQ9Im0wIDBoMjl2M2gtMjl6IiBmaWxsPSIjZTZlOWVkIi8+PHBhdGggZD0ibTAgNWgyMnYzaC0yMnoiIGZpbGw9IiNmNWY3ZmEiLz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTggMjkpIj48cGF0aCBkPSJtMCAwaDI5djNoLTI5eiIgZmlsbD0iI2U2ZTllZCIvPjxwYXRoIGQ9Im0wIDVoMjJ2M2gtMjJ6IiBmaWxsPSIjZjVmN2ZhIi8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgMzgpIj48cGF0aCBkPSJtOSAwdjhsLTcuMzIzNDU2MTEgMTMuMDE5NDc3NWMtLjU0MTUyNzYxLjk2MjcxNTgtLjIwMDA4NzE2IDIuMTgyMTQ2Ljc2MjYyODYgMi43MjM2NzM2LjI5OTM2MzI4LjE2ODM5MTguNjM3MDQ4NzcuMjU2ODQ4OS45ODA1MjI0OC4yNTY4NDg5aDIwLjE2MDYxMDAzYzEuMTA0NTY5NSAwIDItLjg5NTQzMDUgMi0yIDAtLjM0MzQ3MzctLjA4ODQ1Ny0uNjgxMTU5Mi0uMjU2ODQ4OS0uOTgwNTIyNWwtNy4zMjM0NTYxLTEzLjAxOTQ3NzV2LTh6IiBmaWxsPSIjM2RlNmY1Ii8+PHBhdGggZD0ibTIyLjQ5OTM0MDMgMTYgMi44MjQxMTU4IDUuMDE5NDc3NWMuMTY4MzkxOS4yOTkzNjMzLjI1Njg0ODkuNjM3MDQ4OC4yNTY4NDg5Ljk4MDUyMjUgMCAxLjEwNDU2OTUtLjg5NTQzMDUgMi0yIDJoLTIwLjE2MDYxMDAzYy0uMzQzNDczNzEgMC0uNjgxMTU5Mi0uMDg4NDU3MS0uOTgwNTIyNDgtLjI1Njg0ODktLjk2MjcxNTc2LS41NDE1Mjc2LTEuMzA0MTU2MjEtMS43NjA5NTc4LS43NjI2Mjg2LTIuNzIzNjczNmwyLjgyMjc5NjM3LTUuMDE5NDc3NXoiIGZpbGw9IiMwMGQ2ZWQiLz48ZyBmaWxsLXJ1bGU9Im5vbnplcm8iPjxwYXRoIGQ9Im0xOCAxMi02LjI3NzQ0MTUgNy0zLjcyMjU1ODUtNC4wMDQ2Nzg5IDIuMzAyMTMyNi0uMDE5ODY3MSAxLjQyMDQyNTkgMS41NTc4NDIxIDQuMDU0NDgwNC00LjUzMzI5NjF6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0ibTE0LjQxMjM0MDMgMTYtMi42ODk3ODE4IDMtMi43ODgyMTgyNC0zaDIuMzAyMDAwMDRsLjQ4NjIxODIuNTMzMjk2MS40NzY3ODE4LS41MzMyOTYxeiIgZmlsbD0iI2NlZmRmZiIvPjwvZz48L2c+PC9nPjwvZz48L3N2Zz4=" />
+                                <h2 class="title">测试管理协作</h2>
+                                <span class="desc">在线组织和管理测试用例及测试计划，将测试团队工作搬到云上。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 移动端 -->
+            <div class="flex-center tab-section-h5 ">
+                <span class="tab-title">
+                    <img width="264" src="https://assets.codehub.cn/images/shiyong.43540372.svg" />
+                </span>
+                <div class="gird-card">
+                    <div class="gird-warp">
+                        <ul class="gird-ul">
+                            <li class="gird-cell">
+                                <img width="120" height="120"
+                                    src="https://assets.codehub.cn/images/icon-quick.b51e0cd5.svg" />
+                                <h2 class="title">实践敏捷开发</h2>
+                                <p class="desc">打开即用的 Scrum 敏捷开发工作流，适用于团队项目管理与协作。</p>
+                            </li>
+                            <li class="gird-cell">
+                                <img width="120" height="120"
+                                    src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNzJweCIgaGVpZ2h0PSI3MnB4IiB2aWV3Qm94PSIwIDAgNzIgNzIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+57yW57uEIDEwPC90aXRsZT4KICAgIDxnIGlkPSLlrpjnvZEtMy4wIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0i6aaW6aG1LS0tU2xpY2UiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zNjc3LjAwMDAwMCwgLTQ0LjAwMDAwMCkiPgogICAgICAgICAgICA8ZyBpZD0i57yW57uELTEwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNjc3LjAwMDAwMCwgNDQuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8cmVjdCBpZD0i55+p5b2iIiB4PSIwIiB5PSItMi44NDIxNzA5NGUtMTQiIHdpZHRoPSI3MiIgaGVpZ2h0PSI3MiI+PC9yZWN0PgogICAgICAgICAgICAgICAgPGcgaWQ9Ikdyb3VwLTQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQuMDAwMDAwLCA0LjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxnIGlkPSJHcm91cC04IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNi4wMDAwMDAsIDAuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0yMCwxMy4yNDY3MzcxIEMyMCwxMC45MDEzMjkgMTguMjA5MTM5LDkgMTYsOSBDMTMuNzkwODYxLDkgMTIsMTAuOTAxMzI5IDEyLDEzLjI0NjczNzEgTDEyLDMwIEwxMiwzMCBMOCwzMCBMOCwxMi40NzM0MzQyIEM4LjI2MTU5MTg4LDkuMzIzODA5NjEgOS4yMTQ4MDU1MSw2LjUyNjg1ODc1IDEwLjg1OTY0MDksNC4wODI1ODE2MSBDMTIuNDA3NDU2NiwxLjc4MjQ3ODY2IDE0LjAxNjAzNDEsMC40NDE3NTIzNiAxNS42ODUzNzMyLDAuMDYwNDAyNzExNSBMMTUuOTEzMzgwNSwwLjAxNDMxMDUyMDEgQzE1Ljk3MTAzNzcsMC4wMDQxODQ5NjIzMyAxNi4wMjk3MTQ2LDAuMDAxMTI4NDU1NSAxNi4wODgxMTE4LDAuMDA1MjA4NjgxMiBDMTcuOTI1NTA3NCwwLjEzMzU4Nzk1MyAxOS42NDc0NzE1LDEuNDkyNzEyMjYgMjEuMjU0MDA0MSw0LjA4MjU4MTYxIEMyMi44ODYxOTExLDYuNzEzODA4MjggMjMuODAxNTIzMSw5LjUxMDc1OTE0IDI0LDEyLjQ3MzQzNDIgTDI0LDMwIEwyMCwzMCBMMjAsMTMuMjQ2NzM3MSBMMjAsMTMuMjQ2NzM3MSBaIiBpZD0iQ29tYmluZWQtU2hhcGUiIGZpbGw9IiMwMDY2RkYiPjwvcGF0aD4KICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTMuODY1MzUyNDhlLTEyLDMxIEMzLjg2NTM1MjQ4ZS0xMiwyOC41Njc3NDExIDAuNTI0OTE0ODkzLDI2LjcxNDEwOTMgMS41NzQ3NDQ2OCwyNS40MzkxMDQ3IEMzLjAzNzIyNTQzLDIzLjcwMDExMzYgMy4wNTkzNDc4OSwyMy44NjE5NDk5IDYuMDMwMjU1NzksMjEuNjA1NjA1NSBDOS4wMDExNjM2OSwxOS4zNDkyNjEgMTAuMzI4NTc4LDE0IDE1Ljg4OTQ0NTgsMTQgQzIxLjQ1MDMxMzcsMTQgMjMuMDQwMTUyLDE5LjYwNTI5MDIgMjUuNTQwMzU0OCwyMS42MDU2MDU1IEMyOC4wNDA1NTc2LDIzLjYwNTkyMDcgMjguNzk3MTk0NiwyMy40MjM3MzcxIDMwLjM5ODU5NzMsMjUuNDM5MTA0NyBDMzEuNDY2MTk5MSwyNi43ODI2ODMgMzIsMjguNjM2MzE0OCAzMiwzMSBMMy44NjUzNTI0OGUtMTIsMzEgWiIgaWQ9IlBhdGgtOCIgZmlsbD0iIzA3RDlGMCI+PC9wYXRoPgogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMTUuODg5NDQ1OCwxNCBDMjAuMjUwODQwNCwxNCAyMi4xNjk1NDI5LDE3LjQ0Nzk3MiAyNC4wMDA1NjA4LDE5LjkwMDQ2MzEgTDI0LDMxIEw4LDMxIEw4LjAwMDQ2MjE3LDE5LjUxOTQyNDMgQzkuOTAzMjc4NTIsMTcuMDUzMzY4NCAxMS42ODgxMzA1LDE0IDE1Ljg4OTQ0NTgsMTQgWiIgaWQ9IuW9oueKtue7k+WQiCIgZmlsbD0iIzNERTZGNSI+PC9wYXRoPgogICAgICAgICAgICAgICAgICAgICAgICA8ZyBpZD0iR3JvdXAtNyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOC4wMDAwMDAsIDMyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgaWQ9Iue8lue7hC05IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwgMC4wMTA0NjMpIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNOCwtMS42NTAyMzU1ZS0xMiBDMTIuNDE4Mjc4LC0xLjY1MDIzNTVlLTEyIDE2LDMuNTgxNzIyIDE2LDggQzE2LDguNjkwMzY3MjEgMTUuOTEyNTUyOCw5LjM2MDMxMDAzIDE1Ljc0ODEzMDgsOS45OTkzNTU5NiBMMTYsMTAgTDEwLjMxNTM4NiwzMiBMNS42NTAyNDM2NywzMiBMLTUuNTgzOTc3NzJlLTEyLDEwIEwwLjI1MTg2OTIzNSw5Ljk5OTM1NTk2IEMwLjA4NzQ0NzI0MTgsOS4zNjAzMTAwMyAwLDguNjkwMzY3MjEgMCw4IEMwLDMuNTgxNzIyIDMuNTgxNzIyLC0xLjY1MDIzNTVlLTEyIDgsLTEuNjUwMjM1NWUtMTIgWiIgaWQ9IkNvbWJpbmVkLVNoYXBlIiBmaWxsPSIjRjlDQjhGIj48L3BhdGg+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTksMS42OTE5Nzk4OWUtMTIgQzEyLjMxMzcwODUsMS42OTE5Nzk4OWUtMTIgMTUsMi42ODYyOTE1IDE1LDYgQzE1LDYuMzQwNjQ1MzMgMTQuOTcxNjEyNCw2LjY3NDY2MDM3IDE0LjkxNzA3MzcsNi45OTk4MDg0OCBMMTUsNyBDMTAuOTg2ODU5LDIzLjY2NjY2NjcgOC45ODAyODg0OSwzMiA4Ljk4MDI4ODQ5LDMyIEM4Ljk4MDI4ODQ5LDMyIDYuOTg2ODU4OTksMjMuNjY2NjY2NyAzLDcgTDMsNyBMMy4wODI5MjYzMSw2Ljk5OTgwODQ4IEMzLjAyODM4NzY1LDYuNjc0NjYwMzcgMyw2LjM0MDY0NTMzIDMsNiBDMywyLjY4NjI5MTUgNS42ODYyOTE1LDEuNjkxOTc5ODllLTEyIDksMS42OTE5Nzk4OWUtMTIgWiIgaWQ9IkNvbWJpbmVkLVNoYXBlIiBmaWxsPSIjRkNBRjQ2Ij48L3BhdGg+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTguNSw4LjA4Njg2NDUxZS0xMyBDMTAuNDMyOTk2Niw4LjA4Njg2NDUxZS0xMyAxMiwxLjU2NzAwMzM4IDEyLDMuNSBDMTIsMy42Njk3NDM0MyAxMS45ODc5MTY1LDMuODM2NjY0NiAxMS45NjQ1NjI3LDMuOTk5OTUwMjUgTDEyLDQgQzkuNjU5MDAxMDgsMTQuNjY2NjY2NyA4LjQ4ODUwMTYyLDIwIDguNDg4NTAxNjIsMjAgQzguNDg4NTAxNjIsMjAgNy4zMjU2Njc3NCwxNC42NjY2NjY3IDUsNCBMNSw0IEw1LjAzNTQzNzMxLDMuOTk5OTUwMjUgQzUuMDEyMDgzNTMsMy44MzY2NjQ2IDUsMy42Njk3NDM0MyA1LDMuNSBDNSwxLjU2NzAwMzM4IDYuNTY3MDAzMzgsOC4wODY4NjQ1MWUtMTMgOC41LDguMDg2ODY0NTFlLTEzIFoiIGlkPSJDb21iaW5lZC1TaGFwZSIgZmlsbD0iI0ZGOTAwRSI+PC9wYXRoPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgICAgIDxnIGlkPSJHcm91cC02IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwgMzUuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0yOCwxMCBMNTYsMTAgTDU2LDI3IEM1NiwyOC4xMDQ1Njk1IDU1LjEwNDU2OTUsMjkgNTQsMjkgTDI4LDI5IEwyOCwyOSBMMjgsMTAgWiIgaWQ9IlJlY3RhbmdsZSIgZmlsbD0iI0NBRDFEQiI+PC9wYXRoPgogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNOSwxMCBMMjgsMTAgTDI4LDI5IEwxMSwyOSBDOS44OTU0MzA1LDI5IDksMjguMTA0NTY5NSA5LDI3IEw5LDEwIEw5LDEwIFoiIGlkPSJSZWN0YW5nbGUiIGZpbGw9IiNFNkU5RUQiPjwvcGF0aD4KICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTI4LDEwIEwzNS42OTk3NTYsMC4zNzUzMDQ5NTIgQzM1Ljg4OTUyODIsMC4xMzgwODk3MTkgMzYuMTc2ODQxMSw1LjU4MDQxNjQ0ZS0xNyAzNi40ODA2MjQ4LDAgTDYxLjkxOTM3NTIsMCBDNjIuNDcxNjU5OSwtNi42NTE3Njg5MWUtMTUgNjIuOTE5Mzc1MiwwLjQ0NzcxNTI1IDYyLjkxOTM3NTIsMSBDNjIuOTE5Mzc1MiwxLjIyNzA3MTUgNjIuODQyMDk0NCwxLjQ0NzM4MiA2Mi43MDAyNDQsMS42MjQ2OTUwNSBMNTYsMTAgTDU2LDEwIEwyOCwxMCBaIiBpZD0iUGF0aC00IiBmaWxsPSIjRENFMEU1Ij48L3BhdGg+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik03LjA0ODU4Mzk0ZS0xMiwxMCBMOC43MDIwNjgyNiwwLjMzMTAzNTI2OCBDOC44OTE3MTA3MywwLjEyMDMyMTQwOCA5LjE2MTg3NTksLTQuNTE0OTc1NjdlLTE2IDkuNDQ1MzYyNCwwIEwyNS43NTQ2Mzc2LDAgQzI2LjMwNjkyMjMsLTEuMDE0NTMwNjNlLTE2IDI2Ljc1NDYzNzYsMC40NDc3MTUyNSAyNi43NTQ2Mzc2LDEgQzI2Ljc1NDYzNzYsMS4yNDcwNDE3OCAyNi42NjMxOTQsMS40ODUzNDAwMiAyNi40OTc5MzE3LDEuNjY4OTY0NzMgTDE5LDEwIEwxOSwxMCBMNy4wNDg1ODM5NGUtMTIsMTAgWiIgaWQ9IlBhdGgtNCIgZmlsbD0iI0RDRTBFNSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTQuMDAwMDAwLCA1LjAwMDAwMCkgc2NhbGUoLTEsIDEpIHRyYW5zbGF0ZSgtMTQuMDAwMDAwLCAtNS4wMDAwMDApICI+PC9wYXRoPgogICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+" />
+                                <h2 class="title">构建 DevOps 工作方式</h2>
+                                <p class="desc">一站式 DevOps 工具，适用于研发团队快速搭建 DevOps ，实现可持续发布。</p>
+                            </li>
+                            <li class="gird-cell">
+                                <img width="120" height="120"
+                                    src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjcyIiB2aWV3Qm94PSIwIDAgNzIgNzIiIHdpZHRoPSI3MiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Im0wIDBoNzJ2NzJoLTcyeiIvPjxwYXRoIGQ9Im0xMiA1Mmg0OHY4aC00OHoiIGZpbGw9IiNlNmU5ZWQiLz48ZWxsaXBzZSBjeD0iMzYiIGN5PSI2MCIgZmlsbD0iI2U2ZTllZCIgcng9IjI0IiByeT0iNyIvPjxlbGxpcHNlIGN4PSIzNiIgY3k9IjUyIiBmaWxsPSIjY2FkMWRiIiByeD0iMjQiIHJ5PSI3Ii8+PHBhdGggZD0ibTEyIDM3aDQ4djhoLTQ4eiIgZmlsbD0iI2U2ZTllZCIvPjxlbGxpcHNlIGN4PSIzNiIgY3k9IjQ1IiBmaWxsPSIjZTZlOWVkIiByeD0iMjQiIHJ5PSI3Ii8+PGVsbGlwc2UgY3g9IjM2IiBjeT0iMzciIGZpbGw9IiNjYWQxZGIiIHJ4PSIyNCIgcnk9IjciLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4IDUpIj48cGF0aCBkPSJtMjMuOTk5NDQ1IDBjMS4xMDQ1Njk1IDAgMiAuODk1NDMwNSAyIDJ2MTYuOTJsLS4wMDQ0NDUuMDc5LjAwNS4wMDEtLjAxMjUwMSA2LTUuODIyNDk5LTVoLTE4LjE2NWMtMS4xMDQ1Njk1IDAtMi0uODk1NDMwNS0yLTJ2LTE2YzAtMS4xMDQ1Njk1Ljg5NTQzMDUtMiAyLTJ6IiBmaWxsPSIjMDdkOWYwIi8+PGcgZmlsbD0iI2ZmZiI+PHBhdGggZD0ibTcgM2gxNHYyaC0xNHoiLz48cGF0aCBkPSJtNyAxM2g5djJoLTl6IiBvcGFjaXR5PSIuNiIvPjxwYXRoIGQ9Im03IDZoNnYyaC02eiIvPjxwYXRoIGQ9Im0xNCA2aDl2MmgtOXoiIG9wYWNpdHk9Ii42Ii8+PHBhdGggZD0ibTcgOWgxMHYyaC0xMHoiLz48cGF0aCBkPSJtMyAzaDJ2MmgtMnoiIG9wYWNpdHk9Ii42Ii8+PHBhdGggZD0ibTMgMTNoMnYyaC0yeiIgb3BhY2l0eT0iLjYiLz48cGF0aCBkPSJtMyA2aDJ2MmgtMnoiIG9wYWNpdHk9Ii42Ii8+PHBhdGggZD0ibTMgOWgydjJoLTJ6IiBvcGFjaXR5PSIuNiIvPjwvZz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzggMTIpIj48cGF0aCBkPSJtMjMuOTk5NDQ1IDBjMS4xMDQ1Njk1IDAgMiAuODk1NDMwNSAyIDJ2MTYuOTJsLS4wMDQ0NDUuMDhoLjAwNWwtLjAxMjUwMSA2LTUuODIzNDk5LTVoLTE4LjE2NGMtMS4xMDQ1Njk1IDAtMi0uODk1NDMwNS0yLTJ2LTE2YzAtMS4xMDQ1Njk1Ljg5NTQzMDUtMiAyLTJ6IiBmaWxsPSIjMDZmIiB0cmFuc2Zvcm09Im1hdHJpeCgtMSAwIDAgMSAyNiAwKSIvPjxwYXRoIGQ9Im0xOCA2LTYuMjc3NDQxNSA4LTMuNzIyNTU4NS00LjU3Njc3NTkgMi4zMDIxMzI2LS4wMjI3MDUyNiAxLjQyMDQyNTkgMS43ODAzOTEwNiA0LjA1NDQ4MDQtNS4xODA5MDk5eiIgZmlsbD0iI2ZmZiIgZmlsbC1ydWxlPSJub256ZXJvIi8+PC9nPjwvZz48L3N2Zz4=" />
+                                <h2 class="title">代码开发协同</h2>
+                                <p class="desc">Git/SVN 代码仓库服务，适用于研发团队协作开发，拥有分支管理、版本管理等特性让协作更加有序。</p>
+                            </li>
+                            <li class="gird-cell">
+                                <img width="120" height="120"
+                                    src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjcyIiB2aWV3Qm94PSIwIDAgNzIgNzIiIHdpZHRoPSI3MiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Im0wIDBoNzJ2NzJoLTcyeiIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQgNCkiPjxwYXRoIGQ9Im04LjA0IDJoNDcuOTJjMS4xMjY2NjA5IDAgMi4wNC45MTMzMzkxMSAyLjA0IDIuMDR2NTUuOTJjMCAxLjEyNjY2MDktLjkxMzMzOTEgMi4wNC0yLjA0IDIuMDRoLTQ3LjkyYy0xLjEyNjY2MDg5IDAtMi4wNC0uOTEzMzM5MS0yLjA0LTIuMDR2LTU1LjkyYzAtMS4xMjY2NjA4OS45MTMzMzkxMS0yLjA0IDIuMDQtMi4wNHoiIGZpbGw9IiNlNmU5ZWQiLz48cGF0aCBkPSJtMTQgOWgzNmMxLjEwNDU2OTUgMCAyIC44OTU0MzA1IDIgMnYzNmwtOCA4aC0zMGMtMS4xMDQ1Njk1IDAtMi0uODk1NDMwNS0yLTJ2LTQyYzAtMS4xMDQ1Njk1Ljg5NTQzMDUtMiAyLTJ6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0ibTMyLjUgMGMyLjMxNjM3ODggMCA0LjIyMzk4MTQgMS43NTAxNzg4IDQuNDcyNTY4NCA0LjAwMDI5NzA0bC4wMjc0MzE2LS4wMDAyOTcwNC0uMDAxIDJoOS4wMDFjLjU1MjI4NDcgMCAxIC40NDc3MTUyNSAxIDF2NWgtMjl2LTVjMC0uNTUyMjg0NzUuNDQ3NzE1My0xIDEtMWg4Ljk5OWwuMDAxLTIgLjAyNzQzMTYuMDAwMjk3MDRjLjI0ODU4Ny0yLjI1MDExODI0IDIuMTU2MTg5Ni00LjAwMDI5NzA0IDQuNDcyNTY4NC00LjAwMDI5NzA0eiIgZmlsbD0iIzFiNzZmZiIvPjxwYXRoIGQ9Im00NiA0N2g2bC04IDh2LTZjMC0xLjEwNDU2OTUuODk1NDMwNS0yIDItMnoiIGZpbGw9IiNjYWQxZGIiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxOCAxNikiPjxwYXRoIGQ9Im0wIDBoMjl2M2gtMjl6IiBmaWxsPSIjZTZlOWVkIi8+PHBhdGggZD0ibTAgNWgyMnYzaC0yMnoiIGZpbGw9IiNmNWY3ZmEiLz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTggMjkpIj48cGF0aCBkPSJtMCAwaDI5djNoLTI5eiIgZmlsbD0iI2U2ZTllZCIvPjxwYXRoIGQ9Im0wIDVoMjJ2M2gtMjJ6IiBmaWxsPSIjZjVmN2ZhIi8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgMzgpIj48cGF0aCBkPSJtOSAwdjhsLTcuMzIzNDU2MTEgMTMuMDE5NDc3NWMtLjU0MTUyNzYxLjk2MjcxNTgtLjIwMDA4NzE2IDIuMTgyMTQ2Ljc2MjYyODYgMi43MjM2NzM2LjI5OTM2MzI4LjE2ODM5MTguNjM3MDQ4NzcuMjU2ODQ4OS45ODA1MjI0OC4yNTY4NDg5aDIwLjE2MDYxMDAzYzEuMTA0NTY5NSAwIDItLjg5NTQzMDUgMi0yIDAtLjM0MzQ3MzctLjA4ODQ1Ny0uNjgxMTU5Mi0uMjU2ODQ4OS0uOTgwNTIyNWwtNy4zMjM0NTYxLTEzLjAxOTQ3NzV2LTh6IiBmaWxsPSIjM2RlNmY1Ii8+PHBhdGggZD0ibTIyLjQ5OTM0MDMgMTYgMi44MjQxMTU4IDUuMDE5NDc3NWMuMTY4MzkxOS4yOTkzNjMzLjI1Njg0ODkuNjM3MDQ4OC4yNTY4NDg5Ljk4MDUyMjUgMCAxLjEwNDU2OTUtLjg5NTQzMDUgMi0yIDJoLTIwLjE2MDYxMDAzYy0uMzQzNDczNzEgMC0uNjgxMTU5Mi0uMDg4NDU3MS0uOTgwNTIyNDgtLjI1Njg0ODktLjk2MjcxNTc2LS41NDE1Mjc2LTEuMzA0MTU2MjEtMS43NjA5NTc4LS43NjI2Mjg2LTIuNzIzNjczNmwyLjgyMjc5NjM3LTUuMDE5NDc3NXoiIGZpbGw9IiMwMGQ2ZWQiLz48ZyBmaWxsLXJ1bGU9Im5vbnplcm8iPjxwYXRoIGQ9Im0xOCAxMi02LjI3NzQ0MTUgNy0zLjcyMjU1ODUtNC4wMDQ2Nzg5IDIuMzAyMTMyNi0uMDE5ODY3MSAxLjQyMDQyNTkgMS41NTc4NDIxIDQuMDU0NDgwNC00LjUzMzI5NjF6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0ibTE0LjQxMjM0MDMgMTYtMi42ODk3ODE4IDMtMi43ODgyMTgyNC0zaDIuMzAyMDAwMDRsLjQ4NjIxODIuNTMzMjk2MS40NzY3ODE4LS41MzMyOTYxeiIgZmlsbD0iI2NlZmRmZiIvPjwvZz48L2c+PC9nPjwvZz48L3N2Zz4=" />
+                                <h2 class="title">测试管理协作</h2>
+                                <span class="desc">在线组织和管理测试用例及测试计划，将测试团队工作搬到云上。</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <section class="content-section-h5">
+                <h2 class="title">
+                    <img height="24px" src="https://assets.codehub.cn/images/01.1303ec1d.svg" />
+                    <img height="24px" src="https://assets.codehub.cn/images/02.a41fb241.svg" />
+                </h2>
+                <span class="desc">
+                    免部署、低成本，涵盖了软件开发从构想到交<br />付的一切所需，使团队在云端高效协同。
+                </span>
+                <div class="content-grid">
+                    <div class="content-grid-cell">
+                        <div class="content-header">
+                            <div class="content-title">
+                                <span class="content-icon">
+                                    <img width="35" height="35"
+                                        src="https://assets.codehub.cn/images/minjie.aea357bf.svg" />
+                                </span>
+                                <h3 class="content-h3">项目协同</h3>
+                            </div>
+                            <span class="content-more">
+                                <a href="https://coding.net/products/agile">
+                                    查看更多
+                                    <img width="14" height="14"
+                                        src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTYgMTYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE2IDE2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzAwNjZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggaWQ9IlBhdGgiIGNsYXNzPSJzdDAiIGQ9Ik00LjcsMTIuNmwwLjYsMC44YzAuMiwwLjIsMC41LDAuMiwwLjcsMC4xTDEyLjYsOGwwLDBMNiwyLjZDNS44LDIuNCw1LjUsMi40LDUuMywyLjZMNC43LDMuNAoJCUM0LjUsMy42LDQuNSwzLjksNC43LDQuMUw5LjQsOGwwLDBsLTQuNywzLjlDNC41LDEyLjEsNC41LDEyLjQsNC43LDEyLjZ6Ii8+CjwvZz4KPC9zdmc+Cg==" /></a>
+                            </span>
+                        </div>
+                        <span class="content-summary">
+                            强大灵活的项目管理功能，包括迭代规划、需求分解、状态流转、看板视图跟踪等能力，让团队高效协同。
+                        </span>
+                        <div class="content-img">
+                            <img width="335" height="200"
+                                src="https://assets.codehub.cn/images/xmxt.02dc320b.png" />
+                        </div>
+                    </div>
+                    <div class="content-grid-cell">
+                        <div class="content-header">
+                            <div class="content-title">
+                                <span class="content-icon">
+                                    <img width="35" height="35"
+                                        src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0MHB4IiB2aWV3Qm94PSIwIDAgNDAgNDAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+5rWL6K+V566h55CGPC90aXRsZT4KICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCB4MT0iMzUuNzQ4MjYzMyUiIHkxPSIxMTMuNDEzNDM5JSIgeDI9IjU0Ljk5NDMwNzglIiB5Mj0iMjkuMTU1MzQyNCUiIGlkPSJsaW5lYXJHcmFkaWVudC0xIj4KICAgICAgICAgICAgPHN0b3Agc3RvcC1jb2xvcj0iIzNERTZGNSIgb2Zmc2V0PSIwJSI+PC9zdG9wPgogICAgICAgICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjMTU1Q0Q1IiBvZmZzZXQ9IjcwLjkwMjE3NTQlIj48L3N0b3A+CiAgICAgICAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiMxODNFQkQiIG9mZnNldD0iMTAwJSI+PC9zdG9wPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPHBhdGggZD0iTTUuMTQ5NzQ3NDcsNS42NzEwNjc4MSBMMTEuOTQ5NzQ3NSw1LjY3MTA2NzgxIEMxMi44MzM0MDMxLDUuNjcxMDY3ODEgMTMuNTQ5NzQ3NSw2LjM4NzQxMjIxIDEzLjU0OTc0NzUsNy4yNzEwNjc4MSBMMTMuNTQ5NzQ3NSwyMi40NzEwNjc4IEMxMy41NDk3NDc1LDIyLjkxMjg5NTYgMTMuMTkxNTc1MywyMy4yNzEwNjc4IDEyLjc0OTc0NzUsMjMuMjcxMDY3OCBMNS45NDk3NDc0NywyMy4yNzEwNjc4IEM1LjUwNzkxOTY3LDIzLjI3MTA2NzggNS4xNDk3NDc0NywyMi45MTI4OTU2IDUuMTQ5NzQ3NDcsMjIuNDcxMDY3OCBMNS4xNDk3NDc0Nyw1LjY3MTA2NzgxIEw1LjE0OTc0NzQ3LDUuNjcxMDY3ODEgWiIgaWQ9InBhdGgtMiI+PC9wYXRoPgogICAgICAgIDxmaWx0ZXIgeD0iLTYuMCUiIHk9Ii0yLjglIiB3aWR0aD0iMTExLjklIiBoZWlnaHQ9IjEwNS43JSIgZmlsdGVyVW5pdHM9Im9iamVjdEJvdW5kaW5nQm94IiBpZD0iZmlsdGVyLTMiPgogICAgICAgICAgICA8ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSIwLjUiIGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJzaGFkb3dCbHVySW5uZXIxIj48L2ZlR2F1c3NpYW5CbHVyPgogICAgICAgICAgICA8ZmVPZmZzZXQgZHg9IjAiIGR5PSIwIiBpbj0ic2hhZG93Qmx1cklubmVyMSIgcmVzdWx0PSJzaGFkb3dPZmZzZXRJbm5lcjEiPjwvZmVPZmZzZXQ+CiAgICAgICAgICAgIDxmZUNvbXBvc2l0ZSBpbj0ic2hhZG93T2Zmc2V0SW5uZXIxIiBpbjI9IlNvdXJjZUFscGhhIiBvcGVyYXRvcj0iYXJpdGhtZXRpYyIgazI9Ii0xIiBrMz0iMSIgcmVzdWx0PSJzaGFkb3dJbm5lcklubmVyMSI+PC9mZUNvbXBvc2l0ZT4KICAgICAgICAgICAgPGZlQ29sb3JNYXRyaXggdmFsdWVzPSIwIDAgMCAwIDEgICAwIDAgMCAwIDEgICAwIDAgMCAwIDEgIDAgMCAwIDAuMiAwIiB0eXBlPSJtYXRyaXgiIGluPSJzaGFkb3dJbm5lcklubmVyMSI+PC9mZUNvbG9yTWF0cml4PgogICAgICAgIDwvZmlsdGVyPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCB4MT0iMTE5LjM4ODEwNyUiIHkxPSItNi44MDM1Mjc1NyUiIHgyPSIxMi45MjU5NTg5JSIgeTI9IjgzLjc0MzQxMzklIiBpZD0ibGluZWFyR3JhZGllbnQtNCI+CiAgICAgICAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiNFNUZFRkYiIG9mZnNldD0iMCUiPjwvc3RvcD4KICAgICAgICAgICAgPHN0b3Agc3RvcC1jb2xvcj0iIzNERDZGNSIgb2Zmc2V0PSI0OS42NDU1Mzg1JSI+PC9zdG9wPgogICAgICAgICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjMDA2M0ZGIiBzdG9wLW9wYWNpdHk9IjAuOSIgb2Zmc2V0PSIxMDAlIj48L3N0b3A+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgICA8cGF0aCBkPSJNMjkuNTI2MTk3NywwIEMyOS45NjgwMjU1LC04LjExNjI0NTAxZS0xNyAzMC4zMjYxOTc3LDAuMzU4MTcyMiAzMC4zMjYxOTc3LDAuOCBMMzAuMzI2MTk3NywxMi44Njg2MjkyIEMzMC4zMjYxOTc3LDEzLjMxMDQ1NjkgMjkuOTY4MDI1NSwxMy42Njg2MjkyIDI5LjUyNjE5NzcsMTMuNjY4NjI5MiBDMjkuMzE0MDI0NSwxMy42Njg2MjkyIDI5LjExMDU0MTMsMTMuNTg0MzQzNyAyOC45NjA1MTIyLDEzLjQzNDMxNDYgTDI1Ljg5NiwxMC4zNyBMMTMuNzMzODA5NSwyMi41MzIwODUxIEMxMy4xMDg5NzA2LDIzLjE1NjkyNCAxMi4wOTU5MDY3LDIzLjE1NjkyNCAxMS40NzEwNjc4LDIyLjUzMjA4NTEgTDQuNCwxNS40NjEwMTczIEM1LjY0OTY3NzczLDE2LjcxMDY5NSA3LjY3NTgwNTY3LDE2LjcxMDY5NSA4LjkyNTQ4MzQsMTUuNDYxMDE3MyBMMTkuOTU2MzQ5Miw0LjQzMDE1MTUyIEwxNi44OTE4ODMxLDEuMzY1Njg1NDIgQzE2LjU3OTQ2MzcsMS4wNTMyNjU5OSAxNi41Nzk0NjM3LDAuNTQ2NzM0MDA4IDE2Ljg5MTg4MzEsMC4yMzQzMTQ1NzUgQzE3LjA0MTkxMjIsMC4wODQyODU0NzIzIDE3LjI0NTM5NTMsLTcuMzgxODA1MzRlLTE2IDE3LjQ1NzU2ODUsMCBMMjkuNTI2MTk3NywwIFoiIGlkPSJwYXRoLTUiPjwvcGF0aD4KICAgICAgICA8ZmlsdGVyIHg9Ii0xLjklIiB5PSItMi4yJSIgd2lkdGg9IjEwMy45JSIgaGVpZ2h0PSIxMDQuMyUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgaWQ9ImZpbHRlci02Ij4KICAgICAgICAgICAgPGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMC41IiBpbj0iU291cmNlQWxwaGEiIHJlc3VsdD0ic2hhZG93Qmx1cklubmVyMSI+PC9mZUdhdXNzaWFuQmx1cj4KICAgICAgICAgICAgPGZlT2Zmc2V0IGR4PSIwIiBkeT0iMCIgaW49InNoYWRvd0JsdXJJbm5lcjEiIHJlc3VsdD0ic2hhZG93T2Zmc2V0SW5uZXIxIj48L2ZlT2Zmc2V0PgogICAgICAgICAgICA8ZmVDb21wb3NpdGUgaW49InNoYWRvd09mZnNldElubmVyMSIgaW4yPSJTb3VyY2VBbHBoYSIgb3BlcmF0b3I9ImFyaXRobWV0aWMiIGsyPSItMSIgazM9IjEiIHJlc3VsdD0ic2hhZG93SW5uZXJJbm5lcjEiPjwvZmVDb21wb3NpdGU+CiAgICAgICAgICAgIDxmZUNvbG9yTWF0cml4IHZhbHVlcz0iMCAwIDAgMCAxICAgMCAwIDAgMCAxICAgMCAwIDAgMCAxICAwIDAgMCAwLjIgMCIgdHlwZT0ibWF0cml4IiBpbj0ic2hhZG93SW5uZXJJbm5lcjEiPjwvZmVDb2xvck1hdHJpeD4KICAgICAgICA8L2ZpbHRlcj4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSLlrpjnvZEtMy4wIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0i6aaW6aG1LS0tU2xpY2UiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zNDEwLjAwMDAwMCwgLTI2OTEuMDAwMDAwKSI+CiAgICAgICAgICAgIDxnIGlkPSLmtYvor5XnrqHnkIYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM0MTAuMDAwMDAwLCAyNjkxLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgPGcgaWQ9Iue8lue7hC04OeWkh+S7vS00Ij4KICAgICAgICAgICAgICAgICAgICA8cmVjdCBpZD0i6JKZ54mI5aSH5Lu9LTY0IiB4PSIwIiB5PSIwIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHJ4PSI0Ij48L3JlY3Q+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICA8ZyBpZD0i57yW57uELTk35aSH5Lu9LTIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQuODAwMDAwLCA4LjkwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxnIGlkPSLnn6nlvaIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDkuMzQ5NzQ3LCAxNC40NzEwNjgpIHJvdGF0ZSgxMzUuMDAwMDAwKSB0cmFuc2xhdGUoLTkuMzQ5NzQ3LCAtMTQuNDcxMDY4KSAiPgogICAgICAgICAgICAgICAgICAgICAgICA8dXNlIGZpbGw9InVybCgjbGluZWFyR3JhZGllbnQtMSkiIGZpbGwtcnVsZT0iZXZlbm9kZCIgeGxpbms6aHJlZj0iI3BhdGgtMiI+PC91c2U+CiAgICAgICAgICAgICAgICAgICAgICAgIDx1c2UgZmlsbD0iYmxhY2siIGZpbGwtb3BhY2l0eT0iMSIgZmlsdGVyPSJ1cmwoI2ZpbHRlci0zKSIgeGxpbms6aHJlZj0iI3BhdGgtMiI+PC91c2U+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgICAgIDxnIGlkPSLlvaLnirbnu5PlkIgiPgogICAgICAgICAgICAgICAgICAgICAgICA8dXNlIGZpbGw9InVybCgjbGluZWFyR3JhZGllbnQtNCkiIGZpbGwtcnVsZT0iZXZlbm9kZCIgeGxpbms6aHJlZj0iI3BhdGgtNSI+PC91c2U+CiAgICAgICAgICAgICAgICAgICAgICAgIDx1c2UgZmlsbD0iYmxhY2siIGZpbGwtb3BhY2l0eT0iMSIgZmlsdGVyPSJ1cmwoI2ZpbHRlci02KSIgeGxpbms6aHJlZj0iI3BhdGgtNSI+PC91c2U+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=" />
+                                </span>
+                                <h3 class="content-h3">测试管理</h3>
+                            </div>
+                            <span class="content-more">
+                                <a href="https://coding.net/products/testing">
+                                    查看更多
+                                    <img width="14" height="14"
+                                        src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTYgMTYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE2IDE2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzAwNjZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggaWQ9IlBhdGgiIGNsYXNzPSJzdDAiIGQ9Ik00LjcsMTIuNmwwLjYsMC44YzAuMiwwLjIsMC41LDAuMiwwLjcsMC4xTDEyLjYsOGwwLDBMNiwyLjZDNS44LDIuNCw1LjUsMi40LDUuMywyLjZMNC43LDMuNAoJCUM0LjUsMy42LDQuNSwzLjksNC43LDQuMUw5LjQsOGwwLDBsLTQuNywzLjlDNC41LDEyLjEsNC41LDEyLjQsNC43LDEyLjZ6Ii8+CjwvZz4KPC9zdmc+Cg==" /></a>
+                            </span>
+                        </div>
+                        <span class="content-summary">
+                            井然有序的测试过程管理，让测试工作在云端完成。用例和缺陷、需求、代码关联，让一切可追踪。
+                        </span>
+                        <div class="content-img">
+                            <img width="335" height="200"
+                                src="https://assets.codehub.cn/images/csgl.29e9287a.png" />
+                        </div>
+                    </div>
+                    <div class="content-grid-cell">
+                        <div class="content-header">
+                            <div class="content-title">
+                                <span class="content-icon">
+                                    <img width="35" height="35"
+                                        src="https://assets.codehub.cn/images/daima.75ff055d.svg" />
+                                </span>
+                                <h3 class="content-h3">代码托管</h3>
+                            </div>
+                            <span class="content-more">
+                                <a href="https://coding.net/products/repo">
+                                    查看更多
+                                    <img width="14" height="14"
+                                        src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTYgMTYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE2IDE2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzAwNjZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggaWQ9IlBhdGgiIGNsYXNzPSJzdDAiIGQ9Ik00LjcsMTIuNmwwLjYsMC44YzAuMiwwLjIsMC41LDAuMiwwLjcsMC4xTDEyLjYsOGwwLDBMNiwyLjZDNS44LDIuNCw1LjUsMi40LDUuMywyLjZMNC43LDMuNAoJCUM0LjUsMy42LDQuNSwzLjksNC43LDQuMUw5LjQsOGwwLDBsLTQuNywzLjlDNC41LDEyLjEsNC41LDEyLjQsNC43LDEyLjZ6Ii8+CjwvZz4KPC9zdmc+Cg==" /></a>
+                            </span>
+                        </div>
+                        <span class="content-summary">
+                            稳定、快速的 Git/SVN 代码仓库服务，帮助团队多人协作开发，建立安全高效的代码审查机制。
+                        </span>
+                        <div class="content-img">
+                            <img width="335" height="200"
+                                src="https://assets.codehub.cn/images/dmtg.2f02fc6c.png" />
+                        </div>
+                    </div>
+                    <div class="content-grid-cell">
+                        <div class="content-header">
+                            <div class="content-title">
+                                <span class="content-icon">
+                                    <img width="35" height="35"
+                                        src="https://assets.codehub.cn/images/jicheng.a619aa09.svg" />
+                                </span>
+                                <h3 class="content-h3">持续集成</h3>
+                            </div>
+                            <span class="content-more">
+                                <a href="https://coding.net/products/ci">
+                                    查看更多
+                                    <img width="14" height="14"
+                                        src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTYgMTYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE2IDE2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzAwNjZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggaWQ9IlBhdGgiIGNsYXNzPSJzdDAiIGQ9Ik00LjcsMTIuNmwwLjYsMC44YzAuMiwwLjIsMC41LDAuMiwwLjcsMC4xTDEyLjYsOGwwLDBMNiwyLjZDNS44LDIuNCw1LjUsMi40LDUuMywyLjZMNC43LDMuNAoJCUM0LjUsMy42LDQuNSwzLjksNC43LDQuMUw5LjQsOGwwLDBsLTQuNywzLjlDNC41LDEyLjEsNC41LDEyLjQsNC43LDEyLjZ6Ii8+CjwvZz4KPC9zdmc+Cg==" /></a>
+                            </span>
+                        </div>
+                        <span class="content-summary">
+                            软件自动化测试与构建服务，定位软件错误。高频的迭代测试，提高整体软件交付的效率。
+                        </span>
+                        <div class="content-img">
+                            <img width="335" height="200"
+                                src="https://assets.codehub.cn/images/cxjc.ed61a9b0.png" />
+                        </div>
+                    </div>
+                    <div class="content-grid-cell">
+                        <div class="content-header">
+                            <div class="content-title">
+                                <span class="content-icon">
+                                    <img width="35" height="35"
+                                        src="https://assets.codehub.cn/images/bushu.2a230c80.svg" />
+                                </span>
+                                <h3 class="content-h3">持续部署</h3>
+                            </div>
+                            <span class="content-more">
+                                <a href="https://coding.net/products/cd">
+                                    查看更多
+                                    <img width="14" height="14"
+                                        src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTYgMTYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE2IDE2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzAwNjZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggaWQ9IlBhdGgiIGNsYXNzPSJzdDAiIGQ9Ik00LjcsMTIuNmwwLjYsMC44YzAuMiwwLjIsMC41LDAuMiwwLjcsMC4xTDEyLjYsOGwwLDBMNiwyLjZDNS44LDIuNCw1LjUsMi40LDUuMywyLjZMNC43LDMuNAoJCUM0LjUsMy42LDQuNSwzLjksNC43LDQuMUw5LjQsOGwwLDBsLTQuNywzLjlDNC41LDEyLjEsNC41LDEyLjQsNC43LDEyLjZ6Ii8+CjwvZz4KPC9zdmc+Cg==" /></a>
+                            </span>
+                        </div>
+                        <span class="content-summary">
+                            持续、可控、自动化地把软件制品发布到服务集群中，支持蓝绿发布、灰度发布（金丝雀发布）等多种发布策略。
+                        </span>
+                        <div class="content-img">
+                            <img width="335" height="200"
+                                src="https://assets.codehub.cn/images/cxbs.7f638565.png" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content-section">
+                <div class="education-tab">
+                    <h2 class="title">
+                        <img src="https://assets.codehub.cn/images/01.1303ec1d.svg" />
+                        <img src="https://assets.codehub.cn/images/02.a41fb241.svg" />
+                    </h2>
+                    <span class="desc">免部署、低成本，涵盖了软件开发从构想到交付的一切所需，使团队在云端高效协同。
+                        <div class="carousel-circle">
+                            <img width="438" height="438"
+                                src="https://assets.codehub.cn/images/carousel-circle.065debda.png" />
+                        </div>
+                    </span>
+                    <div id="feature-section">
+                        <div class="feature-swiper-pagination"></div>
+                        <div class="feature-swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img src="https://assets.codehub.cn/images/xmxt.02dc320b.png" />
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="https://assets.codehub.cn/images/dmtg.2f02fc6c.png" />
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="https://assets.codehub.cn/images/csgl.29e9287a.png" />
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="https://assets.codehub.cn/images/cxjc.ed61a9b0.png" />
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="https://assets.codehub.cn/images/cxbs.7f638565.png" />
+                                </div>
+                            </div>
+
+                            <!-- 如果需要滚动条 -->
+                            <!-- <div class="swiper-scrollbar"></div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="dev-tab">
+                    <h2 class="title">
+                        <img src="https://assets.codehub.cn/images/03.2fa279b8.svg" />
+                        <img src="https://assets.codehub.cn/images/04.55a8a60d.svg" />
+                    </h2>
+                    <span class="desc">基于硅谷先进方法与中国团队实践共同打造一站式开发体验，全面提升研发与管理效率。</span>
+                    <!-- 第一个多层 -->
+                    <div class="detail">
+                        <div class="title-link">
+                            <div class="header-link"></div>
+                            <div class="title">
+                                <img width="360" height="54"
+                                    src="https://assets.codehub.cn/images/05.3381fa01.svg" />
+                            </div>
+                            <div class="footer-link"></div>
+                        </div>
+                        <div class="epic">
+                            <div class="tip conceive" data-aos="fade-up"></div>
+                            <div class="tip plan" data-aos="fade-up"></div>
+                            <div class="tip dev" data-aos="fade-up"></div>
+                        </div>
+                        <div class="epic-link"></div>
+                        <div class="epic-tab">
+                            <div class="tab-cell" data-aos="zoom-in" data-aos-delay="100">
+                                <img width="75" height="75"
+                                    src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjkwIiB2aWV3Qm94PSIwIDAgOTAgOTAiIHdpZHRoPSI5MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Im0wIDBoOTB2OTBoLTkweiIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUpIj48cGF0aCBkPSJtNDAgNS43MTQyODU3MSAzMy40MDM4MzcgMTkuMjg1NzE0Mjl2MzguNTcxNDI4NmwtMzMuNDAzODM3IDE5LjI4NTcxNDMtMzMuNDAzODM3LTE5LjI4NTcxNDN2LTM4LjU3MTQyODZ6IiBmaWxsPSIjM2RlNmY1Ii8+PHBhdGggZD0ibTM3Ljg1NzE0MyA1LjcxNDI4Nmg0LjI4NTcxNHY3Ny4xNDI4NTdoLTQuMjg1NzE0eiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Im0zNy44NTcxNDMgNS43MTQyODZoNC4yODU3MTR2NzcuMTQyODU3aC00LjI4NTcxNHoiIGZpbGw9IiNmZmYiIHRyYW5zZm9ybT0ibWF0cml4KC41IC0uODY2MDI1NCAuODY2MDI1NCAuNSAtMTguMzUyNTUzIDU2Ljc4Mzg3MykiLz48cGF0aCBkPSJtMzcuODU3MTQzIDUuNzE0Mjg2aDQuMjg1NzE0djc3LjE0Mjg1N2gtNC4yODU3MTR6IiBmaWxsPSIjZmZmIiB0cmFuc2Zvcm09Im1hdHJpeCgtLjUxNTAzODA3IC0uODU3MTY3MyAuODU3MTY3MyAtLjUxNTAzODA3IDIyLjY0MTI1NyAxMDEuMzgxMjM1KSIvPjxnIGZpbGw9IiMzNDg1ZmYiPjxjaXJjbGUgY3g9IjQwIiBjeT0iNy44NTcxNDMiIHI9IjcuODU3MTQzIi8+PGNpcmNsZSBjeD0iNDAiIGN5PSI4MC43MTQyODYiIHI9IjcuODU3MTQzIi8+PGNpcmNsZSBjeD0iNy44NTcxNDMiIGN5PSI2Mi4xNDI4NTciIHI9IjcuODU3MTQzIi8+PGNpcmNsZSBjeD0iNzIuMTQyODU3IiBjeT0iMjUuNzE0Mjg2IiByPSI3Ljg1NzE0MyIvPjxjaXJjbGUgY3g9IjcuODU3MTQzIiBjeT0iMjUuNzE0Mjg2IiByPSI3Ljg1NzE0MyIvPjxjaXJjbGUgY3g9IjcyLjE0Mjg1NyIgY3k9IjYyLjE0Mjg1NyIgcj0iNy44NTcxNDMiLz48L2c+PC9nPjwvZz48L3N2Zz4=" />
+                                <h2 class="title">开发、协同一站式工具</h2>
+                                <p class="desc">产品、开发、测试、运维等职能在一个地方就能完成所有工作。从产品需求到实现的代码都能紧密关联。</p>
+                            </div>
+                            <div class="tab-cell" data-aos="zoom-in" data-aos-delay="200">
+                                <img width="75" height="75"
+                                    src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjkwIiB2aWV3Qm94PSIwIDAgOTAgOTAiIHdpZHRoPSI5MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Im0wIDBoOTB2OTBoLTkweiIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDkgOSkiPjxwYXRoIGQ9Im0yMC44NTE1ODM2IDcuOTEyMTM0NDhjMi44NDY0NTE0IDAgNS40NjE4NjE1IDEuNTM5NjM5MzMgNi44NDcyMDI5IDQuMDA5NDEyMzJsLjEzNDM5NjkuMjUwMDU1MiAxOS45ODg5MDY1IDM5LjQ1NzExMDYuNTU2ODcyNiAxLjE2NjczOTdjMS4wMzU3NjI2IDIuMTcwMDkyNiAzLjA1MTc1MTggMy43MDE4NDkyIDUuNDA3MzkyOSA0LjEyNTE1MTRsLjI3MzI3NTYuMDQzODk2NyAyLjExNTg3NDUtLjAwMDM2NTkuMDAwMzE4Ny02LjA4OTgwODVjMC0uNTUyMjg0Ny40NDc3MTUyLTEgMS0xIC4yMTYzNzAyIDAgLjQyNjkwMzguMDcwMTc3OS42LjJsMTMuMTU3NTA5MSA5Ljg2ODEzMTljLjQ0MTgyNzguMzMxMzcwOS41MzEzNzA5Ljk1ODE3MjIuMiAxLjQtLjA1Njg1NDIuMDc1ODA1Ny0uMTI0MTk0My4xNDMxNDU4LS4yLjJsLTEzLjE1NzUwOTEgOS44NjgxMzE5Yy0uNDQxODI3OC4zMzEzNzA4LTEuMDY4NjI5Mi4yNDE4Mjc4LTEuNC0uMi0uMTI5ODIyMi0uMTczMDk2Mi0uMi0uMzgzNjI5OC0uMi0uNmwtLjAwMDMxODctNi44NjQ0NTUzLTQuMzgzNTExOS0uMjY0OTI2OWMtMy42MTkxMzg4LS4yMTk1NDIxLTYuODYyNjYwNi0yLjI4MzYwODMtOC41OTgzMjA0LTUuNDQ5NTU5bC0uMTUzNjAxOS0uMjkwODI4NS0xOS4zOTczNDg5LTM4Ljc1NzQ5NzYtLjUzMzc5ODMtMS4wNDk5MTg2Yy0xLjAyMzQwMTItMi4wMTI5MTAxLTMuMDkwMzAwMi0zLjI4MDc1NzMtNS4zNDg0MzE1LTMuMjgwNzU3M2gtOC4yNjU5ODcxMXYtNi43NDA1MTIxMnoiIGZpbGw9IiMxYzgyZmQiLz48cGF0aCBkPSJtMjAuODUxNTgzNiAwYzIuODQ2NDUxNCAwIDUuNDYxODYxNSAxLjUzOTYzOTMzIDYuODQ3MjAyOSA0LjAwOTQxMjM2bC4xMzQzOTY5LjI1MDA1NTE4IDE5Ljk4ODkwNjUgMzkuNjM3Nzc2MjYuNjM4MyAxLjI0MDY0NzRjMS4wNDA2NTU2IDIuMDIyNjk1NCAzLjA4NzMwODggMy4zMjA5MjA3IDUuMzQ3Mjk0IDMuNDExMDcxMWwuMjUxOTQ3MS4wMDUwMjA2IDIuMTE1ODc0NS0uMDAwOTgyOS4wMDAzMTg3LTYuMjAxMzUxNmMwLS41NTIyODQ4LjQ0NzcxNTItMSAxLTEgLjIxNjM3MDIgMCAuNDI2OTAzOC4wNzAxNzc4LjYuMmwxMy4xNTc1MDkxIDkuODY4MTMxOGMuNDQxODI3OC4zMzEzNzA5LjUzMTM3MDkuOTU4MTcyMi4yIDEuNC0uMDU2ODU0Mi4wNzU4MDU3LS4xMjQxOTQzLjE0MzE0NTgtLjIuMmwtMTMuMTU3NTA5MSA5Ljg2ODEzMTljLS40NDE4Mjc4LjMzMTM3MDgtMS4wNjg2MjkyLjI0MTgyNzgtMS40LS4yLS4xMjk4MjIyLS4xNzMwOTYyLS4yLS4zODM2Mjk4LS4yLS42bC0uMDAwMzE4Ny02LjcwMzkxMjEtNC4zNzI0NDc2LjAwMDYxNTRjLTMuNTk3MDAwMSAwLTYuODk3ODQ1OC0xLjk2MzQ2NzUtOC42MTkzMjg3LTUuMTAzMjc1M2wtLjE0MzY1NzktLjI3MTk4ODktMTkuMzk3MzQ4OS0zOC45MzgxNjMxLS41MzM3OTgzLTEuMDQ5OTE4N2MtMS4wMjM0MDEyLTIuMDEyOTEwMDctMy4wOTAzMDAyLTMuMjgwNzU3MjYtNS4zNDg0MzE1LTMuMjgwNzU3MjZoLTguMjY1OTg3MTF2LTYuNzQwNTEyMTR6IiBmaWxsPSIjNTJlOGY2IiB0cmFuc2Zvcm09Im1hdHJpeCgxIDAgMCAtMSAwIDYzLjI5Njc1KSIvPjxnIGZpbGw9IiMzNDg1ZmYiPjxjaXJjbGUgY3g9IjguNzAzMjk3IiBjeT0iMTEuMDc2OTciIHI9IjguNzAzMjk3Ii8+PGNpcmNsZSBjeD0iOC43MDMyOTciIGN5PSI2MC4xMzE5MTUiIHI9IjguNzAzMjk3Ii8+PC9nPjwvZz48L2c+PC9zdmc+" />
+                                <h2 class="title">可视化工作流</h2>
+                                <p class="desc">每个团队的工作方法和流程各不相同，在这里，定制您的团队独有的工作流，在可视化「看板」规划、跟踪项目进展。</p>
+                            </div>
+                            <div class="tab-cell" data-aos="zoom-in" data-aos-delay="300">
+                                <img width="75" height="75"
+                                    src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjkwIiB2aWV3Qm94PSIwIDAgOTAgOTAiIHdpZHRoPSI5MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Im0wIDBoOTB2OTBoLTkweiIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUgNCkiPjxjaXJjbGUgY3g9IjM3LjQ3NzQ3OCIgY3k9IjQ1LjQwNTQwNSIgZmlsbD0iIzNkZTZmNSIgcj0iMzcuNDc3NDc4Ii8+PHBhdGggZD0ibTEzLjY5MzY5MzcgNTEuMTAzMzEzNmg0LjgxMzQ4NmwzLjEwNzAzNzYtOC43NTI4NDg4IDUuODc3MzQ0OCAxNy40NjkzNTUgNy4xMjE2Nzk2LTI4LjgyODgyODggMy45Mzk2MDIgMjAuMTEyMzIyNmgyMS45OTk1NDg5IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNC4zMjQzMjQiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0Ni4xMjYxMjYpIj48Y2lyY2xlIGN4PSIxNi45MzY5MzciIGN5PSIxNi45MzY5MzciIGZpbGw9IiMzNDg1ZmYiIHI9IjE2LjkzNjkzNyIvPjxwYXRoIGQ9Im0yNy4zODczODc0IDEwLjA5MDA5MDEtMTMuMTIwNDE4MiAxNS4xMzUxMzUxLTcuNzgwNDgyNzEtOC42NTg3NjUyIDQuODExNjY0NjEtLjA0Mjk1NTkgMi45Njg4MTgxIDMuMzY4MzA3NCA4LjQ3NDIyOTItOS44MDE3MjE0eiIgZmlsbD0iI2ZmZiIgZmlsbC1ydWxlPSJub256ZXJvIi8+PC9nPjwvZz48L2c+PC9zdmc+" />
+                                <h2 class="title">度量研发投入</h2>
+                                <p class="desc">丰富的数据仪表盘为团队管理者提供决策依据，和公司战略目标联动、度量团队工作负荷，科学调度资源。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 第二个多层 -->
+                    <div class="detail second-detail">
+                        <div class="title-link">
+                            <div class="header-link has-link"></div>
+                            <div class="title">
+                                <img width="360" height="54"
+                                    src="https://assets.codehub.cn/images/06.22c6830d.svg" />
+                            </div>
+                            <div class="footer-link"></div>
+                        </div>
+                        <div class="epic code">
+                            <div class="tip saomiao" data-aos="fade-up"></div>
+                            <div class="tip goujian" data-aos="fade-up" data-aos-delay="200"></div>
+                            <div class="tip zhipin" data-aos="fade-up"></div>
+                            <div class="tip fabu" data-aos="fade-up" data-aos-delay="200"></div>
+                        </div>
+                        <div class="code-link"></div>
+                        <div class="code-tab">
+                            <div class="tab-cell" data-aos="zoom-in" data-aos-delay="100">
+                                <img width="75" height="75"
+                                    src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjkwIiB2aWV3Qm94PSIwIDAgOTAgOTAiIHdpZHRoPSI5MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Im0wIDBoOTB2OTBoLTkweiIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDggNCkiPjxwYXRoIGQ9Im0wIDIwLjI4MTEzNzZ2MzUuMTQxNjA2N2MwIDEuNjU2ODU0MiAxLjM0MzE0NTc1IDMgMyAzIC40MzgzNjk2MyAwIC44NzE0MTMyMy0uMDk2MDcwNSAxLjI2ODY1NjQtLjI4MTQ1MDZsMzUtMTYuMzMzMzMzNGMxLjA1NjIyMzMtLjQ5MjkwNDIgMS43MzEzNDM2LTEuNTUyOTc1NiAxLjczMTM0MzYtMi43MTg1NDk0di0zNC40NjEzNjA5MmMwLTEuNjU2ODU0MjUtMS4zNDMxNDU4LTMtMy0zLS40MjIxMDUzIDAtLjgzOTQ1OTYuMDg5MDc1NjUtMS4yMjQ3ODQ4LjI2MTQwNTA1bC0zNC45OTk5OTk5NiAxNS42NTMwODc2N2MtMS4wNzk5NTM3OS40ODI5ODg4LTEuNzc1MjE1MjQgMS41NTU1NTcxLTEuNzc1MjE1MjQgMi43Mzg1OTQ5eiIgZmlsbD0iIzNkZTZmNSIgb3BhY2l0eT0iLjg4ODQxNiIvPjxwYXRoIGQ9Im0xNi40IDMxLjIxNDQ3MDl2MzUuMTQxNjA2N2MwIDEuNjU2ODU0MiAxLjM0MzE0NTggMyAzIDMgLjQzODM2OTYgMCAuODcxNDEzMi0uMDk2MDcwNCAxLjI2ODY1NjQtLjI4MTQ1MDZsMzUtMTYuMzMzMzMzM2MxLjA1NjIyMzMtLjQ5MjkwNDIgMS43MzEzNDM2LTEuNTUyOTc1NiAxLjczMTM0MzYtMi43MTg1NDk0di0zNC40NjEzNjFjMC0xLjY1Njg1NDItMS4zNDMxNDU4LTMtMy0zLS40MjIxMDUzIDAtLjgzOTQ1OTYuMDg5MDc1Ny0xLjIyNDc4NDguMjYxNDA1MWwtMzUgMTUuNjUzMDg3NmMtMS4wNzk5NTM3LjQ4Mjk4ODktMS43NzUyMTUyIDEuNTU1NTU3MS0xLjc3NTIxNTIgMi43Mzg1OTQ5eiIgZmlsbD0iIzFjODJmZCIgb3BhY2l0eT0iLjkwNDEzNCIvPjxwYXRoIGQ9Im0zMi44IDQyLjE0NzgwNDN2MzUuMTQxNjA2NmMwIDEuNjU2ODU0MyAxLjM0MzE0NTggMyAzIDMgLjQzODM2OTYgMCAuODcxNDEzMi0uMDk2MDcwNCAxLjI2ODY1NjQtLjI4MTQ1MDZsMzUtMTYuMzMzMzMzM2MxLjA1NjIyMzMtLjQ5MjkwNDIgMS43MzEzNDM2LTEuNTUyOTc1NiAxLjczMTM0MzYtMi43MTg1NDk0di0zNC40NjEzNjFjMC0xLjY1Njg1NDItMS4zNDMxNDU4LTMtMy0zLS40MjIxMDUzIDAtLjgzOTQ1OTYuMDg5MDc1Ny0xLjIyNDc4NDguMjYxNDA1MWwtMzUgMTUuNjUzMDg3NmMtMS4wNzk5NTM3LjQ4Mjk4ODktMS43NzUyMTUyIDEuNTU1NTU3Mi0xLjc3NTIxNTIgMi43Mzg1OTV6IiBmaWxsPSIjM2RlNmY1IiBvcGFjaXR5PSIuODg4NDE2Ii8+PC9nPjwvZz48L3N2Zz4=" />
+                                <h2 class="title">高度自动化、标准化</h2>
+                                <p class="desc">从代码到生产发布，定义标准的端到端交付流程，自动化的 CI/CD 工具链帮您轻松交付，提升需求响应效率。</p>
+                            </div>
+                            <div class="tab-cell" data-aos="zoom-in" data-aos-delay="200">
+                                <img width="75" height="75"
+                                    src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjkwIiB2aWV3Qm94PSIwIDAgOTAgOTAiIHdpZHRoPSI5MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Im0wIDBoOTB2OTBoLTkweiIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUgNikiPjxwYXRoIGQ9Im03Ljc2MDAzNTc4IDE4LjAwNDYwNDljLTMuODAyNDg0MTkgNS45OTE5OTQtNi4wMDQ0NDE5OCAxMy4wOTk3MTQxLTYuMDA0NDQxOTggMjAuNzIxNzI5IDAgMjEuMzg3OTYzNiAxNy4zMzgzNzAzIDM4LjcyNjMzMzkgMzguNzI2MzMzOSAzOC43MjYzMzM5czM4LjcyNjMzMzktMTcuMzM4MzcwMyAzOC43MjYzMzM5LTM4LjcyNjMzMzktMTcuMzM4MzcwMy0zOC43MjYzMzM5LTM4LjcyNjMzMzktMzguNzI2MzMzOWMtNi40NTQyNDc1IDAtMTIuNTM5NzE4MSAxLjU3ODkyMTg0LTE3Ljg5MTIyNjIgNC4zNzE1ODAwMSIgc3Ryb2tlPSIjM2RlNmY1IiBzdHJva2Utd2lkdGg9IjQiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMC44NDMzNzMgMTcuMDM5NTg3KSI+PHBhdGggZD0ibTE4LjAyMDYzMyA0MS44Mjg5MDI3IDkuODI5NDM2MS0xMC4yMTUzMTA3LTguMTkxMTk2OC0zLjMxMTkwMDF6IiBmaWxsPSIjM2RlNmY1Ii8+PHBhdGggZD0ibTUwLjAzMzE3MDUuMDk4NDA0NTZjLTMzLjM1MjU3NDYgMTQuNzUxMzk2NzQtNTAuMDMwMjk3OTcgMjIuMTI3MDk1MTQtNTAuMDMzMTcwMjIgMjIuMTI3MDk1MTQtLjAwMjg3MDg3IDAgNi4wMDQwMDY2OSAxLjQxODIxNTcgMTguMDIwNjMyNzIgNC4yNTQ2NDcxbDE4LjAyMDYzMjkgMjAuMDM2OTk1N3oiIGZpbGw9IiMzZGU2ZjUiLz48cGF0aCBkPSJtMTIuNzA4NzY1OSAyNS4yNDAyMzI1IDUuMzExODY3MSAxNi42MTc1OTAyIDEuNjM4MjM5My0xMy41NTYxMzA4IDI5LjU4NzU5NTctMjcuMzg0MDAxNzF6IiBmaWxsPSIjMGM3ZmZjIi8+PC9nPjxjaXJjbGUgY3g9IjcuOTUxODA3IiBjeT0iMTcuNzYyNDc5IiBmaWxsPSIjMzQ4NWZmIiByPSI3Ljk1MTgwNyIvPjwvZz48L2c+PC9zdmc+" />
+                                <h2 class="title">免部署、低成本实现持续交付</h2>
+                                <p class="desc">不需要本地搭建，在浏览器中集成你的 DevOps 开发环境，弹性调整运维配置，最低成本实现交付能力升级。</p>
+                            </div>
+                            <div class="tab-cell" data-aos="zoom-in" data-aos-delay="300">
+                                <img width="75" height="75"
+                                    src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjkwIiB2aWV3Qm94PSIwIDAgOTAgOTAiIHdpZHRoPSI5MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Im0wIDBoOTB2OTBoLTkweiIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUgMykiPjxwYXRoIGQ9Im0zMS40Njc2MjU5IDMxLjQ2NzYyNTl2LTMxLjQ2NzYyNTljMTcuMzc5MDg5OSAwIDMxLjQ2NzYyNTkgMTQuMDg4NTM2IDMxLjQ2NzYyNTkgMzEuNDY3NjI1OWgtMTAuNzMxMTQ2NWMtLjM3OTc0LjIwMTg4ODMtLjU2OTYxLjQ1Nzc3MjQtLjU2OTYxLjc2NzY1MjIgMCAuMzAwMzg1OS4xMTY1ODA2LjcxODEyMDUuMzQ5NzQxNyAxLjI1MzIwMzguMjk3NzQ2Ny42NDg1MTc3LjQ2MTgwNjIgMS4zNjY4NTA4LjQ2MTgwNjIgMi4xMjMwMjg5IDAgMi44NjA3NTU1LTIuMzQ4MDg5NCA1LjE3OTg1NjEtNS4yNDQ2MDQ0IDUuMTc5ODU2MS0yLjg5NjUxNDkgMC01LjI0NDYwNDMtMi4zMTkxMDA2LTUuMjQ0NjA0My01LjE3OTg1NjEgMC0uOTIxNDU1NC4yNzYwNzcxLTIuMDIwMzQyNy43MDQ5MjU1LTIuNzgyNjg3Mi4wNjY1MDA0LS4yMzIyMzYuMDk5NjUwOC0uNDI5NzQzMi4wOTk2NTA4LS41OTM1NDU1IDAtLjMxMjI2OTktLjE0NDQ2NzItLjU2ODE1NC0uNDMzNDAxNy0uNzY3NjUyMnoiIGZpbGw9IiMzZGU2ZjUiLz48cGF0aCBkPSJtMzEuNDY3NjI1OSAzMS40Njc2MjU5aC0zMS40Njc2MjU5YzAtMTcuMzc5MDg5OSAxNC4wODg1MzYtMzEuNDY3NjI1OSAzMS40Njc2MjU5LTMxLjQ2NzYyNTl2MTIuNDc5MzQ3OWMuMjAxODg4My4zNzk3NC40NTc3NzI0LjU2OTYxLjc2NzY1MjIuNTY5NjEuMzAwMzg1OSAwIC43MTgxMjA1LS4xMTY1ODA1IDEuMjUzMjAzOC0uMzQ5NzQxNy42NDg1MTc3LS4yOTc3NDY2IDEuMzY2ODUwOC0uNDYxODA2MSAyLjEyMzAyODktLjQ2MTgwNjEgMi44NjA3NTU1IDAgNS4xNzk4NTYxIDIuMzQ4MDg5MyA1LjE3OTg1NjEgNS4yNDQ2MDQzcy0yLjMxOTEwMDYgNS4yNDQ2MDQzLTUuMTc5ODU2MSA1LjI0NDYwNDNjLS45MjE0NTU0IDAtMi4wMjAzNDI3LS4yNzYwNzcxLTIuNzgyNjg3Mi0uNzA0OTI1NC0uMjMyMjM2LS4wNjY1MDA0LS40Mjk3NDMyLS4wOTk2NTA5LS41OTM1NDU1LS4wOTk2NTA5LS4zMTIyNjk5IDAtLjU2ODE1NC4xNDQ0NjczLS43Njc2NTIyLjQzMzQwMTd6IiBmaWxsPSIjMWM4MmZkIi8+PHBhdGggZD0ibTMxLjQ2NzYyNTkgNjIuOTM1MjUxOGMtMTcuMjA1Mjk5IDAtMzEuMTg1NTI2MTItMTMuODA4MTc0MS0zMS40NjM0MTAxNC0zMC45NDcyNTEybC0uMDA0MjE1NzYtLjUyMDM3NDdoMTAuNzMxMTQ2NWMuMzc5NzQtLjIwMTg4ODMuNTY5NjEtLjQ1Nzc3MjQuNTY5NjEtLjc2NzY1MjIgMC0uMzAwMzg1OS0uMTE2NTgwNi0uNzE4MTIwNS0uMzQ5NzQxNy0xLjI1MzIwMzgtLjI5Nzc0NjctLjY0ODUxNzctLjQ2MTgwNjItMS4zNjY4NTA4LS40NjE4MDYyLTIuMTIzMDI4OSAwLTIuODYwNzU1NSAyLjM0ODA4OTQtNS4xNzk4NTYxIDUuMjQ0NjA0My01LjE3OTg1NjEgMi44OTY1MTUgMCA1LjI0NDYwNDQgMi4zMTkxMDA2IDUuMjQ0NjA0NCA1LjE3OTg1NjEgMCAuOTIxNDU1NC0uMjc2MDc3MSAyLjAyMDM0MjctLjcwNDkyNTUgMi43ODI2ODcyLS4wNjY1MDA0LjIzMjIzNi0uMDk5NjUwOC40Mjk3NDMyLS4wOTk2NTA4LjU5MzU0NTUgMCAuMzEyMjY5OS4xNDQ0NjcyLjU2ODE1NC40MzM0MDE3Ljc2NzY1MjJoMTAuODYwMzgzMnYxMC4yNzc2NDk0Yy0uMTk5NDk4Mi4yODg5MzQ1LS40NTUzODIzLjQzMzQwMTctLjc2NzY1MjIuNDMzNDAxNy0uMTYzODAyMyAwLS4zNjEzMDk1LS4wMzMxNTA0LS41OTM1NDU1LS4wOTk2NTA4LS43NjIzNDQ1LS40Mjg4NDg0LTEuODYxMjMxOC0uNzA0OTI1NS0yLjc4MjY4NzItLjcwNDkyNTUtMi44NjA3NTU1IDAtNS4xNzk4NTYxIDIuMzQ4MDg5NC01LjE3OTg1NjEgNS4yNDQ2MDQzIDAgMi44OTY1MTUgMi4zMTkxMDA2IDUuMjQ0NjA0NCA1LjE3OTg1NjEgNS4yNDQ2MDQ0Ljc1NjE3ODEgMCAxLjQ3NDUxMTItLjE2NDA1OTUgMi4xMjMwMjg5LS40NjE4MDYyLjUzNTA4MzMtLjIzMzE2MTEuOTUyODE3OS0uMzQ5NzQxNyAxLjI1MzIwMzgtLjM0OTc0MTcuMzA5ODc5OCAwIC41NjU3NjM5LjE4OTg3Ljc2NzY1MjIuNTY5NjF6IiBmaWxsPSIjM2RlNmY1Ii8+PHBhdGggZD0ibTcxLjY3NjI1OSA4MS41ODI3MzM4Yy0xNy4yMDUyOTkgMC0zMS4xODU1MjYxLTEzLjgwODE3NDEtMzEuNDYzNDEwMS0zMC45NDcyNTEybC0uMDA0MjE1OC0uNTIwMzc0N2gxMC43MzExNDY1Yy4zNzk3NC0uMjAxODg4My41Njk2MS0uNDU3NzcyNC41Njk2MS0uNzY3NjUyMiAwLS4zMDAzODU5LS4xMTY1ODA2LS43MTgxMjA1LS4zNDk3NDE3LTEuMjUzMjAzOC0uMjk3NzQ2Ny0uNjQ4NTE3Ny0uNDYxODA2Mi0xLjM2Njg1MDgtLjQ2MTgwNjItMi4xMjMwMjg5IDAtMi44NjA3NTU1IDIuMzQ4MDg5NC01LjE3OTg1NjEgNS4yNDQ2MDQzLTUuMTc5ODU2MSAyLjg5NjUxNSAwIDUuMjQ0NjA0NCAyLjMxOTEwMDYgNS4yNDQ2MDQ0IDUuMTc5ODU2MSAwIC45MjE0NTU1LS4yNzYwNzcxIDIuMDIwMzQyNy0uNzA0OTI1NSAyLjc4MjY4NzItLjA2NjUwMDQuMjMyMjM2LS4wOTk2NTA4LjQyOTc0MzItLjA5OTY1MDguNTkzNTQ1NSAwIC4zMTIyNjk5LjE0NDQ2NzIuNTY4MTU0LjQzMzQwMTcuNzY3NjUyMmgxMC44NjAzODMydjEwLjI3NzY0OTRjLS4xOTk0OTgyLjI4ODkzNDUtLjQ1NTM4MjMuNDMzNDAxNy0uNzY3NjUyMi40MzM0MDE3LS4xNjM4MDIzIDAtLjM2MTMwOTUtLjAzMzE1MDQtLjU5MzU0NTUtLjA5OTY1MDgtLjc2MjM0NDUtLjQyODg0ODQtMS44NjEyMzE4LS43MDQ5MjU1LTIuNzgyNjg3Mi0uNzA0OTI1NS0yLjg2MDc1NTUgMC01LjE3OTg1NjEgMi4zNDgwODk0LTUuMTc5ODU2MSA1LjI0NDYwNDQgMCAyLjg5NjUxNDkgMi4zMTkxMDA2IDUuMjQ0NjA0MyA1LjE3OTg1NjEgNS4yNDQ2MDQzLjc1NjE3ODEgMCAxLjQ3NDUxMTItLjE2NDA1OTUgMi4xMjMwMjg5LS40NjE4MDYyLjUzNTA4MzMtLjIzMzE2MTEuOTUyODE3OC0uMzQ5NzQxNyAxLjI1MzIwMzgtLjM0OTc0MTcuMzA5ODc5OCAwIC41NjU3NjM5LjE4OTg3Ljc2NzY1MjIuNTY5NjF6IiBmaWxsPSIjMWM4MmZkIiB0cmFuc2Zvcm09Im1hdHJpeCguNDA2NzM2NjQgLS45MTM1NDU0NiAuOTEzNTQ1NDYgLjQwNjczNjY0IC0yMi43MDg1NDggODcuNDA2MDAyKSIvPjwvZz48L2c+PC9zdmc+" />
+                                <h2 class="title">丰富的扩展能力</h2>
+                                <p class="desc">除 CODING 代码仓库和制品库能力，无缝集成 GitHub、GitLab
+                                    等第三方代码库及各类常见的运维系统和云原生环境来构建/发布您的软件。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 第三个多层 -->
+                    <div class="detail">
+                        <div class="plane-link">
+                            <div class="header-link has-plane"></div>
+                            <div class="plane">
+                                <img width="25" height="30"
+                                    src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjhweCIgaGVpZ2h0PSIyOHB4IiB2aWV3Qm94PSIwIDAgMjggMjgiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+6aOe5py6PC90aXRsZT4KICAgIDxkZWZzPgogICAgICAgIDxmaWx0ZXIgaWQ9ImZpbHRlci0xIj4KICAgICAgICAgICAgPGZlQ29sb3JNYXRyaXggaW49IlNvdXJjZUdyYXBoaWMiIHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwIDAgMCAwIDEuMDAwMDAwIDAgMCAwIDAgMS4wMDAwMDAgMCAwIDAgMCAxLjAwMDAwMCAwIDAgMCAxLjAwMDAwMCAwIj48L2ZlQ29sb3JNYXRyaXg+CiAgICAgICAgPC9maWx0ZXI+CiAgICA8L2RlZnM+CiAgICA8ZyBpZD0i5a6Y572RLTMuMCIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IummlumhtTAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtOTQ2LjAwMDAwMCwgLTQ2ODYuMDAwMDAwKSI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0zOCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDYwLjAwMDAwMCwgNDYwNS4wMDAwMDApIj4KICAgICAgICAgICAgICAgIDxnIGlkPSJHcm91cC00IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0NzUuMDAwMDAwLCA3MC4wMDAwMDApIj4KICAgICAgICAgICAgICAgICAgICA8ZyBpZD0i57yW57uELTY2IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMC4wMDAwMDAsIC0wLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgICAgICA8ZyBpZD0iRGV2L1JvY2tldCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTEuMDAwMDAwLCAxMS4wMDAwMDApIiBmaWx0ZXI9InVybCgjZmlsdGVyLTEpIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xNy4yNzc0NDM5LDI0LjUgTDE3LjI2NzgxMzMsMjQuNjkzMjI1OCBDMTcuMTQ2NTIxNywyNS45NTA0MzMxIDE1Ljg5MjgwNDIsMjcuODAzMzEwMiAxNC4yNjA3MzAyLDI3Ljk4NTQ1NDkgTDE0LDI4IEMxMi4yNDIzMDI5LDI4IDEwLjg1OTg2MiwyNi4wMTY2MDE5IDEwLjczMjE4NjcsMjQuNjkzMjI1OCBMMTAuNzIyNTU2MSwyNC41IEwxNy4yNzc0NDM5LDI0LjUgWiBNMTQsMy45OTQ1ODI0NGUtMTMgQzE5LjI1LDIuMzMzMzMzMzMgMjEuNTgzMzMzMyw2LjEyNSAyMSwxMS4zNzUgQzIwLjkzNjY1MTYsMTEuOTQ1MTM1NyAyMC44Njk4NjM0LDEyLjUwMTUxMjYgMjAuNzk5NjM1NiwxMy4wNDQxMzA0IEwyMC42MTY4OTk3LDE0LjM3MjAxMDcgQzIzLjM4Mjk4MDEsMTUuMzAwOTAxNiAyNS4zNzUsMTcuOTE3ODIwMiAyNS4zNzUsMjEgTDI1LjM3NSwyMy42MjUgTDIuNjI1LDIzLjYyNSBMMi42MjUsMjEgQzIuNjI1LDE3Ljk1NDA2NTkgNC41NzA0NDQwNCwxNS4zNjI1MTQ3IDcuMjg2NTU2NjEsMTQuNDAwMTIxNyBMNy4zODMxMDAyNiwxNC4zNzIwMTA3IEw3LjIwMDM2NDQ1LDEzLjA0NDEzMDQgQzcuMTMwMTM2NTcsMTIuNTAxNTEyNiA3LjA2MzM0ODQyLDExLjk0NTEzNTcgNywxMS4zNzUgQzYuNDE2NjY2NjcsNi4xMjUgOC43NSwyLjMzMzMzMzMzIDE0LDMuOTk0NTgyNDRlLTEzIFogTTguMjI4ODg3MDEsMTguOTg2MTg5NCBMNy45OTQ5Nzk0NywxNy45MDMwNTY0IEM3LjE3MzI1MDc2LDE4LjMzNTQ4MSA2LjU0NTQwNjM2LDE5LjA4NTI3MjEgNi4yNzMxODY2LDE5Ljk4OTE1MzcgTDYuMjM3LDIwLjEyNSBMOC41MDUxMDQ4NSwyMC4xMjU2NjgzIEw4LjQxNzAzMjM1LDE5Ljc3NzE3MzQgQzguMzUyOTcxMjMsMTkuNTE4ODcwMSA4LjI5MDI1NjU3LDE5LjI1NTIxMDIgOC4yMjg4ODcwMSwxOC45ODYxODk0IEw4LjIyODg4NzAxLDE4Ljk4NjE4OTQgWiBNMjAuMDA1MTkxNywxNy45MDIwMjk4IEwxOS45ODI2OTksMTguMDExNjc4MiBDMTkuODgxNzc2MiwxOC41MDAxNDQyIDE5Ljc3NjgxNjYsMTguOTcyNDYyNSAxOS42Njc4MjAxLDE5LjQyODYzMzIgTDE5LjQ5NDg5NTEsMjAuMTI1NjY4MyBMMjEuNzYxMjUsMjAuMTI1IEwyMS43MjY4MTM0LDE5Ljk4OTE1MzcgQzIxLjQ1NDUxNDYsMTkuMDg1MDA5NiAyMC44MjYzODQ2LDE4LjMzNTA0NTUgMjAuMDA1MTkxNywxNy45MDIwMjk4IFogTTE0LDMuOTIzNSBMMTMuODk5ODk5MywzLjk4MTI1NDI1IEMxMS4xNDg0MTkyLDUuNjMzMjQ3NDUgMTAuMTI3MjExNiw3LjgyNjA1NjYgMTAuNDc4NTkzMSwxMC45ODg0ODk3IEMxMC44Njc4Njc0LDE0LjQ5MTk1ODIgMTEuMzg3NTQyMywxNy40MTMyNDE3IDEyLjAyMjMzMTgsMTkuNzM1NTA3MSBMMTIuMTMxLDIwLjEyNSBMMTUuODY3MjUsMjAuMTI1IEwxNS45Nzc2NjgyLDE5LjczNTUwNzEgQzE2LjU1OTU1ODYsMTcuNjA2NzYzOCAxNy4wNDQ3MjA4LDE0Ljk3NDY3ODkgMTcuNDIxMzgwNSwxMS44NTIyMTgyIEwxNy41MjE0MDY5LDEwLjk4ODQ4OTcgQzE3Ljg3Mjc4ODQsNy44MjYwNTY2IDE2Ljg1MTU4MDgsNS42MzMyNDc0NSAxNC4xMDAxMDA3LDMuOTgxMjU0MjUgTDE0LDMuOTIzNSBaIE0xNCw3IEMxNC45NjY0OTgzLDcgMTUuNzUsNy43ODM1MDE2OSAxNS43NSw4Ljc1IEMxNS43NSw5LjcxNjQ5ODMxIDE0Ljk2NjQ5ODMsMTAuNSAxNCwxMC41IEMxMy4wMzM1MDE3LDEwLjUgMTIuMjUsOS43MTY0OTgzMSAxMi4yNSw4Ljc1IEMxMi4yNSw3Ljc4MzUwMTY5IDEzLjAzMzUwMTcsNyAxNCw3IFoiIGlkPSJQYXRoIiBmaWxsPSIjMjAyRDQwIiBmaWxsLXJ1bGU9Im5vbnplcm8iPjwvcGF0aD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+" />
+                            </div>
+                            <div class="footer-link has-plane"></div>
+                        </div>
+                        <div class="figure">
+                            <div class="figure-cell">
+                                <img width="229" height="102"
+                                    src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjI5cHgiIGhlaWdodD0iNTNweCIgdmlld0JveD0iMCAwIDIyOSA1MyIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4KICAgIDx0aXRsZT44MiU8L3RpdGxlPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggZD0iTTIyLjMwNCw1Mi40IEMzMC44MDQsNTIuNCAzNS4zNiw1MC40MjggMzYuODU2LDQxLjc5MiBMMzcuNjA0LDM3LjUwOCBDMzcuOTQ0LDM1Ljc0IDM4LjM1MiwzMy40MjggMzguMzUyLDMxLjUyNCBDMzguMzUyLDI4LjEyNCAzNi44NTYsMjYuMTUyIDMzLjY2LDI1LjIgQzM2Ljg1NiwyNC4zODQgMzkuMzA0LDIyLjQxMiA0MC4yNTYsMTcuNTE2IEw0MC45MzYsMTMuOTEyIEM0MS4yNzYsMTIuMTQ0IDQxLjQxMiwxMC42NDggNDEuNDEyLDkuMjg4IEM0MS40MTIsMi41NTYgMzcuNDY4LDAuOTI0IDI4LjY5NiwwLjkyNCBMMjAuODA4LDAuOTI0IEMxMy4wNTYsMC45MjQgOS41ODgsMi4yODQgOC4yMjgsMTAuMTA0IEw3LjU0OCwxMy45OCBDNy4yNzYsMTUuNTQ0IDcuMTQsMTYuOTA0IDcuMTQsMTguMTI4IEM3LjE0LDIxLjg2OCA4LjYzNiwyMy43NzIgMTEuNjk2LDI0LjU4OCBDNi44NjgsMjUuNjA4IDQuMzUyLDI4LjM5NiAzLjI2NCwzNC42NTIgTDIuNDQ4LDM5LjI3NiBDMi4xMDgsNDEuMDQ0IDEuOTcyLDQyLjYwOCAxLjk3Miw0My45NjggQzEuOTcyLDQ5LjgxNiA0Ljk2NCw1Mi40IDEyLjc4NCw1Mi40IEwyMi4zMDQsNTIuNCBaIE0yNC45NTYsMjIuMDA0IEwyMC44NzYsMjIuMDA0IEMxNy40NzYsMjIuMDA0IDE1Ljg0NCwyMS41OTYgMTUuODQ0LDE4LjgwOCBDMTUuODQ0LDE4LjE5NiAxNS45MTIsMTcuMzggMTYuMDQ4LDE2LjU2NCBMMTYuNjYsMTIuOTYgQzE3LjM0LDkuMDg0IDE4LjI5Miw4LjIgMjIuNTA4LDguMiBMMjYuNzI0LDguMiBDMzAuODA0LDguMiAzMi4xNjQsOC42NzYgMzIuMTY0LDExLjY2OCBDMzIuMTY0LDEyLjI4IDMyLjA5NiwxMy4zIDMxLjg5MiwxNC4zMiBMMzEuMzQ4LDE3LjEwOCBDMzAuNiwyMS4wNTIgMjkuMzc2LDIyLjAwNCAyNC45NTYsMjIuMDA0IFogTTIxLjIxNiw0NS4xMjQgTDE2LjQ1Niw0NS4xMjQgQzEyLjY0OCw0NS4xMjQgMTEuMjIsNDQuNjQ4IDExLjIyLDQxLjkyOCBDMTEuMjIsNDAuOTA4IDExLjQyNCwzOS42ODQgMTEuNjk2LDM4LjEyIEwxMi4xNzIsMzUuNCBDMTIuOTg4LDMwLjY0IDEzLjczNiwyOS4yMTIgMTkuMzEyLDI5LjIxMiBMMjMuMTIsMjkuMjEyIEMyNy42MDgsMjkuMjEyIDI5LjI0LDI5LjYyIDI5LjI0LDMyLjc0OCBDMjkuMjQsMzMuNDI4IDI5LjE3MiwzNC4zOCAyOC45NjgsMzUuNDY4IEwyOC4yODgsMzkuMzQ0IEMyNy41NCw0My42OTYgMjYuNTg4LDQ1LjEyNCAyMS4yMTYsNDUuMTI0IFogTTczLjUwOCw1Mi40IEw3Ni42MzYsNDQuODUyIEw1My40NDgsNDQuODUyIEw1NC43NCwzNy41NzYgQzU1LjQyLDMzLjcgNTUuNjI0LDMzLjM2IDYxLjEzMiwzMS43OTYgTDcyLjIxNiwyOC42NjggQzc3LjY1NiwyNy4xMDQgNzguNzQ0LDI2LjM1NiA3OS42OTYsMjAuODQ4IEw4MC45MiwxMy45OCBDODEuNDY0LDEwLjk4OCA4MS44MDQsOC43NDQgODEuODA0LDYuNjM2IEM4MS44MDQsMi40MiA3OS42MjgsMC45MjQgNzEuODc2LDAuOTI0IEw1MS41NDQsMC45MjQgTDUyLjkwNCw4LjQwNCBMNjguNTQ0LDguNDA0IEM3Mi4wOCw4LjQwNCA3My4xNjgsOC42NzYgNzMuMTY4LDEwLjQ0NCBDNzMuMTY4LDEwLjk4OCA3Mi45NjQsMTIuMjEyIDcyLjY5MiwxMy43NzYgTDcxLjg3NiwxOC40IEM3MS40LDIwLjk4NCA3MC45MjQsMjEuNTI4IDY3LjExNiwyMi42MTYgTDU5LjUsMjQuNzkyIEM0OS4wOTYsMjcuNzg0IDQ4LjE0NCwyOC4xMjQgNDYuNTEyLDM3LjMwNCBMNDMuODYsNTIuNCBMNzMuNTA4LDUyLjQgWiBNOTMuNDMyLDUyLjQgTDk1LjIsNDIuODEyIEw4NS42OCw0Mi44MTIgTDgzLjkxMiw1Mi40IEw5My40MzIsNTIuNCBaIE0xMTQuNTEyLDUyLjQgTDE0MC40Miw3LjE4IEwxNDEuNTc2LDAuOTI0IEwxMDkuNjE2LDAuOTI0IEwxMDYuMzUyLDguNDcyIEwxMzAuNjk2LDguNDcyIEwxMDQuNzg4LDUyLjQgTDExNC41MTIsNTIuNCBaIE0xNTcuNDIsMjMuMzY0IEMxNjMuMiwyMy4zNjQgMTY0Ljk2OCwyMS4zOTIgMTY1Ljk4OCwxNS42OCBMMTY2LjgwNCwxMC45ODggQzE2Ny4xNDQsOS4yMiAxNjcuMzQ4LDcuMzg0IDE2Ny4zNDgsNi4zNjQgQzE2Ny4zNDgsMS45NDQgMTY0Ljk2OCwwLjUxNiAxNTkuNTk2LDAuNTE2IEwxNTQuMjI0LDAuNTE2IEMxNDguMzA4LDAuNTE2IDE0Ni44MTIsMi4yODQgMTQ1LjY1Niw4LjEzMiBMMTQ0Ljc3MiwxMi44MjQgQzE0NC40MzIsMTQuNTkyIDE0NC4yOTYsMTYuNDI4IDE0NC4yOTYsMTcuNDQ4IEMxNDQuMjk2LDIxLjkzNiAxNDYuNjA4LDIzLjM2NCAxNTEuOTgsMjMuMzY0IEwxNTcuNDIsMjMuMzY0IFogTTE1Mi44NjQsNTIuNCBMMTkxLjY5MiwwLjkyNCBMMTgzLjI2LDAuOTI0IEwxNDQuNDMyLDUyLjQgTDE1Mi44NjQsNTIuNCBaIE0xNTYuMzMyLDE2LjgzNiBMMTUzLjY4LDE2LjgzNiBDMTUyLjA0OCwxNi44MzYgMTUxLjM2OCwxNi42MzIgMTUxLjM2OCwxNS4zNCBDMTUxLjM2OCwxNC40NTYgMTUxLjU3MiwxMi45NiAxNTEuODQ0LDExLjY2OCBMMTUyLjI1Miw5LjU2IEMxNTIuNjYsNy4zODQgMTUzLDYuOTc2IDE1NS4yNDQsNi45NzYgTDE1Ny44OTYsNi45NzYgQzE1OS41MjgsNi45NzYgMTYwLjI3Niw3LjE4IDE2MC4yNzYsOC40NzIgQzE2MC4yNzYsOS4zNTYgMTYwLjA3MiwxMC44NTIgMTU5LjgsMTIuMTQ0IEwxNTkuMzI0LDE0LjI1MiBDMTU4Ljg0OCwxNi40MjggMTU4LjY0NCwxNi44MzYgMTU2LjMzMiwxNi44MzYgWiBNMTgxLjksNTIuODA4IEMxODcuNjgsNTIuODA4IDE4OS40NDgsNTAuODM2IDE5MC40NjgsNDUuMTI0IEwxOTEuMjg0LDQwLjQzMiBDMTkxLjYyNCwzOC42NjQgMTkxLjgyOCwzNi44MjggMTkxLjgyOCwzNS44MDggQzE5MS44MjgsMzEuMzg4IDE4OS40NDgsMjkuOTYgMTg0LjA3NiwyOS45NiBMMTc4LjcwNCwyOS45NiBDMTcyLjc4OCwyOS45NiAxNzEuMjI0LDMxLjcyOCAxNzAuMTM2LDM3LjU3NiBMMTY5LjI1Miw0Mi4yNjggQzE2OC45MTIsNDQuMDM2IDE2OC43NzYsNDUuODcyIDE2OC43NzYsNDYuODkyIEMxNjguNzc2LDUxLjM4IDE3MS4wODgsNTIuODA4IDE3Ni40Niw1Mi44MDggTDE4MS45LDUyLjgwOCBaIE0xODAuODEyLDQ2LjI4IEwxNzguMTYsNDYuMjggQzE3Ni41MjgsNDYuMjggMTc1Ljg0OCw0Ni4wNzYgMTc1Ljg0OCw0NC43ODQgQzE3NS44NDgsNDMuOSAxNzYuMDUyLDQyLjQwNCAxNzYuMzI0LDQxLjExMiBMMTc2LjczMiwzOS4wMDQgQzE3Ny4xNCwzNi44MjggMTc3LjQ4LDM2LjQyIDE3OS43MjQsMzYuNDIgTDE4Mi4zNzYsMzYuNDIgQzE4NC4wMDgsMzYuNDIgMTg0Ljc1NiwzNi42MjQgMTg0Ljc1NiwzNy45MTYgQzE4NC43NTYsMzguOCAxODQuNTUyLDQwLjI5NiAxODQuMjgsNDEuNTg4IEwxODMuODA0LDQzLjY5NiBDMTgzLjMyOCw0NS44NzIgMTgzLjEyNCw0Ni4yOCAxODAuODEyLDQ2LjI4IFoiIGlkPSJwYXRoLTEiPjwvcGF0aD4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSLlrpjnvZEtMy4wIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0i6aaW6aG1LS0tU2xpY2UiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC00Mjk3LjAwMDAwMCwgLTg1OS4wMDAwMDApIiBmaWxsLXJ1bGU9Im5vbnplcm8iPgogICAgICAgICAgICA8ZyBpZD0i57yW57uELTY3IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0Mjk3LjAwMDAwMCwgODU5LjAwMDAwMCkiPgogICAgICAgICAgICAgICAgPGcgaWQ9IjgyLjclIj4KICAgICAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiM3QUQ5M0EiIHhsaW5rOmhyZWY9IiNwYXRoLTEiPjwvdXNlPgogICAgICAgICAgICAgICAgICAgIDx1c2UgZmlsbD0iIzNEOThGRiIgeGxpbms6aHJlZj0iI3BhdGgtMSI+PC91c2U+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iUGF0aCIgZmlsbD0iIzNEOThGRiIgcG9pbnRzPSIyMTkuNzk5NzggMzYuMTU5MTc5NCAyMDguNjQ2Nzc2IDIzLjMyOTExNjYgMjA0LjQzMTE4NCAyNi45OTM2NzQ5IDIxNS41ODQxODggMzkuODIzNzM3NyAyMDcuMTUzMDAzIDQ3LjE1Mjg1NDMgMjI4Ljg0NDk4NyA1MC44MjE1MjE1IDIyOC4yMzA5NjQgMjguODMwMDYyOSI+PC9wb2x5Z29uPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=" />
+                                <span class="desc">
+                                    研发工具建设成本下降
+                                </span>
+                            </div>
+                            <span class="figure-link"></span>
+                            <div class="figure-cell">
+                                <img width="172" height="102"
+                                    src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTcxcHgiIGhlaWdodD0iNTNweCIgdmlld0JveD0iMCAwIDE3MSA1MyIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4KICAgIDx0aXRsZT42OCU8L3RpdGxlPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggZD0iTTMzLjAyLDQzLjgzMiBMMzQuMzEyLDM2LjQyIEMzNC44NTYsMzMuNDI4IDM1LjI2NCwzMS4wNDggMzUuMjY0LDI4LjgwNCBDMzUuMjY0LDIzLjE2IDMxLjkzMiwyMi4yNzYgMjIuMDA0LDIyLjI3NiBMMTIuMDc2LDIyLjI3NiBMMTIuOTYsMTcuMzggQzE0LjExNiwxMC42NDggMTUuMjA0LDguNDcyIDIwLjY0NCw4LjQ3MiBMMzMuOTA0LDguNDcyIEwzNy4xLDAuOTI0IEwyMC4yMzYsMC45MjQgQzEwLjMwOCwwLjkyNCA2LjkwOCwzLjc4IDUuMDcyLDE0LjE4NCBMMS41MzYsMzQuMzggQzAuNzg4LDM4LjQ2IDAuNTg0LDQwLjc3MiAwLjU4NCw0Mi43NDQgQzAuNTg0LDUwLjI5MiA0LjY2NCw1Mi44NzYgMTQuMTE2LDUyLjg3NiBMMTguMDYsNTIuODc2IEMyNy4zNzYsNTIuODc2IDMxLjUyNCw1Mi4yNjQgMzMuMDIsNDMuODMyIFogTTE5LjU1Niw0NS4zMjggTDE1LjkwNDg3MjIsNDUuMzI3NDU2IEMxMS4yNzc0MDgsNDUuMzE3MDExMiA5LjA4NCw0NS4xMTg1NiA5LjA4NCw0MS43MjQgQzkuMDg0LDM5Ljc1MiA5LjgzMiwzNS4yNjQgMTAuNTEyLDMxLjQ1NiBMMTAuODUyLDI5LjU1MiBMMjEuNjY0LDI5LjU1MiBDMjUuNDA0LDI5LjU1MiAyNi41NiwyOS42ODggMjYuNTYsMzEuODY0IEMyNi41NiwzMi43NDggMjYuMzU2LDM0LjI0NCAyNi4wMTYsMzYuMDEyIEwyNS4yLDQwLjcwNCBDMjQuNTIsNDQuNTEyIDIzLjcwNCw0NS4zMjggMTkuNTU2LDQ1LjMyOCBaIE02MC41Niw1Mi40IEM2OS4wNiw1Mi40IDczLjYxNiw1MC40MjggNzUuMTEyLDQxLjc5MiBMNzUuODYsMzcuNTA4IEM3Ni4yLDM1Ljc0IDc2LjYwOCwzMy40MjggNzYuNjA4LDMxLjUyNCBDNzYuNjA4LDI4LjEyNCA3NS4xMTIsMjYuMTUyIDcxLjkxNiwyNS4yIEM3NS4xMTIsMjQuMzg0IDc3LjU2LDIyLjQxMiA3OC41MTIsMTcuNTE2IEw3OS4xOTIsMTMuOTEyIEM3OS41MzIsMTIuMTQ0IDc5LjY2OCwxMC42NDggNzkuNjY4LDkuMjg4IEM3OS42NjgsMi41NTYgNzUuNzI0LDAuOTI0IDY2Ljk1MiwwLjkyNCBMNTkuMDY0LDAuOTI0IEM1MS4zMTIsMC45MjQgNDcuODQ0LDIuMjg0IDQ2LjQ4NCwxMC4xMDQgTDQ1LjgwNCwxMy45OCBDNDUuNTMyLDE1LjU0NCA0NS4zOTYsMTYuOTA0IDQ1LjM5NiwxOC4xMjggQzQ1LjM5NiwyMS44NjggNDYuODkyLDIzLjc3MiA0OS45NTIsMjQuNTg4IEM0NS4xMjQsMjUuNjA4IDQyLjYwOCwyOC4zOTYgNDEuNTIsMzQuNjUyIEw0MC43MDQsMzkuMjc2IEM0MC4zNjQsNDEuMDQ0IDQwLjIyOCw0Mi42MDggNDAuMjI4LDQzLjk2OCBDNDAuMjI4LDQ5LjgxNiA0My4yMiw1Mi40IDUxLjA0LDUyLjQgTDYwLjU2LDUyLjQgWiBNNjMuMjEyLDIyLjAwNCBMNTkuMTMyLDIyLjAwNCBDNTUuNzMyLDIyLjAwNCA1NC4xLDIxLjU5NiA1NC4xLDE4LjgwOCBDNTQuMSwxOC4xOTYgNTQuMTY4LDE3LjM4IDU0LjMwNCwxNi41NjQgTDU0LjkxNiwxMi45NiBDNTUuNTk2LDkuMDg0IDU2LjU0OCw4LjIgNjAuNzY0LDguMiBMNjQuOTgsOC4yIEM2OS4wNiw4LjIgNzAuNDIsOC42NzYgNzAuNDIsMTEuNjY4IEM3MC40MiwxMi4yOCA3MC4zNTIsMTMuMyA3MC4xNDgsMTQuMzIgTDY5LjYwNCwxNy4xMDggQzY4Ljg1NiwyMS4wNTIgNjcuNjMyLDIyLjAwNCA2My4yMTIsMjIuMDA0IFogTTU5LjQ3Miw0NS4xMjQgTDU0LjcxMiw0NS4xMjQgQzUwLjkwNCw0NS4xMjQgNDkuNDc2LDQ0LjY0OCA0OS40NzYsNDEuOTI4IEM0OS40NzYsNDAuOTA4IDQ5LjY4LDM5LjY4NCA0OS45NTIsMzguMTIgTDUwLjQyOCwzNS40IEM1MS4yNDQsMzAuNjQgNTEuOTkyLDI5LjIxMiA1Ny41NjgsMjkuMjEyIEw2MS4zNzYsMjkuMjEyIEM2NS44NjQsMjkuMjEyIDY3LjQ5NiwyOS42MiA2Ny40OTYsMzIuNzQ4IEM2Ny40OTYsMzMuNDI4IDY3LjQyOCwzNC4zOCA2Ny4yMjQsMzUuNDY4IEw2Ni41NDQsMzkuMzQ0IEM2NS43OTYsNDMuNjk2IDY0Ljg0NCw0NS4xMjQgNTkuNDcyLDQ1LjEyNCBaIE05OC4yMzIsMjMuMzY0IEMxMDQuMDEyLDIzLjM2NCAxMDUuNzgsMjEuMzkyIDEwNi44LDE1LjY4IEwxMDcuNjE2LDEwLjk4OCBDMTA3Ljk1Niw5LjIyIDEwOC4xNiw3LjM4NCAxMDguMTYsNi4zNjQgQzEwOC4xNiwxLjk0NCAxMDUuNzgsMC41MTYgMTAwLjQwOCwwLjUxNiBMOTUuMDM2LDAuNTE2IEM4OS4xMiwwLjUxNiA4Ny42MjQsMi4yODQgODYuNDY4LDguMTMyIEw4NS41ODQsMTIuODI0IEM4NS4yNDQsMTQuNTkyIDg1LjEwOCwxNi40MjggODUuMTA4LDE3LjQ0OCBDODUuMTA4LDIxLjkzNiA4Ny40MiwyMy4zNjQgOTIuNzkyLDIzLjM2NCBMOTguMjMyLDIzLjM2NCBaIE05My42NzYsNTIuNCBMMTMyLjUwNCwwLjkyNCBMMTI0LjA3MiwwLjkyNCBMODUuMjQ0LDUyLjQgTDkzLjY3Niw1Mi40IFogTTk3LjE0NCwxNi44MzYgTDk0LjQ5MiwxNi44MzYgQzkyLjg2LDE2LjgzNiA5Mi4xOCwxNi42MzIgOTIuMTgsMTUuMzQgQzkyLjE4LDE0LjQ1NiA5Mi4zODQsMTIuOTYgOTIuNjU2LDExLjY2OCBMOTMuMDY0LDkuNTYgQzkzLjQ3Miw3LjM4NCA5My44MTIsNi45NzYgOTYuMDU2LDYuOTc2IEw5OC43MDgsNi45NzYgQzEwMC4zNCw2Ljk3NiAxMDEuMDg4LDcuMTggMTAxLjA4OCw4LjQ3MiBDMTAxLjA4OCw5LjM1NiAxMDAuODg0LDEwLjg1MiAxMDAuNjEyLDEyLjE0NCBMMTAwLjEzNiwxNC4yNTIgQzk5LjY2LDE2LjQyOCA5OS40NTYsMTYuODM2IDk3LjE0NCwxNi44MzYgWiBNMTIyLjcxMiw1Mi44MDggQzEyOC40OTIsNTIuODA4IDEzMC4yNiw1MC44MzYgMTMxLjI4LDQ1LjEyNCBMMTMyLjA5Niw0MC40MzIgQzEzMi40MzYsMzguNjY0IDEzMi42NCwzNi44MjggMTMyLjY0LDM1LjgwOCBDMTMyLjY0LDMxLjM4OCAxMzAuMjYsMjkuOTYgMTI0Ljg4OCwyOS45NiBMMTE5LjUxNiwyOS45NiBDMTEzLjYsMjkuOTYgMTEyLjAzNiwzMS43MjggMTEwLjk0OCwzNy41NzYgTDExMC4wNjQsNDIuMjY4IEMxMDkuNzI0LDQ0LjAzNiAxMDkuNTg4LDQ1Ljg3MiAxMDkuNTg4LDQ2Ljg5MiBDMTA5LjU4OCw1MS4zOCAxMTEuOSw1Mi44MDggMTE3LjI3Miw1Mi44MDggTDEyMi43MTIsNTIuODA4IFogTTEyMS42MjQsNDYuMjggTDExOC45NzIsNDYuMjggQzExNy4zNCw0Ni4yOCAxMTYuNjYsNDYuMDc2IDExNi42Niw0NC43ODQgQzExNi42Niw0My45IDExNi44NjQsNDIuNDA0IDExNy4xMzYsNDEuMTEyIEwxMTcuNTQ0LDM5LjAwNCBDMTE3Ljk1MiwzNi44MjggMTE4LjI5MiwzNi40MiAxMjAuNTM2LDM2LjQyIEwxMjMuMTg4LDM2LjQyIEMxMjQuODIsMzYuNDIgMTI1LjU2OCwzNi42MjQgMTI1LjU2OCwzNy45MTYgQzEyNS41NjgsMzguOCAxMjUuMzY0LDQwLjI5NiAxMjUuMDkyLDQxLjU4OCBMMTI0LjYxNiw0My42OTYgQzEyNC4xNCw0NS44NzIgMTIzLjkzNiw0Ni4yOCAxMjEuNjI0LDQ2LjI4IFoiIGlkPSJwYXRoLTEiPjwvcGF0aD4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSLlrpjnvZEtMy4wIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0i6aaW6aG1LS0tU2xpY2UiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC00NjA4LjAwMDAwMCwgLTg1OS4wMDAwMDApIiBmaWxsLXJ1bGU9Im5vbnplcm8iPgogICAgICAgICAgICA8ZyBpZD0i57yW57uELTY4IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0NjA4LjUwMDAwMCwgODU5LjAwMDAwMCkiPgogICAgICAgICAgICAgICAgPHBvbHlnb24gaWQ9IlBhdGgiIGZpbGw9IiMzRDk4RkYiIHBvaW50cz0iMTYwLjc5OTc4IDM3LjgyMzczNzcgMTQ5LjY0Njc3NiA1MC42NTM4MDA2IDE0NS40MzExODQgNDYuOTg5MjQyMyAxNTYuNTg0MTg4IDM0LjE1OTE3OTQgMTQ4LjE1MzAwMyAyNi44MzAwNjI5IDE2OS44NDQ5ODcgMjMuMTYxMzk1NyAxNjkuMjMwOTY0IDQ1LjE1Mjg1NDMiPjwvcG9seWdvbj4KICAgICAgICAgICAgICAgIDxnIGlkPSI2OCUiPgogICAgICAgICAgICAgICAgICAgIDx1c2UgZmlsbD0iIzdBRDkzQSIgeGxpbms6aHJlZj0iI3BhdGgtMSI+PC91c2U+CiAgICAgICAgICAgICAgICAgICAgPHVzZSBmaWxsPSIjM0Q5OEZGIiB4bGluazpocmVmPSIjcGF0aC0xIj48L3VzZT4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+" />
+                                <span class="desc">
+                                    产品交付效率提升
+                                </span>
+                            </div>
+                            <span class="figure-link"></span>
+                            <div class="figure-cell">
+                                <img width="172" height="102"
+                                    src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTcwcHgiIGhlaWdodD0iNTNweCIgdmlld0JveD0iMCAwIDE3MCA1MyIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4KICAgIDx0aXRsZT43NSU8L3RpdGxlPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggZD0iTTEwLjU4LDUyLjQgTDM2LjQ4OCw3LjE4IEwzNy42NDQsMC45MjQgTDUuNjg0LDAuOTI0IEwyLjQyLDguNDcyIEwyNi43NjQsOC40NzIgTDAuODU2LDUyLjQgTDEwLjU4LDUyLjQgWiBNNTIuNzQsNTIuNCBDNjEuMzc2LDUyLjQgNjUuNzI4LDUwLjQ5NiA2Ny4yOTIsNDEuNzkyIEw2OC4zOCwzNS43NCBDNjguOTkyLDMyLjM0IDY5LjMzMiwyOS42MiA2OS4zMzIsMjcuNDQ0IEM2OS4zMzIsMjIuMjA4IDY2Ljg4NCwyMC4zNzIgNTguNzkyLDIwLjM3MiBMNDguNTI0LDIwLjM3MiBMNTAuNjMyLDguMiBMNjguOTI0LDguMiBMNzEuOTE2LDAuOTI0IEw0NC40NDQsMC45MjQgTDM5Ljc1MiwyNy45MiBMNTUuMzI0LDI3LjkyIEM1OC44NiwyNy45MiA2MC42MjgsMjguMDU2IDYwLjYyOCwzMC41NzIgQzYwLjYyOCwzMS41MjQgNjAuNDkyLDMyLjg4NCA2MC4wODQsMzUuMDYgTDU5LjQwNCwzOC44NjggQzU4LjQwMTI4ODEsNDQuNDgzMTg2NCA1Ny42NjE0MzQxLDQ1LjE2OTc4OTEgNTIuNDY4NTkwNyw0NS4xOTE0NTA3IEwzNi40ODgsNDUuMTkyIEwzNy43MTIsNTIuNCBMNTIuNzQsNTIuNCBaIE04OS4xMiwyMy4zNjQgQzk0LjksMjMuMzY0IDk2LjY2OCwyMS4zOTIgOTcuNjg4LDE1LjY4IEw5OC41MDQsMTAuOTg4IEM5OC44NDQsOS4yMiA5OS4wNDgsNy4zODQgOTkuMDQ4LDYuMzY0IEM5OS4wNDgsMS45NDQgOTYuNjY4LDAuNTE2IDkxLjI5NiwwLjUxNiBMODUuOTI0LDAuNTE2IEM4MC4wMDgsMC41MTYgNzguNTEyLDIuMjg0IDc3LjM1Niw4LjEzMiBMNzYuNDcyLDEyLjgyNCBDNzYuMTMyLDE0LjU5MiA3NS45OTYsMTYuNDI4IDc1Ljk5NiwxNy40NDggQzc1Ljk5NiwyMS45MzYgNzguMzA4LDIzLjM2NCA4My42OCwyMy4zNjQgTDg5LjEyLDIzLjM2NCBaIE04NC41NjQsNTIuNCBMMTIzLjM5MiwwLjkyNCBMMTE0Ljk2LDAuOTI0IEw3Ni4xMzIsNTIuNCBMODQuNTY0LDUyLjQgWiBNODguMDMyLDE2LjgzNiBMODUuMzgsMTYuODM2IEM4My43NDgsMTYuODM2IDgzLjA2OCwxNi42MzIgODMuMDY4LDE1LjM0IEM4My4wNjgsMTQuNDU2IDgzLjI3MiwxMi45NiA4My41NDQsMTEuNjY4IEw4My45NTIsOS41NiBDODQuMzYsNy4zODQgODQuNyw2Ljk3NiA4Ni45NDQsNi45NzYgTDg5LjU5Niw2Ljk3NiBDOTEuMjI4LDYuOTc2IDkxLjk3Niw3LjE4IDkxLjk3Niw4LjQ3MiBDOTEuOTc2LDkuMzU2IDkxLjc3MiwxMC44NTIgOTEuNSwxMi4xNDQgTDkxLjAyNCwxNC4yNTIgQzkwLjU0OCwxNi40MjggOTAuMzQ0LDE2LjgzNiA4OC4wMzIsMTYuODM2IFogTTExMy42LDUyLjgwOCBDMTE5LjM4LDUyLjgwOCAxMjEuMTQ4LDUwLjgzNiAxMjIuMTY4LDQ1LjEyNCBMMTIyLjk4NCw0MC40MzIgQzEyMy4zMjQsMzguNjY0IDEyMy41MjgsMzYuODI4IDEyMy41MjgsMzUuODA4IEMxMjMuNTI4LDMxLjM4OCAxMjEuMTQ4LDI5Ljk2IDExNS43NzYsMjkuOTYgTDExMC40MDQsMjkuOTYgQzEwNC40ODgsMjkuOTYgMTAyLjkyNCwzMS43MjggMTAxLjgzNiwzNy41NzYgTDEwMC45NTIsNDIuMjY4IEMxMDAuNjEyLDQ0LjAzNiAxMDAuNDc2LDQ1Ljg3MiAxMDAuNDc2LDQ2Ljg5MiBDMTAwLjQ3Niw1MS4zOCAxMDIuNzg4LDUyLjgwOCAxMDguMTYsNTIuODA4IEwxMTMuNiw1Mi44MDggWiBNMTEyLjUxMiw0Ni4yOCBMMTA5Ljg2LDQ2LjI4IEMxMDguMjI4LDQ2LjI4IDEwNy41NDgsNDYuMDc2IDEwNy41NDgsNDQuNzg0IEMxMDcuNTQ4LDQzLjkgMTA3Ljc1Miw0Mi40MDQgMTA4LjAyNCw0MS4xMTIgTDEwOC40MzIsMzkuMDA0IEMxMDguODQsMzYuODI4IDEwOS4xOCwzNi40MiAxMTEuNDI0LDM2LjQyIEwxMTQuMDc2LDM2LjQyIEMxMTUuNzA4LDM2LjQyIDExNi40NTYsMzYuNjI0IDExNi40NTYsMzcuOTE2IEMxMTYuNDU2LDM4LjggMTE2LjI1Miw0MC4yOTYgMTE1Ljk4LDQxLjU4OCBMMTE1LjUwNCw0My42OTYgQzExNS4wMjgsNDUuODcyIDExNC44MjQsNDYuMjggMTEyLjUxMiw0Ni4yOCBaIiBpZD0icGF0aC0xIj48L3BhdGg+CiAgICA8L2RlZnM+CiAgICA8ZyBpZD0i5a6Y572RLTMuMCIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IummlumhtS0tLVNsaWNlIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNDg3MC4wMDAwMDAsIC04NTkuMDAwMDAwKSIgZmlsbC1ydWxlPSJub256ZXJvIj4KICAgICAgICAgICAgPGcgaWQ9Iue8lue7hC02OSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDg3MC4wMDAwMDAsIDg1OS4wMDAwMDApIj4KICAgICAgICAgICAgICAgIDxwb2x5Z29uIGlkPSJQYXRoIiBmaWxsPSIjM0Q5OEZGIiBwb2ludHM9IjE2MC43OTk3OCAzNy44MjM3Mzc3IDE0OS42NDY3NzYgNTAuNjUzODAwNiAxNDUuNDMxMTg0IDQ2Ljk4OTI0MjMgMTU2LjU4NDE4OCAzNC4xNTkxNzk0IDE0OC4xNTMwMDMgMjYuODMwMDYyOSAxNjkuODQ0OTg3IDIzLjE2MTM5NTcgMTY5LjIzMDk2NCA0NS4xNTI4NTQzIj48L3BvbHlnb24+CiAgICAgICAgICAgICAgICA8ZyBpZD0iNzUlIj4KICAgICAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiM3QUQ5M0EiIHhsaW5rOmhyZWY9IiNwYXRoLTEiPjwvdXNlPgogICAgICAgICAgICAgICAgICAgIDx1c2UgZmlsbD0iIzNEOThGRiIgeGxpbms6aHJlZj0iI3BhdGgtMSI+PC91c2U+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==" />
+                                <span class="desc">
+                                    团队研发效能提升
+                                </span>
+                            </div>
+                        </div>
+                        <span class="note">* 数据来源于 CODING 1000 家企业客户调研结果</span>
+                    </div>
+
+                </div>
+            </section>
+            <section id="qiye-section-h5">
+                <div class="qiye-section-h5-title">
+                    <span>优秀企业的信赖之选，让高效研发触手可及</span>
+                </div>
+                <span class="qiye-desc">
+                    CODING 承载 200 万开发者、 5 万家企业，各行各业的研发团队都在这里改进、提升。
+                </span>
+                <div class="swiper-container" data-aos="fade-up">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="business-card">
+                                <div class="business-img">
+                                    <img src="https://assets.codehub.cn/images/modao.44cd8338.png" />
+                                </div>
+                                <div class="business-card-bottom">
+                                    <div class="tag-grid">
+                                        <span class="tag-cell primary">互联网</span>
+                                        <span class="tag-cell primary">原型设计工具</span>
+                                    </div>
+                                    <h4 class="title">墨刀｜让测试团队工作效率提升 50%</h4>
+
+                                    <span class="tag-desc">
+                                        CODING 帮助墨刀的研发测试团队的工作在线化，自动化管理，让测试工作更有序、高效。
+                                    </span>
+                                    <div class="content">
+                                        <span class="hook">
+                                            节省了 Excel 文件来回传输测试用例时间
+                                        </span>
+                                        <span class="hook">做测试规划的时间减少了 30% 以上</span>
+                                        <span class="hook">测试工作有了量化的数据成果展示</span>
+                                    </div>
+                                    <a class="more" target="_blank" href="https://coding.net/customers/modao.html">了解方案
+                                        <img width="14" height="14"
+                                            src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTYgMTYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE2IDE2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzAwNjZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggaWQ9IlBhdGgiIGNsYXNzPSJzdDAiIGQ9Ik00LjcsMTIuNmwwLjYsMC44YzAuMiwwLjIsMC41LDAuMiwwLjcsMC4xTDEyLjYsOGwwLDBMNiwyLjZDNS44LDIuNCw1LjUsMi40LDUuMywyLjZMNC43LDMuNAoJCUM0LjUsMy42LDQuNSwzLjksNC43LDQuMUw5LjQsOGwwLDBsLTQuNywzLjlDNC41LDEyLjEsNC41LDEyLjQsNC43LDEyLjZ6Ii8+CjwvZz4KPC9zdmc+Cg==" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="business-card">
+                                <div class="business-img">
+                                    <img src="https://assets.codehub.cn/images/jiaoyin.05c0f1c1.png" />
+                                </div>
+                                <div class="business-card-bottom">
+                                    <div class="tag-grid">
+                                        <span class="tag-cell primary">金融</span>
+                                        <span class="tag-cell primary">中外合资基金</span>
+                                    </div>
+                                    <h4 class="title">交银施罗德｜建立完整的研发全流程管理平台</h4>
+
+                                    <span class="tag-desc">
+                                        CODING 帮助交银施罗德完成传统 SVN+JIRA 的低效开发模式改造，将所有研发工作都迁移到 CODING 上一站式完成。
+                                    </span>
+                                    <div class="content">
+                                        <span class="hook">替代 SVN，使用 Git 并行开发方式，提升开发效率</span>
+                                        <span class="hook">使用 CI 对代码自动编译/测试做品控，降低了事故概率</span>
+                                        <span class="hook">实现可视化项目管理、数字化资产管理</span>
+                                    </div>
+                                    <a class="more" target="_blank"
+                                        href="https://coding.net/customers/schroders.html">了解方案 <img width="14"
+                                            height="14"
+                                            src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTYgMTYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE2IDE2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzAwNjZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggaWQ9IlBhdGgiIGNsYXNzPSJzdDAiIGQ9Ik00LjcsMTIuNmwwLjYsMC44YzAuMiwwLjIsMC41LDAuMiwwLjcsMC4xTDEyLjYsOGwwLDBMNiwyLjZDNS44LDIuNCw1LjUsMi40LDUuMywyLjZMNC43LDMuNAoJCUM0LjUsMy42LDQuNSwzLjksNC43LDQuMUw5LjQsOGwwLDBsLTQuNywzLjlDNC41LDEyLjEsNC41LDEyLjQsNC43LDEyLjZ6Ii8+CjwvZz4KPC9zdmc+Cg==" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="business-card">
+                                <div class="business-img">
+                                    <img src="https://assets.codehub.cn/images/zhongshouyou.068d9566.png" />
+                                </div>
+                                <div class="business-card-bottom">
+                                    <div class="tag-grid">
+                                        <span class="tag-cell primary">游戏</span>
+                                        <span class="tag-cell primary">全球顶尖游戏运营商</span>
+                                    </div>
+                                    <h4 class="title">中手游｜统一各开发小组的软件发布流程</h4>
+
+                                    <span class="tag-desc">
+                                        在 CODING CI/CD 工具支持下，中手游整合了所有开发小组的发布流程标准，统一管理每个项目的发布状态。
+                                    </span>
+                                    <div class="content">
+                                        <span class="hook">建立团队的代码评审机制</span>
+                                        <span class="hook">使用 CI 进行自动化的单元测试及编译构建</span>
+                                        <span class="hook">实现软件发布版本控制</span>
+                                    </div>
+                                    <a class="more" target="_blank" href="https://coding.net/customers/cmge.html">了解方案
+                                        <img width="14" height="14"
+                                            src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTYgMTYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE2IDE2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzAwNjZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggaWQ9IlBhdGgiIGNsYXNzPSJzdDAiIGQ9Ik00LjcsMTIuNmwwLjYsMC44YzAuMiwwLjIsMC41LDAuMiwwLjcsMC4xTDEyLjYsOGwwLDBMNiwyLjZDNS44LDIuNCw1LjUsMi40LDUuMywyLjZMNC43LDMuNAoJCUM0LjUsMy42LDQuNSwzLjksNC43LDQuMUw5LjQsOGwwLDBsLTQuNywzLjlDNC41LDEyLjEsNC41LDEyLjQsNC43LDEyLjZ6Ii8+CjwvZz4KPC9zdmc+Cg==" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="business-card">
+                                <div class="business-img">
+                                    <img src="https://assets.codehub.cn/images/minglue.6127d44c.png" />
+                                </div>
+                                <div class="business-card-bottom">
+                                    <div class="tag-grid">
+                                        <span class="tag-cell primary">互联网</span>
+                                        <span class="tag-cell primary">人工智能</span>
+                                    </div>
+                                    <h4 class="title">明略科技｜全员同平台协作，沉淀企业数据资产</h4>
+
+                                    <span class="tag-desc">
+                                        CODING 帮助明略科技将整个研发团队的协作搬到线上。实现研发管理数字化转型。
+                                    </span>
+                                    <div class="content">
+                                        <span class="hook">使非中心化的每个小组统一了协作平台</span>
+                                        <span class="hook">管理层在「目标管理」中直观看每个小组的目标实现进度</span>
+                                        <span class="hook">产品文档、信息数据在「文件网盘」中沉淀、共享</span>
+                                    </div>
+                                    <a class="more" target="_blank"
+                                        href="https://coding.net/customers/mininglamp.html">了解方案 <img width="14"
+                                            height="14"
+                                            src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTYgMTYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE2IDE2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzAwNjZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggaWQ9IlBhdGgiIGNsYXNzPSJzdDAiIGQ9Ik00LjcsMTIuNmwwLjYsMC44YzAuMiwwLjIsMC41LDAuMiwwLjcsMC4xTDEyLjYsOGwwLDBMNiwyLjZDNS44LDIuNCw1LjUsMi40LDUuMywyLjZMNC43LDMuNAoJCUM0LjUsMy42LDQuNSwzLjksNC43LDQuMUw5LjQsOGwwLDBsLTQuNywzLjlDNC41LDEyLjEsNC41LDEyLjQsNC43LDEyLjZ6Ii8+CjwvZz4KPC9zdmc+Cg==" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="business-card">
+                                <div class="business-img">
+                                    <img src="https://assets.codehub.cn/images/gengmei.9628689d.png" />
+                                </div>
+                                <div class="business-card-bottom">
+                                    <div class="tag-grid">
+                                        <span class="tag-cell primary">互联网</span>
+                                        <span class="tag-cell primary">专业医美平台</span>
+                                    </div>
+                                    <h4 class="title">更美｜开发和测试人员无缝协同开发</h4>
+
+                                    <span class="tag-desc">
+                                        使用 CODING 代码托管、缺陷管理及测试管理，让开发与测试团队工作透明高效，信息高度联动。
+                                    </span>
+                                    <div class="content">
+                                        <span class="hook">缺陷反馈和处理效率提高 35%</span>
+                                        <span class="hook">测试人员实现测试用例复用，提高了测试速度</span>
+                                        <span class="hook">项目按迭代计划推进，建立有序性</span>
+                                    </div>
+                                    <!-- <span class="more">了解方案 <img width="19" height="19"
+                                            data-original="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTYgMTYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE2IDE2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzAwNjZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggaWQ9IlBhdGgiIGNsYXNzPSJzdDAiIGQ9Ik00LjcsMTIuNmwwLjYsMC44YzAuMiwwLjIsMC41LDAuMiwwLjcsMC4xTDEyLjYsOGwwLDBMNiwyLjZDNS44LDIuNCw1LjUsMi40LDUuMywyLjZMNC43LDMuNAoJCUM0LjUsMy42LDQuNSwzLjksNC43LDQuMUw5LjQsOGwwLDBsLTQuNywzLjlDNC41LDEyLjEsNC41LDEyLjQsNC43LDEyLjZ6Ii8+CjwvZz4KPC9zdmc+Cg==" />
+                                    </span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 如果需要滚动条 -->
+                    <!-- <div class="swiper-scrollbar"></div> -->
+                </div>
+                <!-- 如果需要分页器 -->
+                <div class="swiper-pagination"></div>
+            </section>
+            <section class="logo-wall">
+                <p class="title">与<span> 50000 </span>家优秀企业一起改进提升</p>
+                <div class="logo-wall-content">
+                    <img width="100%" src="https://assets.codehub.cn/images/logoWall-Web.538027b5.png" />
+                </div>
+                <div class="logo-wall-content-tablet">
+                    <img width="100%"
+                        src="https://assets.codehub.cn/images/logoWall-Tablet.83f951e2.png" />
+                </div>
+                <div class="logo-wall-content-mobile">
+                    <img width="100%"
+                        src="https://assets.codehub.cn/images/logoWall-Mobile.16dd2790.png" />
+                </div>
+            </section>
+            <section class="footer-section">
+                <div class="footer-content">
+                    <span class="footer-title-pc">
+                        <img width="576" height="72" src="https://assets.codehub.cn/images/title.97156be5.svg" />
+                    </span>
+                    <span class="footer-title-h5">
+                        <img width="288" height="36" src="https://assets.codehub.cn/images/title.97156be5.svg" />
+                    </span>
+                    <a href="https://e.coding.net/register" class="btn"> 免费使用</span>
+                </div>
+            </section>
+        </div>
+        <!-- <div class="advertisement" id="advertisement">
+            <a id="close-btn">
+                <img class="closer" src="data:image/png;base64,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" alt="">
+            </a>
+            <a href="/cifcon">
+                <img class="contain" src="https://assets.codehub.cn/images/advertisement.9f9d0227.png" alt="">
+            </a>
+        </div> -->
+    </div>
+
+    <!-- Start of KF5 supportbox script -->
+<script type="text/javascript">
+    document.write('<script src="https:\/\/assets-cdn.kf5.com\/supportbox\/main.js?' + (new Date).getDay() + '" id="kf5-provide-supportBox" kchat-id="1041165" kf5-domain="coding.kf5.com" charset="utf-8"><\/script>');
+</script>
+<!-- End of KF5 supportbox script -->
+
+<div class="footer-right-section">
+    
+    <div class="top-part">
+        <div class="img-section" id="coding-support">
+            <a class="support-section">
+                <img src="https://help-assets.codehub.cn/enterprise/guanwang/new-support-gray.svg" class="normal-img" />
+                <img src="https://help-assets.codehub.cn/enterprise/guanwang/new-support.svg" class="pc-img" />
+            </a>
+            <div id="mb-coding-support" class="right-mb-btn">
+                <img src="https://help-assets.codehub.cn/enterprise/guanwang/new-support.svg" class="mb-img" />
+                <img src="https://help-assets.codehub.cn/enterprise/guanwang/new-support-gray.svg" class="normal-img" />
+            </div>
+        </div>
+        <div class="divide-line"></div>
+        <div class="mb-divide-line"></div>
+        <div class="img-section" id="coding-communication">
+            <a class="communicate-section">
+                <img src="https://help-assets.codehub.cn/enterprise/guanwang/consultation-gray.svg" class="normal-img" />
+                <img src="https://help-assets.codehub.cn/enterprise/guanwang/consultation.svg" class="pc-img" />
+            </a>
+            <div id="mb-coding-communication" class="right-mb-btn">
+                <img src="https://help-assets.codehub.cn/enterprise/guanwang/consultation.svg" class="mb-img" />
+                <img src="https://help-assets.codehub.cn/enterprise/guanwang/consultation-gray.svg" class="normal-img" />
+            </div>
+        </div>
+        <div class="divide-line"></div>
+        <div class="img-section">
+            <a href="https://e.coding.net/signin?redirect=/workorder" target="_blank" class="workorder-link"
+                id="coding-workorder">
+                <img src="https://help-assets.codehub.cn/enterprise/guanwang/workorder.svg" class="normal-img" />
+                <img src="https://help-assets.codehub.cn/enterprise/guanwang/workorder-blue.svg" class="pc-img" />
+            </a>
+        </div>
+    </div>
+    
+    <button class="bottom-part" id="topBtn">
+        <div class="container">
+            <img src="https://help-assets.codehub.cn/enterprise/guanwang/goTop.svg" class="normal-img" />
+            <img src="https://help-assets.codehub.cn/enterprise/guanwang/goTop-blue1.svg" class="pc-img" />
+        </div>
+    </button>
+</div>
+
+<div class="communication-modal" id="coding-communication-modal">
+    <div class="modal-bg">
+        <img src="https://help-assets.codehub.cn/enterprise/guanwang/communicate-bg1.png" />
+    </div>
+    <div class="modal-content-box">
+        <div class="top-side">
+            <div class="title">
+                <p>微信扫码添加 CODING 售前咨询</p>
+                <span>提供付费咨询及解决方案</span>
+            </div>
+        </div>
+        <img class="code-img" src="https://help-assets.codehub.cn/enterprise/guanwang/communicatewx.png" />
+    </div>
+</div>
+<div class="mb-communication-modal" id="mb-communication-modal">
+    <div class="modal-container">
+        <div class="top-side">
+            <div class="title">
+                <p>微信扫码添加 CODING 售前咨询</p>
+                <span>提供付费咨询及解决方案</span>
+            </div>
+        </div>
+        <img class="code-img" src="https://help-assets.codehub.cn/enterprise/guanwang/communicatewx.png" />
+    </div>
+</div>
+
+<div class="online-modal" id="coding-online-modal">
+    <p>在线支持</p>
+</div>
+
+
+<div class="workorder-modal" id="coding-workorder-modal">
+    <p>工单咨询</p>
+</div>
+
+
+<footer class="footer-container">
+    <div class="footer">
+        <div class="left">
+            <div class="logo-container">
+                <a href="https://cloud.tencent.com?fromSource=gwzcw.5565740.5565740.5565740&utm_medium=cpc&utm_id=gwzcw.5565740.5565740.5565740" target="_blank">
+                    <img class="logo"
+                        src="https://help-assets.codehub.cn/enterprise/guanwang/tencent-cloud-white.svg">
+                </a>
+                <div class="divide-line"></div>
+                <a href="https://coding.net" class="coding-icon">
+                    <img class="logo"
+                        src="https://help-assets.codehub.cn/enterprise/guanwang/CODING-logo-white.svg">
+                </a>
+            </div>
+            <div class="pc">
+                <p class="info">
+                    <img src='https://assets.codehub.cn/comassets/cloud-logo.c41acc65.svg' />A Proud Product & Subsidiary of Tencent
+                    Cloud
+                </p>
+                <ul class="list">
+                    <li><a href="tel:4008306861">400-830-6861</a></li>
+                    <li><a href="mailto:support@coding.net">support@coding.net</a></li>
+                    <li>
+                        <div class="share">
+                            <div class="share-item qrcode weixin">
+                                <img class="share-img" id="wechat"
+                                    src="https://help-assets.codehub.cn/enterprise/20210907113625.svg" />
+                                <div class="dropdown up">
+                                    <img src="https://help-assets.codehub.cn/cdn/images/coding-contact.jpg"
+                                        alt="Coding 微信公众号二维码">
+                                </div>
+                            </div>
+                            <a class="share-item" href="http://weibo.com/n/coding" target="_blank">
+                                <img class="share-img"
+                                    src="https://help-assets.codehub.cn/enterprise/20210907113639.svg" />
+                            </a>
+                            <a class="share-item" href="https://zhuanlan.zhihu.com/coding-net" target="_blank">
+                                <img class="share-img"
+                                    src="https://help-assets.codehub.cn/enterprise/20210907113644.svg" />
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="tablet">
+                <ul class="list">
+                    <li><a href="tel:4008306861">400-830-6861</a></li>
+                    <li><a href="mailto:support@coding.net">support@coding.net</a></li>
+                    <li>
+                        <div class="share">
+                            <div class="share-item qrcode weixin">
+                                <img class="share-img" id="wechat"
+                                    src="https://coding-net-production-pp-ci.codehub.cn/736bb4c6-5845-4273-bb3e-6affbb590c4d.png" />
+                                <div class="dropdown up">
+                                    <img src="https://help-assets.codehub.cn/cdn/images/coding-contact.jpg"
+                                        alt="Coding 微信公众号二维码">
+                                </div>
+                            </div>
+                            <a class="share-item" href="http://weibo.com/n/coding" target="_blank">
+                                <img class="share-img"
+                                    src="https://coding-net-production-pp-ci.codehub.cn/720e09a2-32d4-43d0-b50e-b74f162f30eb.png" />
+                            </a>
+                            <a class="share-item" href="https://zhuanlan.zhihu.com/coding-net" target="_blank">
+                                <img class="share-img"
+                                    src="https://coding-net-production-pp-ci.codehub.cn/e7b4f31e-5fe7-4925-a0e1-094ac6c571cf.png" />
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <p class="info">
+                    <img src='https://assets.codehub.cn/comassets/cloud-logo.c41acc65.svg' />A Proud Product & Subsidiary of Tencent
+                    Cloud
+                </p>
+            </div>
+        </div>
+        <div class="us">
+            <div class="us-row">
+                <div class="us-col item1">
+                    <h3>产品</h3>
+                    <ul class="list">
+                        <li><a href="https://coding.net/products/agile">项目协同</a></li>
+                        <li><a href="https://coding.net/products/testing">测试管理</a></li>
+                        <li><a href="https://coding.net/products/repo">代码托管</a></li>
+                        <li><a href="https://coding.net/products/ci">持续集成</a></li>
+                        <li><a href="https://coding.net/products/artifacts">制品库</a></li>
+                        <li><a href="https://coding.net/products/cd">持续部署</a></li>
+                        <li><a href="https://wepack.coding.net/">WePack</a></li>
+                    </ul>
+                </div>
+                <div class="us-col item3">
+                    <h3>解决方案</h3>
+                    <ul class="list">
+                        <li><a href="https://coding.net/solutions/devops">DevOps</a></li>
+                        <li><a href="https://coding.net/solutions/agile">敏捷研发</a></li>
+                        <li><a href="https://coding.net/solutions/classic">传统研发</a></li>
+                        <li><a href="https://coding.net/solutions/code-quality">代码质量</a></li>
+                        <li><a href="https://coding.net/solutions/okr">OKR</a></li>
+                        <li><a href="https://coding.net/solutions/internet">互联网</a></li>
+                        <li><a href="https://coding.net/solutions/financial">金融</a></li>
+                    </ul>
+                </div>
+                <div class="us-col item4">
+                    <h3>支持</h3>
+                    <ul class="list">
+                        <li><a href="https://coding.net/training">培训与认证</a></li>
+                        <li><a href="https://help.coding.net" target="_blank">帮助中心</a></li>
+                        <li><a href="https://help.coding.net/insight" target="_blank">洞见</a></li>
+                        <li><a href="https://coding.net/company/terms">服务条款</a></li>
+                        <li><a href="https://coding.net/company/sla">服务 SLA</a></li>
+                        <li><a href="https://coding.net/company/statement">隐私保护声明</a></li>
+                        <li><a href="https://coding.net/changelog">产品更新日志</a></li>
+                    </ul>
+                </div>
+                <div class="us-col item7">
+                    <h3>公司</h3>
+                    <ul class="list">
+                        <li><a href="https://coding.net/company/about">关于我们</a></li>
+                        <li><a href="https://coding.net/company/news">媒体报道</a></li>
+                    </ul>
+                </div>
+                <div class="us-col item6">
+                    <h3>联系我们</h3>
+                    <ul class="list">
+                        <li><a href="tel:4008306861">400-830-6861</a></li>
+                        <li><a href="mailto:support@coding.net">support@coding.net</a></li>
+                        <li>
+                            <div class="share">
+                                <div class="share-item qrcode weixin">
+                                    <img class="share-img" id="wechat"
+                                        src="https://coding-net-production-pp-ci.codehub.cn/736bb4c6-5845-4273-bb3e-6affbb590c4d.png" />
+                                    <div class="dropdown up">
+                                        <img src="https://help-assets.codehub.cn/cdn/images/coding-contact.jpg"
+                                            alt="Coding 微信公众号二维码">
+                                    </div>
+                                </div>
+                                <a class="share-item" href="http://weibo.com/n/coding" target="_blank">
+                                    <img class="share-img"
+                                        src="https://coding-net-production-pp-ci.codehub.cn/720e09a2-32d4-43d0-b50e-b74f162f30eb.png" />
+                                </a>
+                                <a class="share-item" href="https://zhuanlan.zhihu.com/coding-net" target="_blank">
+                                    <img class="share-img"
+                                        src="https://coding-net-production-pp-ci.codehub.cn/e7b4f31e-5fe7-4925-a0e1-094ac6c571cf.png" />
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <div class="copyright-content">
+            <div class="info">
+                <div class="cr-pc">
+                    <div class="company">
+                        <a href="/" class="company-name">© 2022 深圳市腾云扣钉科技有限公司</a>
+                    </div>
+                    <div class="beian">
+                        <img class="police police-number-hide"
+                            src="https://help-assets.codehub.cn/cdn/images/police.png" /><a class="police-number-hide"
+                            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502002265"
+                            target="_blank">粤公网安备 44030502002265号</a>
+                        <a href="http://beian.miit.gov.cn" target="_blank" class="beian-number">粤ICP备 14029750号</a>
+                    </div>
+                </div>
+                <div class="cr-mb">
+                    <p class="info">
+                        <img src='https://assets.codehub.cn/comassets/cloud-logo.c41acc65.svg' />A Proud Product & Subsidiary of Tencent
+                        Cloud
+                    </p>
+                    <p>
+                        <a href="https://coding.net" class="company-name">© 2022 深圳市腾云扣钉科技有限公司</a>
+                    </p>
+                    <p>
+                        <a class="police-number-hide"
+                            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502002265"
+                            target="_blank">粤公网安备 44030502002265号</a>
+                    </p>
+                    <p>
+                        <a href="http://beian.miit.gov.cn" target="_blank" class="beian-number">粤ICP备 14029750号</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+
+    <script src="https://libs.cdnjs.net/Swiper/5.4.5/js/swiper.min.js"> </script>
+<script type="text/javascript" src="https://assets.codehub.cn/js/runtime~index.cde3b2c4.js"></script><script type="text/javascript" src="https://assets.codehub.cn/js/index.6b01c327.js"></script></body>
+
+<script>
+    const enterMotion = document.getElementById('motion-enter');
+    const loopMotion = document.getElementById('motion-loop');
+
+    enterMotion.addEventListener('ended', function () {
+        loopMotion.classList.add('loaded')
+        loopMotion.play()
+    })
+    // const closeBtn = document.getElementById('close-btn');
+    // const advertisement = document.getElementById('advertisement');
+    // closeBtn.addEventListener('click', function() {
+    //     advertisement.classList.add('advertisement-none');
+    // })
+</script>
+
+</html>
