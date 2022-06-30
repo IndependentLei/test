@@ -5,11 +5,14 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
 import com.shebao.test.model.entity.Person;
+import com.shebao.test.model.entity.Person1;
+import com.shebao.test.model.entity.TestPerson;
 import com.shebao.test.model.enums.TypeEnum;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.compress.utils.Lists;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Test;
+import org.springframework.beans.BeanUtils;
 
 
 import java.io.File;
@@ -125,5 +128,29 @@ public class test {
         Map<String, String> collectMap = one.entrySet().stream().filter(o -> two.containsKey(o.getKey())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         System.out.println(collectMap);
 
+    }
+
+
+    @Test
+    public void test11(){
+        List<Person> personList = Arrays.asList(new Person(1L,"小王", "2")
+                , new Person(2L,"小李", "2")
+                , new Person(3L,"小王", "2")
+                , new Person(4L,"小春", "2"));
+
+        TestPerson testPerson = new TestPerson();
+        TestPerson testPerson1 = new TestPerson();
+        Person1 person1 = new Person1();
+        person1.setPersonList(personList);
+        Person1 person11 = new Person1();
+        person11.setPersonList(personList);
+        List<Person1> person1List = Lists.newArrayList();
+        person1List.add(person1);
+        person1List.add(person11);
+        testPerson.setPersonList(person1List);
+        testPerson.setName("111");
+
+        BeanUtils.copyProperties(testPerson,testPerson1);
+        System.out.println(testPerson1);
     }
 }
