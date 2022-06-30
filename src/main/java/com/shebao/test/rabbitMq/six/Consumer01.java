@@ -29,7 +29,7 @@ public class Consumer01 {
         // 正常队列设置死信交换机
         arguments.put("x-dead-letter-exchange",Constant.DEAD_EXCHANGE);
         // 设置死信routing_key
-        arguments.put("x-dead-letter-routing-key",Constant.DEAD_QUEUE);
+        arguments.put("x-dead-letter-routing-key",Constant.DEAD_ROUTING_KEY);
         // 普通队列
         channel.queueDeclare(Constant.NORMAL_QUEUE,false,false,false,null);
         // 死信队列
