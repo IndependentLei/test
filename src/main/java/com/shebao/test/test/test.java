@@ -1,5 +1,7 @@
 package com.shebao.test.test;
 
+import cn.hutool.core.date.DateUnit;
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.excel.EasyExcel;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
@@ -17,7 +19,11 @@ import org.springframework.beans.BeanUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -152,5 +158,34 @@ public class test {
 
         BeanUtils.copyProperties(testPerson,testPerson1);
         System.out.println(testPerson1);
+    }
+
+    @Test
+    public void test12(){
+        long dayToSecond = TimeUnit.DAYS.toSeconds(1);
+        System.out.println(dayToSecond);
+        long ss = 24 * 60 * 60;
+        System.out.println(ss);
+    }
+
+    @Test
+    public void test13(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // 1、普通的时间转换
+        String string = new SimpleDateFormat("yyyyMM").format(new Date());
+        System.out.println(string);
+    }
+
+    @Test
+    public void test14(){
+        BigDecimal bigDecimal = new BigDecimal(5000);
+        BigDecimal multiply = bigDecimal.multiply(new BigDecimal("0.12"));
+        System.out.println(multiply);
+    }
+
+    @Test
+    public void test15(){
+        BigDecimal bigDecimal = new BigDecimal(5000);
+        System.out.println(bigDecimal.multiply(BigDecimal.valueOf(0.12)));
     }
 }
