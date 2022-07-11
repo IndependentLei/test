@@ -1,6 +1,7 @@
 server:
   port: 9191
 spring:
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/db2022?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
@@ -10,3 +11,8 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
