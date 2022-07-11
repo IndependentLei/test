@@ -6,12 +6,14 @@ import com.alibaba.excel.EasyExcel;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
+import com.shebao.test.config.TaskThreadPool;
 import com.shebao.test.model.entity.Person;
 import com.shebao.test.model.entity.Person1;
 import com.shebao.test.model.entity.TestPerson;
 import com.shebao.test.model.enums.TypeEnum;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.compress.utils.Lists;
+import org.apache.xmlbeans.impl.xb.xsdschema.All;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
@@ -23,6 +25,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -187,5 +190,32 @@ public class test {
     public void test15(){
         BigDecimal bigDecimal = new BigDecimal(5000);
         System.out.println(bigDecimal.multiply(BigDecimal.valueOf(0.12)));
+    }
+
+    @Test
+    public void test16(){
+        List<Callable<String>> response = Lists.newArrayList();
+        List<Person> personList = Arrays.asList(new Person(1L,"小王", "2")
+                , new Person(2L,"小李", "2")
+                , new Person(3L,"小王", "4")
+                , new Person(4L,"小春", "2")
+                , new Person(4L,"小春", "4")
+                , new Person(4L,"小春", "2")
+                , new Person(4L,"小春", "7")
+                , new Person(4L,"小春", "9")
+                , new Person(4L,"小春", "2")
+                , new Person(4L,"小春", "2"));
+        Map<String, List<Person>> collect = personList.stream().collect(Collectors.groupingBy(Person::getAge));
+        // 使用Callable去执行多线程
+        collect.forEach((age,persons) -> response.add(()->testCallable(persons)));
+        List<String> strings = TaskThreadPool.addTask(response);
+        System.out.println(strings);
+    }
+    private String testCallable(List<Person> personList){
+        StringBuilder allAge = new StringBuilder();
+        for(Person person : personList){
+            allAge.append(person.getAge());
+        }
+        return allAge.toString();
     }
 }
