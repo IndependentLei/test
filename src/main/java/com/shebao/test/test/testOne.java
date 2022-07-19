@@ -1,5 +1,6 @@
 package com.shebao.test.test;
 
+import org.checkerframework.checker.units.qual.A;
 import org.junit.Test;
 
 import java.util.Deque;
@@ -7,6 +8,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicStampedReference;
+import java.util.concurrent.atomic.LongAdder;
 
 public class testOne {
     // 非阻塞队列
@@ -39,4 +44,20 @@ public class testOne {
         strs.add("1");
         strs.add("2");
     }
+
+    @Test
+    public void test3(){
+        AtomicInteger atomicInteger = new AtomicInteger(5);
+        atomicInteger.getAndUpdate((p)-> p = p+2);
+        System.out.println(atomicInteger);
+    }
+    @Test
+    public void test4(){
+        LongAdder longAdder = new LongAdder();
+        longAdder.increment(); // 多个计算单元一起计算，效率高
+    }
+
+    // CAS版本号
+    static AtomicStampedReference<String> atomicStampedReference = new AtomicStampedReference<>("A",0);
+
 }
