@@ -39,4 +39,10 @@ public class RabbitMqConstant {
     public static final String CONFIRM_EXCHANGE_NAME = "confirm_exchange";
     public static final String CONFIRM_QUEUE_NAME = "confirm_queue";
     public static final String CONFIRM_ROUTING_KEY = "confirm_routing_key";
+
+    // 备份交换机
+    public static final String BACKUP_EXCHANGE_NAME = "backup_exchange";
+    public static final String BACKUP_QUEUE_NAME = "backup_queue";
+    // 警告队列
+    public static final String WARNING_QUEUE_NAME = "warning_queue";
 }

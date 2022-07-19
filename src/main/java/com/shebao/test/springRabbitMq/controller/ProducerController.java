@@ -1,5 +1,6 @@
 package com.shebao.test.springRabbitMq.controller;
 
+import cn.hutool.core.lang.UUID;
 import com.shebao.test.constant.RabbitMqConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
@@ -30,8 +31,8 @@ public class ProducerController {
 
     @GetMapping("/sendMsg/{msg}")
     public void sendMessage(@PathVariable("msg") String msg){
-        CorrelationData correlationData = new CorrelationData("1");
+        CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());  // 发布确认的值
         log.info("在{}发送消息：{}",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),msg);
-        rabbitTemplate.convertAndSend(RabbitMqConstant.CONFIRM_EXCHANGE_NAME,RabbitMqConstant.CONFIRM_ROUTING_KEY,msg);
+        rabbitTemplate.convertAndSend(RabbitMqConstant.CONFIRM_EXCHANGE_NAME,RabbitMqConstant.CONFIRM_ROUTING_KEY,msg,correlationData);
     }
 }
