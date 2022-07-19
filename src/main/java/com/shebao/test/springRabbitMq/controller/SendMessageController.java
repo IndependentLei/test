@@ -41,4 +41,18 @@ public class SendMessageController {
             return messagePostProcessor;
         });
     }
+
+    /**
+     * 基于插件的延迟队列
+     */
+    @GetMapping("/sendMsgByPlugin/{message}/{delayTime}")
+    public void sendDelayMsgByPlugin(@PathVariable("message") String message, @PathVariable("delayTime") Integer delayTime){
+        log.info("当前时间为:{},发送的消息为:{},延迟时长为:{}",new Date().toString(),message,delayTime);
+        rabbitTemplate.convertAndSend(RabbitMqConstant.DELAY_EXCHANGE_NAME,RabbitMqConstant.DELAY_ROUTING_KEY,message,messagePostProcessor->{
+            // 设置发送消息的时候，延迟时间
+            messagePostProcessor.getMessageProperties().setDelay(delayTime);
+            return messagePostProcessor;
+        });
+    }
+
 }

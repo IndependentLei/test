@@ -2,11 +2,13 @@ package com.shebao.test.springRabbitMq.config;
 
 import com.google.common.collect.Maps;
 import com.shebao.test.constant.RabbitMqConstant;
+import com.shebao.test.rabbitMq.six.Constant;
 import org.springframework.amqp.core.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -91,5 +93,43 @@ public class RabbitMQConfig {
     @Bean
     public Binding queueCBindingX(@Qualifier("queueC") Queue queueC,@Qualifier("xExchange") DirectExchange exchange){
         return BindingBuilder.bind(queueC).to(exchange).with(RabbitMqConstant.X_ROUTING_KEY_QC);
+    }
+
+
+
+    // 自定义延迟交换机
+    @Bean
+    public CustomExchange delayExchange(){
+        Map<String,Object> paramMap = new HashMap<>();
+        paramMap.put("x-delayed-type","direct"); // 延迟类型为直接类型
+        /**
+         * 名字
+         * 类型
+         * 是否持久化
+         * 是否自动删除
+         * 其他参数
+         */
+        return new CustomExchange(RabbitMqConstant.DELAY_EXCHANGE_NAME,"x-delayed-message",true,false,paramMap);
+    }
+
+    /**
+     * 声明延迟队列
+     * @return
+     */
+    @Bean
+    public Queue delayQueue(){
+        return QueueBuilder.durable(RabbitMqConstant.DELAY_QUEUE_NAME).build();
+    }
+
+    /**
+     * 绑定
+     * @param delayQueue
+     * @param delayExchange
+     * @return
+     */
+    @Bean
+    public Binding delayQueueBindingDelayExchange(@Qualifier("delayQueue") Queue delayQueue,
+                                                  @Qualifier("delayExchange") CustomExchange delayExchange){
+        return BindingBuilder.bind(delayQueue).to(delayExchange).with(RabbitMqConstant.DELAY_ROUTING_KEY).noargs();
     }
 }
