@@ -25,4 +25,24 @@ public class RabbitMqConstant {
 
     // 死信队列的名称
     public static final String DEAD_LETTER_QUEUE = "QD";
+
+
+
+
+    // 自定义延迟交换机
+    public static final String DELAY_EXCHANGE_NAME = "delay.exchange";
+    public static final String DELAY_QUEUE_NAME = "delay.queue";
+    public static final String DELAY_ROUTING_KEY = "delay.routing.key";
+
+
+    //发布确认
+    public static final String CONFIRM_EXCHANGE_NAME = "confirm_exchange";
+    public static final String CONFIRM_QUEUE_NAME = "confirm_queue";
+    public static final String CONFIRM_ROUTING_KEY = "confirm_routing_key";
+
+    // 备份交换机
+    public static final String BACKUP_EXCHANGE_NAME = "backup_exchange";
+    public static final String BACKUP_QUEUE_NAME = "backup_queue";
+    // 警告队列
+    public static final String WARNING_QUEUE_NAME = "warning_queue";
 }

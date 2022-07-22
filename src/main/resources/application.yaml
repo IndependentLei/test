@@ -16,3 +16,5 @@ spring:
     port: 5672
     username: guest
     password: guest
+    publisher-confirm-type: correlated  # NONE 禁用发布确认模式，是默认值， CORRELATED 发布消息成功到交换机后会触发回调方法 SIMPLE
+    publisher-returns: true # 回退消息
