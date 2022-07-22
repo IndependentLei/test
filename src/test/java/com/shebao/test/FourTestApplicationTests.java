@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 
-class TestApplicationTests {
+class FourTestApplicationTests {
 
     @Test
     void contextLoads() {

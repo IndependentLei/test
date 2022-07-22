@@ -2,6 +2,8 @@ package com.shebao.test.test;
 
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdcardUtil;
+import cn.hutool.core.util.RandomUtil;
 import com.alibaba.excel.EasyExcel;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
@@ -20,8 +22,11 @@ import org.springframework.beans.BeanUtils;
 
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.*;
@@ -218,4 +223,79 @@ public class test {
         }
         return allAge.toString();
     }
+
+    @Test
+    public void test17(){
+        try {
+            File file = new File("E:\\123.pdf");
+            FileInputStream fis = new FileInputStream(file);
+            File file1 = new File("E:\\2321.pdf");
+            FileOutputStream fos = new FileOutputStream(file1);
+            byte[] collect = new byte[1024];
+            int len;
+            while ((len = fis.read(collect))!= -1){
+                fos.write(collect,0,len);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test18() {
+        System.out.println(getMonthSpace("202204","202205"));
+    }
+
+    /**
+     * 获取两个日期相差多少个月
+     */
+    public static int getMonthSpace(String date1, String date2) {
+        try {
+            int result = 0;
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+
+            Calendar c1 = Calendar.getInstance();
+            Calendar c2 = Calendar.getInstance();
+
+            c1.setTime(sdf.parse(date1));
+            c2.setTime(sdf.parse(date2));
+
+            int i = c2.get(Calendar.YEAR)-c1.get(Calendar.YEAR);
+            int month = 0;
+            if (i<0)
+            {
+                month = -i*12;
+            }else if(i>0)
+            {
+                month =  i*12;
+            }
+            result = (c2.get(Calendar.MONTH) - c1.get(Calendar.MONTH)) + month;
+
+            return Math.abs(result)+1;
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Test
+    public void test20(){
+        String s = RandomUtil.randomString(16);
+        String s1 = RandomUtil.randomNumbers(16);
+
+        String provinceByIdCard = IdcardUtil.getProvinceByIdCard("320804199810261910");
+        IdcardUtil.Idcard idcard = new IdcardUtil.Idcard("320804199810261910");
+        System.out.println(idcard.getAge());
+        System.out.println(idcard.getBirthDate());
+        System.out.println(idcard.getCityCode());
+        System.out.println(idcard.getGender());
+        System.out.println(idcard.getProvince());
+        System.out.println(idcard.getProvinceCode());
+//        System.out.println(provinceByIdCard);
+//        System.out.println(s);
+//        System.out.println(s1);
+
+    }
+
 }

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.*;
 
 @Slf4j
-public class ThreadPoolExecutorTest {
+public class ThreadPoolExecutorFourTest {
 
     @Test
     public void test1(){

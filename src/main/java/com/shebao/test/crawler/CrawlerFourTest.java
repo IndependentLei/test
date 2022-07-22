@@ -1,6 +1,5 @@
 package com.shebao.test.crawler;
 
-import com.sun.javafx.fxml.builder.URLBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class CrawlerTest {
+public class CrawlerFourTest {
     @Test
     public void test1() throws IOException {
         // 1、打开浏览器    创建一个HttpClient对象
@@ -164,7 +163,7 @@ public class CrawlerTest {
         cm.setMaxTotal(100);
         // 设置每个主机的最大连接数
         cm.setDefaultMaxPerRoute(10);
-        CrawlerTest.doGet(cm,"Https://www.baidu.com");
+        CrawlerFourTest.doGet(cm,"Https://www.baidu.com");
     }
 
     public static void doGet(PoolingHttpClientConnectionManager cm,String website){
