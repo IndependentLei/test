@@ -2,9 +2,15 @@ package com.shebao.test.springRabbitMq.consumerListening;
 
 import com.rabbitmq.client.Channel;
 import com.shebao.test.constant.RabbitMqConstant;
+import com.shebao.test.model.entity.Person;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.ExchangeTypes;
 import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.Exchange;
+import org.springframework.amqp.rabbit.annotation.Queue;
+import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -43,5 +49,12 @@ public class ConsumerListening {
     public void acceptWarningMsg(Message message,Channel channel){
         String msg = new String(message.getBody());
         log.error("发现不可路由的消息，时间为：{},接收到的消息为：{}",new Date().toString(),msg);
+    }
+
+    @RabbitListener(bindings = @QueueBinding(value = @Queue(value = RabbitMqConstant.TEST_QUEUE_NAME,durable = "true", ignoreDeclarationExceptions = "true"),
+            exchange = @Exchange(value = RabbitMqConstant.TEST_EXCHANGE_NAME,type = ExchangeTypes.FANOUT,durable = "true"),ignoreDeclarationExceptions = "true"))
+    public void testAcceptMsg(@Payload Person person, Message message, Channel channel){
+        String msg = new String(message.getBody());
+        log.error("发现不可路由的消息，时间为：{},接收到的消息为：{},接收到的实体为：{}",new Date().toString(),msg,person);
     }
 }

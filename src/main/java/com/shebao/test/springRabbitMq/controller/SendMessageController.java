@@ -1,6 +1,7 @@
 package com.shebao.test.springRabbitMq.controller;
 
 import com.shebao.test.constant.RabbitMqConstant;
+import com.shebao.test.model.entity.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,16 @@ public class SendMessageController {
             messagePostProcessor.getMessageProperties().setDelay(delayTime);
             return messagePostProcessor;
         });
+    }
+
+    @GetMapping("/sendMsgTest")
+    public void sendDelayMsgByPlugin(){
+        Person person = new Person();
+        person.setId(20L);
+        person.setAge("3");
+        person.setName("jj");
+        log.info("当前时间为:{}",new Date().toString());
+        rabbitTemplate.convertAndSend(RabbitMqConstant.TEST_EXCHANGE_NAME,"",person);
     }
 
 }

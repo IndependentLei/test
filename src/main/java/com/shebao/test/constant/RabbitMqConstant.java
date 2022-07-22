@@ -45,4 +45,9 @@ public class RabbitMqConstant {
     public static final String BACKUP_QUEUE_NAME = "backup_queue";
     // 警告队列
     public static final String WARNING_QUEUE_NAME = "warning_queue";
+
+
+
+    public static final String TEST_QUEUE_NAME = "test_queue";
+    public static final String TEST_EXCHANGE_NAME = "test_exchange";
 }
