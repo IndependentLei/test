@@ -51,10 +51,12 @@ public class ConsumerListening {
         log.error("发现不可路由的消息，时间为：{},接收到的消息为：{}",new Date().toString(),msg);
     }
 
-    @RabbitListener(bindings = @QueueBinding(value = @Queue(value = RabbitMqConstant.TEST_QUEUE_NAME,durable = "true", ignoreDeclarationExceptions = "true"),
-            exchange = @Exchange(value = RabbitMqConstant.TEST_EXCHANGE_NAME,type = ExchangeTypes.FANOUT,durable = "true"),ignoreDeclarationExceptions = "true"))
+    // 使用注解 将队列和交换机绑定
+    @RabbitListener(bindings = @QueueBinding(value = @Queue(value = RabbitMqConstant.TEST_QUEUE_NAME,durable = "true", ignoreDeclarationExceptions = "true")
+            , exchange = @Exchange(value = RabbitMqConstant.TEST_EXCHANGE_NAME,type = ExchangeTypes.FANOUT,durable = "true")
+            ,ignoreDeclarationExceptions = "true"))
     public void testAcceptMsg(@Payload Person person, Message message, Channel channel){
         String msg = new String(message.getBody());
-        log.error("发现不可路由的消息，时间为：{},接收到的消息为：{},接收到的实体为：{}",new Date().toString(),msg,person);
+        log.info("发现路由消息，时间为：{},接收到的消息为：{},接收到的实体为：{}",new Date().toString(),msg,person);
     }
 }

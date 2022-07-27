@@ -298,4 +298,50 @@ public class test {
 
     }
 
+
+    static {
+        Map<String,List<String >> menuMap = new HashMap<>();
+        List<String> 肉 = new ArrayList<>();
+        肉.add("干锅虾");
+        肉.add("干锅鸡杂");
+        肉.add("回锅肉");
+        肉.add("小葱跑蛋");
+        肉.add("青椒跑蛋");
+        List<String> 菜 = new ArrayList<>();
+
+        菜.add("酸辣土豆丝");
+        菜.add("干锅豆腐");
+        菜.add("酸辣白菜");
+        菜.add("红烧茄子");
+        菜.add("毛豆炒肉");
+        菜.add("番茄炒鸡蛋");
+        List<String> 汤 = new ArrayList<>();
+
+        List<String> 不辣 = new ArrayList<>();
+        不辣.add("干锅豆腐");
+        不辣.add("干锅虾");
+        不辣.add("大煮干丝");
+        不辣.add("小葱跑蛋");
+        不辣.add("红烧茄子");
+        不辣.add("毛豆炒肉");
+        不辣.add("番茄炒鸡蛋");
+
+        List<String> 辣 = new ArrayList<>();
+        辣.add("酸辣土豆丝");
+        辣.add("干锅鸡杂");
+        辣.add("酸辣白菜");
+        辣.add("青椒跑蛋");
+        辣.add("回锅肉");
+
+
+        汤.add("大煮干丝");
+        menuMap.put("肉",肉);
+        menuMap.put("菜",菜);
+        menuMap.put("汤",汤);
+        menuMap.put("不辣",不辣);
+        menuMap.put("辣",辣);
+
+
+    }
+
 }

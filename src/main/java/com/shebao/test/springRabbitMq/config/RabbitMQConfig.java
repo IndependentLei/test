@@ -4,10 +4,18 @@ import com.google.common.collect.Maps;
 import com.shebao.test.constant.RabbitMqConstant;
 import com.shebao.test.rabbitMq.six.Constant;
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.listener.RabbitListenerContainerFactory;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.retry.policy.SimpleRetryPolicy;
+import org.springframework.retry.support.RetryTemplate;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -131,5 +139,30 @@ public class RabbitMQConfig {
     public Binding delayQueueBindingDelayExchange(@Qualifier("delayQueue") Queue delayQueue,
                                                   @Qualifier("delayExchange") CustomExchange delayExchange){
         return BindingBuilder.bind(delayQueue).to(delayExchange).with(RabbitMqConstant.DELAY_ROUTING_KEY).noargs();
+    }
+
+
+    @Bean
+    public RabbitListenerContainerFactory<?> rabbitListenerContainerFactory(ConnectionFactory connectionFactory) throws IOException {
+        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory);
+        factory.setMessageConverter(new Jackson2JsonMessageConverter());
+        factory.setAcknowledgeMode(AcknowledgeMode.AUTO);
+        factory.setConcurrentConsumers(1);
+        factory.setMaxConcurrentConsumers(20);
+        RetryTemplate retryTemplate = new RetryTemplate();
+        retryTemplate.setRetryPolicy(new SimpleRetryPolicy(3));//设置重回队列的次数
+        factory.setRetryTemplate(retryTemplate);
+        factory.setFailedDeclarationRetryInterval(1000L);//消息多次消费的间隔1秒
+        factory.setDefaultRequeueRejected(false);//设置为false，会丢弃消息或者重新发布到死信队列
+        factory.setPrefetchCount(5);//设置预拿消息大小
+        return factory;
+    }
+
+    @Bean
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+        RabbitTemplate template = new RabbitTemplate(connectionFactory);
+        template.setMessageConverter(new Jackson2JsonMessageConverter());
+        return template;
     }
 }
