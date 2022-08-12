@@ -1,10 +1,9 @@
 package com.shebao.test.test;
 
-import cn.hutool.core.date.DateUnit;
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.RandomUtil;
-import com.alibaba.excel.EasyExcel;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
@@ -15,20 +14,15 @@ import com.shebao.test.model.entity.TestPerson;
 import com.shebao.test.model.enums.TypeEnum;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.compress.utils.Lists;
-import org.apache.xmlbeans.impl.xb.xsdschema.All;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
-
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
@@ -349,4 +343,55 @@ public class test {
         //
     }
 
+    @Test
+    public void test21(){
+        class Cat {
+            public Cat(String name) {
+                this.name = name;
+            }
+            private String name;
+            public String getName() {
+                return name;
+            }
+            public void setName(String name) {
+                this.name = name;    }
+        }
+        Cat c1 = new Cat("王磊");Cat c2 = new Cat("王磊");System.out.println(c1.equals(c2));
+    }
+
+    @Test
+    public void test22(){
+        String userHome = System.getProperty("user.home");
+        System.out.println(userHome);
+    }
+
+    @Test
+    public void test23(){
+
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject1 = new JSONObject();
+        JSONObject jsonObject2 = new JSONObject();
+        JSONObject jsonObject3 = new JSONObject();
+        jsonArray.add(jsonObject);
+        jsonArray.add(jsonObject1);
+        jsonArray.add(jsonObject2);
+        jsonArray.add(jsonObject3);
+
+        jsonObject.put("id",1);
+        jsonObject1.put("id",11);
+        jsonObject2.put("id",10);
+        jsonObject3.put("id",5);
+        List<JSONObject> jsonObjects = jsonArray.toJavaList(JSONObject.class);
+        JSONObject jsonObject4 = jsonObjects.stream().max(Comparator.comparingInt(a -> a.getInteger("id"))).get();
+        System.out.println(jsonObject4);
+
+        List<JSONObject> ids = jsonObjects.stream().sorted(Comparator.comparingInt(obj -> obj.getInteger("id"))).collect(Collectors.toList());
+        System.out.println(ids);
+
+        Stream<int[]> stream = Stream.of(new int[]{1, 2, 3});
+
+        jsonObjects.stream().map(jsonObject5 -> jsonObject5.getString("id").split("  ")).collect(Collectors.toList());
+
+    }
 }
