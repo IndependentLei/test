@@ -8,10 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.EventListener;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -25,8 +25,12 @@ public class PersonController {
     @Autowired
     ApplicationContext applicationContext;
 
+    @Resource(name = "myStringBean")  // String 作为bean可以转为java基础类型
+    String myStringBean;
+
     @RequestMapping("/all")
     public Map<String,Object> findAll(){
+        log.info("myStringBean :{}",myStringBean);
         List<Person> allPerson = personService.findAll();
         Map<String, Object> map = Maps.newHashMap();
         map.put("data",allPerson);
