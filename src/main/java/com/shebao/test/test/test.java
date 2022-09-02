@@ -12,11 +12,18 @@ import com.shebao.test.model.entity.Person;
 import com.shebao.test.model.entity.Person1;
 import com.shebao.test.model.entity.TestPerson;
 import com.shebao.test.model.enums.TypeEnum;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.compress.utils.Lists;
+import org.checkerframework.checker.units.qual.C;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -24,6 +31,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -393,5 +401,66 @@ public class test {
 
         jsonObjects.stream().map(jsonObject5 -> jsonObject5.getString("id").split("  ")).collect(Collectors.toList());
 
+    }
+
+    @AllArgsConstructor
+    @Data
+    class  Clone1{
+        public Integer id;
+    }
+
+    @Data
+    class CloneTest implements Cloneable{
+        public Integer id;
+        public Clone1 clone1;
+
+        @Override
+        protected Object clone() throws CloneNotSupportedException {
+            return super.clone();
+        }
+    }
+    @Test
+    public void test24() throws CloneNotSupportedException {
+        CloneTest cloneTest = new CloneTest();
+        cloneTest.clone1 = new Clone1(1);
+        cloneTest.setId(1);
+        CloneTest clone = (CloneTest)cloneTest.clone();
+
+        clone.setClone1(new Clone1(2));
+
+        System.out.println(cloneTest.getClone1() == clone.getClone1());
+        System.out.println(clone);
+    }
+
+    @Test
+    public void test25() throws AWTException {
+        Robot robot = new Robot();
+        robot.mouseMove(0, 0);
+        Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = defaultToolkit.getScreenSize();
+        double height = screenSize.getHeight();
+        double width = screenSize.getWidth();
+        Dimension size = screenSize.getSize();
+        System.out.println(size);
+        System.out.println(height);
+        System.out.println(width);
+
+        robot.mouseMove((int) (10), (int) (height));
+        Point point = MouseInfo.getPointerInfo().getLocation();
+//        System.out.println(point);
+//        robot.mousePress(InputEvent.BUTTON1_MASK);
+//        robot.
+//        robot.mouseRelease(InputEvent.BUTTON1_MASK);
+////        robot.keyPress(KeyEvent.VK_Q);
+////        robot.keyRelease(KeyEvent.VK_Q);
+//        int[] ks = new int[]{KeyEvent.VK_C,KeyEvent.VK_L,KeyEvent.VK_S, KeyEvent.VK_ENTER};
+        pressMouse(robot,InputEvent.BUTTON1_MASK,500);
+    }
+
+    private static void pressMouse(Robot r,int m,int delay){
+        r.mousePress(m);
+        r.delay(10);
+        r.mouseRelease(m);
+        r.delay(delay);
     }
 }
