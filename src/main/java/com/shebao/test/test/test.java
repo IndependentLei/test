@@ -19,6 +19,7 @@ import lombok.Data;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.compress.utils.Lists;
+import org.apache.commons.lang3.time.DateUtils;
 import org.checkerframework.checker.units.qual.C;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
@@ -491,6 +492,7 @@ public class test {
 
     @Test
     public void tset28(){
-        System.out.printf("%s月无费用%n", DateUtil.offsetMonth(new Date(),2).month());
+//        System.out.printf("%s月无费用%n", DateUtil.offsetMonth(new Date(),2).month());
+        System.out.println(DateUtil.offsetMonth(new Date(),1).month());
     }
 }
