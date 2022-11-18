@@ -19,6 +19,7 @@ import lombok.Data;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.compress.utils.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.checkerframework.checker.units.qual.C;
 import org.junit.Test;
@@ -31,6 +32,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -493,6 +495,47 @@ public class test {
     @Test
     public void tset28(){
 //        System.out.printf("%s月无费用%n", DateUtil.offsetMonth(new Date(),2).month());
-        System.out.println(DateUtil.offsetMonth(new Date(),1).month());
+        System.out.println(DateUtil.offsetMonth(new Date(),6).month());
+    }
+
+    @Test
+    public void test29(){
+        System.out.println(DateUtil.beginOfYear(new Date()).getTime());
+        // 1640966400000
+        // 1640966400000
+    }
+
+    @Test
+    public void test30(){
+        try {
+            List<String> list = new ArrayList<>(0);
+            Field elementData = ArrayList.class.getDeclaredField("elementData");
+            elementData.setAccessible(true);
+            Object o = elementData.get(list);
+
+            list.add("1");
+            System.out.println(list.size());
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void test31(){
+        System.out.println(IdcardUtil.getGenderByIdCard("130530198711061549"));
+    }
+
+    @Test
+    public void test32(){
+        Map<String,String> map = Maps.newHashMap();
+        map.put("","");
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            System.out.println(entry.getKey());
+        }
+    }
+
+    @Test
+    public void test33(){
+        System.out.println(StringUtils.contains("1,2,3", "1"));
     }
 }
