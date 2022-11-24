@@ -106,40 +106,40 @@ public class RabbitMQConfig {
 
 
     // 自定义延迟交换机
-    @Bean
-    public CustomExchange delayExchange(){
-        Map<String,Object> paramMap = new HashMap<>();
-        paramMap.put("x-delayed-type","direct"); // 延迟类型为直接类型
-        /**
-         * 名字
-         * 类型
-         * 是否持久化
-         * 是否自动删除
-         * 其他参数
-         */
-        return new CustomExchange(RabbitMqConstant.DELAY_EXCHANGE_NAME,"x-delayed-message",true,false,paramMap);
-    }
+//    @Bean
+//    public CustomExchange delayExchange(){
+//        Map<String,Object> paramMap = new HashMap<>();
+//        paramMap.put("x-delayed-type","direct"); // 延迟类型为直接类型
+//        /**
+//         * 名字
+//         * 类型
+//         * 是否持久化
+//         * 是否自动删除
+//         * 其他参数
+//         */
+//        return new CustomExchange(RabbitMqConstant.DELAY_EXCHANGE_NAME,"x-delayed-message",true,false,paramMap);
+//    }
 
-    /**
-     * 声明延迟队列
-     * @return
-     */
-    @Bean
-    public Queue delayQueue(){
-        return QueueBuilder.durable(RabbitMqConstant.DELAY_QUEUE_NAME).build();
-    }
+//    /**
+//     * 声明延迟队列
+//     * @return
+//     */
+//    @Bean
+//    public Queue delayQueue(){
+//        return QueueBuilder.durable(RabbitMqConstant.DELAY_QUEUE_NAME).build();
+//    }
 
-    /**
-     * 绑定
-     * @param delayQueue
-     * @param delayExchange
-     * @return
-     */
-    @Bean
-    public Binding delayQueueBindingDelayExchange(@Qualifier("delayQueue") Queue delayQueue,
-                                                  @Qualifier("delayExchange") CustomExchange delayExchange){
-        return BindingBuilder.bind(delayQueue).to(delayExchange).with(RabbitMqConstant.DELAY_ROUTING_KEY).noargs();
-    }
+//    /**
+//     * 绑定
+//     * @param delayQueue
+//     * @param delayExchange
+//     * @return
+//     */
+//    @Bean
+//    public Binding delayQueueBindingDelayExchange(@Qualifier("delayQueue") Queue delayQueue,
+//                                                  @Qualifier("delayExchange") CustomExchange delayExchange){
+//        return BindingBuilder.bind(delayQueue).to(delayExchange).with(RabbitMqConstant.DELAY_ROUTING_KEY).noargs();
+//    }
 
 
     @Bean

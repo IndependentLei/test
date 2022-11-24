@@ -24,6 +24,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.checkerframework.checker.units.qual.C;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
+import org.springframework.util.StopWatch;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.awt.*;
@@ -537,5 +538,27 @@ public class test {
     @Test
     public void test33(){
         System.out.println(StringUtils.contains("1,2,3", "1"));
+    }
+
+    @Test
+    public void test34(){
+        StopWatch sw = new StopWatch("测试");
+        sw.start("task1");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 1000000; i++) {
+            sb.append(i);
+        }
+        sw.stop();
+
+        sw.start("task2");
+        for (int i = 0; i < 1000000; i++) {
+            sb.append(i);
+        }
+        sw.stop();
+
+        for (StopWatch.TaskInfo taskInfo : sw.getTaskInfo()) {
+            System.out.println(taskInfo.getTimeMillis());
+        }
+
     }
 }

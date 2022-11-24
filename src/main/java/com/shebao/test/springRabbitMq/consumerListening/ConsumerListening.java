@@ -33,11 +33,11 @@ public class ConsumerListening {
     }
 
     // 监听队列
-    @RabbitListener(queues = RabbitMqConstant.DELAY_QUEUE_NAME)
-    public void acceptDelayMsg(Message message, Channel channel){
-        String msg = new String(message.getBody());
-        log.info("时间为：{},接收到的消息为：{}",new Date().toString(),msg);
-    }
+//    @RabbitListener(queues = RabbitMqConstant.DELAY_QUEUE_NAME)
+//    public void acceptDelayMsg(Message message, Channel channel){
+//        String msg = new String(message.getBody());
+//        log.info("时间为：{},接收到的消息为：{}",new Date().toString(),msg);
+//    }
 
     @RabbitListener(queues = RabbitMqConstant.CONFIRM_QUEUE_NAME)
     public void acceptConfirmMsg(Message message,Channel channel){
