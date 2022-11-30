@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class PersonServiceImpl implements PersonService , InitializingBean, Disp
     PersonMapper personMapper;
 
     @Override
+    @Cacheable("personService_findAll") //
     public List<Person> findAll() {
         return personMapper.findAll();
     }
