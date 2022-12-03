@@ -2,17 +2,28 @@ package com.shebao.test.test;
 
 import org.checkerframework.checker.units.qual.A;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicStampedReference;
 import java.util.concurrent.atomic.LongAdder;
 
+@Component
 public class testOne {
     // 非阻塞队列
     @Test
@@ -59,5 +70,92 @@ public class testOne {
 
     // CAS版本号
     static AtomicStampedReference<String> atomicStampedReference = new AtomicStampedReference<>("A",0);
+
+
+
+    @Scheduled(cron = "0/35 * * * * ?")
+    public void test6(){
+        WebDriver driver = null;
+
+        try {
+            Thread.sleep(1000);
+
+            System.setProperty("webdriver.chrome.driver", "D:\\application\\chromedriver_win32 (2)\\chromedriver.exe");// chromedriver服务地址
+            ChromeOptions chromeOptions = new ChromeOptions();
+            //        chromeOptions.addArguments("--headless"); //开启无头浏览器
+            chromeOptions.addArguments("--no-sandbox");
+            chromeOptions.addArguments("--disable-gpu");
+            chromeOptions.addArguments("--window-size=1920,1080");
+            chromeOptions.addArguments("--disable-dev-shm-usage");
+            driver = new ChromeDriver(chromeOptions); // 新建一个WebDriver 的对象，但是new 的是谷歌的驱动
+            WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
+            driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+            driver.get("https://v.douyin.com/rQyV83P/");
+            //
+            webDriverWait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//*[@id=\"login-pannel\"]/div[2]"))));
+            driver.findElement(By.xpath("//*[@id=\"login-pannel\"]/div[2]")).click();
+
+
+//            ((JavascriptExecutor) driver).executeScript("document.getElementsByName(\"qsny\")[0].value ='" + previousMonth + "';");
+            webDriverWait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[2]/div/div/div[1]/div[2]/div/xg-controls/xg-inner-controls/xg-left-grid/xg-icon[1]/div[1]"))));
+
+            driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[2]/div/div/div[1]/div[2]/div/xg-controls/xg-inner-controls/xg-left-grid/xg-icon[1]/div[1]")).click();
+            //                          //*[@id="root"]/div[1]/div[2]/div/div/div[1]/div[2]/div/xg-video-container/xg-start/xg-start-inner/svg[1]
+
+            Thread.sleep(23000);
+            driver.quit();
+        } catch (Exception e) {
+            System.out.println("出错了");
+            if(driver != null){
+                driver.quit();
+            }
+        }
+    }
+    @Test
+    public void test5() {
+
+        int success = 0;
+        int fail = 0;
+        while (true) {
+            WebDriver driver = null;
+
+            try {
+                Thread.sleep(1000);
+
+                System.setProperty("webdriver.chrome.driver", "D:\\application\\chromedriver_win32 (2)\\chromedriver.exe");// chromedriver服务地址
+                ChromeOptions chromeOptions = new ChromeOptions();
+//                chromeOptions.addArguments("--headless"); //开启无头浏览器
+                chromeOptions.addArguments("--no-sandbox");
+                chromeOptions.addArguments("--disable-gpu");
+                chromeOptions.addArguments("--window-size=1920,1080");
+                chromeOptions.addArguments("--disable-dev-shm-usage");
+                driver = new ChromeDriver(chromeOptions); // 新建一个WebDriver 的对象，但是new 的是谷歌的驱动
+                WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
+                driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+                driver.get("https://v.douyin.com/rQyV83P/");
+                //
+                webDriverWait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//*[@id=\"login-pannel\"]/div[2]"))));
+                driver.findElement(By.xpath("//*[@id=\"login-pannel\"]/div[2]")).click();
+
+
+//            ((JavascriptExecutor) driver).executeScript("document.getElementsByName(\"qsny\")[0].value ='" + previousMonth + "';");
+                webDriverWait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[2]/div/div/div[1]/div[2]/div/xg-controls/xg-inner-controls/xg-left-grid/xg-icon[1]/div[1]"))));
+
+                driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[2]/div/div/div[1]/div[2]/div/xg-controls/xg-inner-controls/xg-left-grid/xg-icon[1]/div[1]")).click();
+                //                          //*[@id="root"]/div[1]/div[2]/div/div/div[1]/div[2]/div/xg-video-container/xg-start/xg-start-inner/svg[1]
+
+                Thread.sleep(23000);
+                driver.quit();
+                success++;
+                System.out.println("成功运行了--------》:"+success);
+            } catch (Exception e) {
+                fail++;
+                System.out.println("出错了---------->:"+fail);
+                if(driver != null){
+                    driver.quit();
+                }
+            }
+        }
+    }
 
 }
