@@ -36,3 +36,9 @@ xxl:
       logpath:
       # 此执行器的日志保存时间
       logretentiondays: 30
+
+# minio 文件存储配置信息
+minio:
+  endpoint: http://94.74.123.183:9000
+  accesskey: minioadmin
+  secretKey: minioadmin
