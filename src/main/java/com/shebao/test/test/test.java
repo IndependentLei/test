@@ -595,4 +595,17 @@ public class test {
 
         System.out.println(map);
     }
+
+    @Test
+    public void test222(){
+        List<Integer> integers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
+        Iterator<Integer> iterator = integers.iterator();
+        while (iterator.hasNext()){
+            Integer next = iterator.next();
+            if(Objects.equals(3,next)){
+                iterator.remove();
+            }
+        }
+        System.out.println(Arrays.toString(integers.toArray()));
+    }
 }
