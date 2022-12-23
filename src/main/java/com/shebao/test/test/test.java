@@ -1,5 +1,8 @@
 package com.shebao.test.test;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.RandomUtil;
@@ -14,6 +17,7 @@ import com.shebao.test.model.entity.Person;
 import com.shebao.test.model.entity.Person1;
 import com.shebao.test.model.entity.TestPerson;
 import com.shebao.test.model.enums.TypeEnum;
+import com.shebao.test.test.mapStruct.PersonMapStruct;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.apache.commons.collections4.CollectionUtils;
@@ -608,4 +612,64 @@ public class test {
         }
         System.out.println(Arrays.toString(integers.toArray()));
     }
+
+    @Test
+    public void test35(){
+        System.out.println(DateUtil.format(DateUtil.parse("202212", DatePattern.SIMPLE_MONTH_PATTERN).offset(DateField.HOUR_OF_DAY, -8), DatePattern.UTC_MS_PATTERN));
+    }
+
+    @Test
+    public void test36(){
+        Person person = new Person(1L,"11","11");
+
+        Person person1 = new Person();
+        person1.setId(2L);
+
+        String[] beanField = getBeanField(person1);
+        BeanUtil.copyProperties(person1,person,beanField);
+
+        System.out.println(person);
+    }
+
+    public String[] getBeanField(Object obj){
+        Field[] declaredFields = obj.getClass().getDeclaredFields();
+        List<String> list = new ArrayList<>();
+        for (Field declaredField : declaredFields) {
+            try {
+                declaredField.setAccessible(true);
+                Object o = declaredField.get(obj);
+                if(Objects.isNull(o)){
+                    list.add(declaredField.getName());
+                }
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return list.toArray(new String[0]);
+    }
+
+    @Test
+    public void test37(){
+        // Optional 用法
+        Person person = new Person();
+        person.setName("ab111");
+        String s = Optional.ofNullable(person)
+                .map(Person::getName)
+                .map(String::toUpperCase)
+                .orElse("");
+        System.out.println(s);
+    }
+
+    @Test
+    public void test38(){
+        System.out.println(DateUtil.offset(new Date(),DateField.MONTH,1).monthBaseOne());
+    }
+
+    @Test
+    public void test39(){
+        Person p = new Person(1L,"1","1");
+        Person1 person1 = PersonMapStruct.INSTANT.pTop1(p);
+        System.out.println(person1);
+    }
+
 }
