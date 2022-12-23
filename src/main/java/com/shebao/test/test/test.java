@@ -98,12 +98,6 @@ public class test {
         System.out.println(strList);
     }
 
-    public static void main(String[] args) {
-        String str = "1,2,3,4";
-        List<String> strList = Splitter.on(",").splitToList(str);
-        System.out.println(strList);
-    }
-
     @Test
     public void test7(){
         List<Person> personList = Arrays.asList(new Person(1L,"小王", "2")
@@ -670,6 +664,21 @@ public class test {
         Person p = new Person(1L,"1","1");
         Person1 person1 = PersonMapStruct.INSTANT.pTop1(p);
         System.out.println(person1);
+    }
+
+    public static void main(String[] args) {
+        // jvm 栈针的使用
+        method1();
+    }
+
+    public static void method1(){
+//        int i = method2(3, 2);
+        method1();
+    }
+
+    public static int method2(int a,int b){
+        int c = Math.max(a,b);
+        return c;
     }
 
 }
