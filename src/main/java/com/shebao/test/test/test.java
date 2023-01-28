@@ -672,13 +672,47 @@ public class test {
     }
 
     public static void method1(){
-//        int i = method2(3, 2);
-        method1();
+        int i = method2(3, 2);
+//        method1();
     }
 
     public static int method2(int a,int b){
         int c = Math.max(a,b);
         return c;
+    }
+
+    @Test
+    public void test40(){
+        int i = 0;
+        try{
+            System.out.println("try");
+            i = 5;
+            throw new Exception();
+        }catch (Exception e){
+            System.out.println("catch");
+            i = 20;
+            return;
+        }finally {
+            System.out.println("finally");
+            i = 10;
+        }
+
+//        System.out.println(i);
+    }
+
+    @Test
+    public void test41(){
+        int i = test42();
+        System.out.println(i);
+//        System.out.println(i);
+    }
+
+    public static int test42(){
+        try{
+            return 10;
+        }finally {
+            return 20;
+        }
     }
 
 }
