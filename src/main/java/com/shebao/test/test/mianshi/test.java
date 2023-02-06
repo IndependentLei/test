@@ -3,6 +3,13 @@ package com.shebao.test.test.mianshi;
 import org.junit.Test;
 
 public class test {
+
+    @Test
+    public void test(){
+        /**
+         * spring的问题 https://blog.csdn.net/qq_41701956/article/details/116354268
+         */
+    }
     @Test
     public void test1(){
         // ACID原则
@@ -42,6 +49,14 @@ public class test {
          * 3.HashTable使用Enumeration,HashMap使用Iterator。
          * 4.HashTable中hash数组的默认大小是11，增加方式的old*2+1,HashMap中hash数组的默认大小是16，增长方式是2的指数倍。
          * 5.hashtable继承与Dictionary类，hashmap:继承自AbstractMap类
+         */
+    }
+
+    @Test
+    public void test4(){
+        /**
+         * @Autowird注解默认通过byType方式注入
+         * @Resource默认通过byName注入，如果没有匹配则通过byType注入
          */
     }
 }
