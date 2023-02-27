@@ -59,4 +59,25 @@ public class test {
          * @Resource默认通过byName注入，如果没有匹配则通过byType注入
          */
     }
+
+    @Test
+    public void test5(){
+        /**
+         * Mybatis的一级、二级缓存:
+         * 答：
+         * 1）一级缓存：基于PerpetualCache的HashMap本地缓存，其存储作用域为Session，当Session flush或close之后，该 Session中的所有Cache就将清空，默认打开一级缓存。
+         *
+         * 2）二级缓存与一级缓存其机制相同，默认也是采用PerpetualCache，HashMap存储，不同在于其存储作用域为Mapper(Namespace)，并且可自定义存储源，如Ehcache。默认不打开二级缓存，要开启二级缓存，使用二级缓存属性类需要实现Serializable序列化接口(可用来保存对象的状态),可在它的映射文件中配置 ；
+         *
+         * 3）对于缓存数据更新机制，当某一个作用域(一级缓存Session/二级缓存Namespaces)的进行了C/U/D操作后，默认该作用域下所有select中的缓存将被clear
+
+         */
+    }
+
+    @Test
+    public void test6(){
+        /**
+         * bean 标签有两个重要的属性（init-method和destroy-method）。用它们你可以自己定制初始化和注销方法。它们也有相应的注解（@PostConstruct和@PreDestroy）。
+         */
+    }
 }
