@@ -1,4 +1,4 @@
-package com.shebao.test.test.mianshi;
+package com.shebao.test.test.wendang;
 
 import org.junit.Test;
 

@@ -1,41 +1,42 @@
 server:
-  port: 9191
+  port: 3307
 spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://94.74.123.183:3306/db2022?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+#    url: jdbc:mysql://94.74.123.183:3306/db2022?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://127.0.0.1:3306/db2022?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
-    password: NewPassWord1.
+    password: root
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-  rabbitmq:
-    host: 94.74.123.183
-    port: 5672
-    username: guest
-    password: guest
+#  rabbitmq:
+#    host: 94.74.123.183
+#    port: 5672
+#    username: guest
+#    password: guest
 #    publisher-confirm-type: correlated  # NONE 禁用发布确认模式，是默认值， CORRELATED 发布消息成功到交换机后会触发回调方法 SIMPLE
 #    publisher-returns: true # 回退消息
 
-xxl:
-  job:
-    accessToken:
-    admin:
-      # xxl-job后台管理界面的地址
-      addresses: http://94.74.123.183:8383/xxl-job-admin
-    executor:
-      # 此执行器的名称
-      appname: text-execute-job
-      address:
-      ip:
-      # 此执行器的端口
-      port: 9999
-      # 此执行器的日志存放路径
-      logpath:
-      # 此执行器的日志保存时间
-      logretentiondays: 30
+#xxl:
+#  job:
+#    accessToken:
+#    admin:
+#      # xxl-job后台管理界面的地址
+#      addresses: http://94.74.123.183:8383/xxl-job-admin
+#    executor:
+#      # 此执行器的名称
+#      appname: text-execute-job
+#      address:
+#      ip:
+#      # 此执行器的端口
+#      port: 9999
+#      # 此执行器的日志存放路径
+#      logpath:
+#      # 此执行器的日志保存时间
+#      logretentiondays: 30
 
 # minio 文件存储配置信息
 minio:

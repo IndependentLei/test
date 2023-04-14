@@ -6,6 +6,12 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.RandomUtil;
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.util.ListUtils;
+import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -20,9 +26,9 @@ import com.shebao.test.model.entity.Person1;
 import com.shebao.test.model.entity.TestPerson;
 import com.shebao.test.model.enums.TypeEnum;
 import com.shebao.test.test.mapStruct.PersonMapStruct;
+import io.netty.util.concurrent.CompleteFuture;
 import io.netty.util.concurrent.DefaultThreadFactory;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
@@ -38,9 +44,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -62,13 +66,13 @@ public class test {
 //    }
 
     @Test
-    public void test2(){
+    public void test2() {
         List<String> strings = Collections.singletonList("222");
         System.out.println(strings);
     }
 
     @Test
-    public void test3(){
+    public void test3() {
         Integer integer = 128;
         int i = 128;
         boolean equals = Objects.equals(integer, i);
@@ -85,36 +89,36 @@ public class test {
 //    }
 
     @Test
-    public void test5(){
-        List<Person> personList = Arrays.asList(new Person(1L,"小王", "2")
-                , new Person(2L,"小李", "2")
-                , new Person(3L,"小王", "2")
-                , new Person(4L,"小春", "2"));
+    public void test5() {
+        List<Person> personList = Arrays.asList(new Person(1L, "小王", "2")
+                , new Person(2L, "小李", "2")
+                , new Person(3L, "小王", "2")
+                , new Person(4L, "小春", "2"));
         Map<String, List<Person>> collect = personList.stream().collect(Collectors.groupingBy(Person::getName));
         System.out.println(collect);
         System.out.println(collect.get("小王"));
     }
 
     @Test
-    public void test6(){
+    public void test6() {
         String str = "1,2,3,4";
         List<String> strList = Splitter.on(",").splitToList(str);
         System.out.println(strList);
     }
 
     @Test
-    public void test7(){
-        List<Person> personList = Arrays.asList(new Person(1L,"小王", "2")
-                , new Person(2L,"小李", "2")
-                , new Person(3L,"小王", "2")
-                , new Person(4L,"小春", "2"));
+    public void test7() {
+        List<Person> personList = Arrays.asList(new Person(1L, "小王", "2")
+                , new Person(2L, "小李", "2")
+                , new Person(3L, "小王", "2")
+                , new Person(4L, "小春", "2"));
         Map<String, String> collect = personList.stream().collect(Collectors.toMap(Person::getName, Person::getAge, (x, y) -> y));
         System.out.println(collect);
 
     }
 
     @Test
-    public void test8(){
+    public void test8() {
         List<Integer> typeList = Arrays.asList(1, 1, 2, 1);
         List<String> collect = typeList.stream().map(type -> TypeEnum.fromCode(type).getName()).collect(Collectors.toList());
         String join = Joiner.on(",").join(collect);
@@ -122,10 +126,10 @@ public class test {
     }
 
     @Test
-    public void test9(){
+    public void test9() {
         List<Long> ids = Lists.newArrayList();
         System.out.println(ids);
-        if(CollectionUtils.isNotEmpty(ids)){
+        if (CollectionUtils.isNotEmpty(ids)) {
             System.out.println(1);
         }
 
@@ -134,21 +138,21 @@ public class test {
 
         Map<String, Object> collect = A.entrySet()//获取集合
                 .stream()//获取流
-                .filter(a->B.keySet().contains(a))//peek支持在每个元素上执行一个操作并且返回新的stream
+                .filter(a -> B.keySet().contains(a))//peek支持在每个元素上执行一个操作并且返回新的stream
                 // ，我们就利用这个方法转换数据
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));//collect方法用来将流转到集合对象
     }
 
     @Test
-    public void test10(){
-        Map<String,String> one = Maps.newHashMap();
-        one.put("1","2");
-        one.put("2","3");
-        one.put("3","4");
-        Map<String,String> two = Maps.newHashMap();
-        two.put("3","4");
-        two.put("4","5");
-        two.put("6","7");
+    public void test10() {
+        Map<String, String> one = Maps.newHashMap();
+        one.put("1", "2");
+        one.put("2", "3");
+        one.put("3", "4");
+        Map<String, String> two = Maps.newHashMap();
+        two.put("3", "4");
+        two.put("4", "5");
+        two.put("6", "7");
 
         Map<String, String> collectMap = one.entrySet().stream().filter(o -> two.containsKey(o.getKey())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         System.out.println(collectMap);
@@ -157,11 +161,11 @@ public class test {
 
 
     @Test
-    public void test11(){
-        List<Person> personList = Arrays.asList(new Person(1L,"小王", "2")
-                , new Person(2L,"小李", "2")
-                , new Person(3L,"小王", "2")
-                , new Person(4L,"小春", "2"));
+    public void test11() {
+        List<Person> personList = Arrays.asList(new Person(1L, "小王", "2")
+                , new Person(2L, "小李", "2")
+                , new Person(3L, "小王", "2")
+                , new Person(4L, "小春", "2"));
 
         TestPerson testPerson = new TestPerson();
         TestPerson testPerson1 = new TestPerson();
@@ -175,12 +179,12 @@ public class test {
         testPerson.setPersonList(person1List);
         testPerson.setName("111");
 
-        BeanUtils.copyProperties(testPerson,testPerson1);
+        BeanUtils.copyProperties(testPerson, testPerson1);
         System.out.println(testPerson1);
     }
 
     @Test
-    public void test12(){
+    public void test12() {
         long dayToSecond = TimeUnit.DAYS.toSeconds(1);
         System.out.println(dayToSecond);
         long ss = 24 * 60 * 60;
@@ -188,7 +192,7 @@ public class test {
     }
 
     @Test
-    public void test13(){
+    public void test13() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         // 1、普通的时间转换
         String string = new SimpleDateFormat("yyyyMM").format(new Date());
@@ -196,47 +200,48 @@ public class test {
     }
 
     @Test
-    public void test14(){
+    public void test14() {
         BigDecimal bigDecimal = new BigDecimal(5000);
         BigDecimal multiply = bigDecimal.multiply(new BigDecimal("0.12"));
         System.out.println(multiply);
     }
 
     @Test
-    public void test15(){
+    public void test15() {
         BigDecimal bigDecimal = new BigDecimal(5000);
         System.out.println(bigDecimal.multiply(BigDecimal.valueOf(0.12)));
     }
 
     @Test
-    public void test16(){
+    public void test16() {
         List<Callable<String>> response = Lists.newArrayList();
-        List<Person> personList = Arrays.asList(new Person(1L,"小王", "2")
-                , new Person(2L,"小李", "2")
-                , new Person(3L,"小王", "4")
-                , new Person(4L,"小春", "2")
-                , new Person(4L,"小春", "4")
-                , new Person(4L,"小春", "2")
-                , new Person(4L,"小春", "7")
-                , new Person(4L,"小春", "9")
-                , new Person(4L,"小春", "2")
-                , new Person(4L,"小春", "2"));
+        List<Person> personList = Arrays.asList(new Person(1L, "小王", "2")
+                , new Person(2L, "小李", "2")
+                , new Person(3L, "小王", "4")
+                , new Person(4L, "小春", "2")
+                , new Person(4L, "小春", "4")
+                , new Person(4L, "小春", "2")
+                , new Person(4L, "小春", "7")
+                , new Person(4L, "小春", "9")
+                , new Person(4L, "小春", "2")
+                , new Person(4L, "小春", "2"));
         Map<String, List<Person>> collect = personList.stream().collect(Collectors.groupingBy(Person::getAge));
         // 使用Callable去执行多线程
-        collect.forEach((age,persons) -> response.add(()->testCallable(persons)));
+        collect.forEach((age, persons) -> response.add(() -> testCallable(persons)));
         List<String> strings = TaskThreadPool.addTask(response);
         System.out.println(strings);
     }
-    private String testCallable(List<Person> personList){
+
+    private String testCallable(List<Person> personList) {
         StringBuilder allAge = new StringBuilder();
-        for(Person person : personList){
+        for (Person person : personList) {
             allAge.append(person.getAge());
         }
         return allAge.toString();
     }
 
     @Test
-    public void test17(){
+    public void test17() {
         try {
             File file = new File("E:\\123.pdf");
             FileInputStream fis = new FileInputStream(file);
@@ -244,17 +249,17 @@ public class test {
             FileOutputStream fos = new FileOutputStream(file1);
             byte[] collect = new byte[1024];
             int len;
-            while ((len = fis.read(collect))!= -1){
-                fos.write(collect,0,len);
+            while ((len = fis.read(collect)) != -1) {
+                fos.write(collect, 0, len);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
     public void test18() {
-        System.out.println(getMonthSpace("202204","202205"));
+        System.out.println(getMonthSpace("202204", "202205"));
     }
 
     /**
@@ -272,26 +277,24 @@ public class test {
             c1.setTime(sdf.parse(date1));
             c2.setTime(sdf.parse(date2));
 
-            int i = c2.get(Calendar.YEAR)-c1.get(Calendar.YEAR);
+            int i = c2.get(Calendar.YEAR) - c1.get(Calendar.YEAR);
             int month = 0;
-            if (i<0)
-            {
-                month = -i*12;
-            }else if(i>0)
-            {
-                month =  i*12;
+            if (i < 0) {
+                month = -i * 12;
+            } else if (i > 0) {
+                month = i * 12;
             }
             result = (c2.get(Calendar.MONTH) - c1.get(Calendar.MONTH)) + month;
 
-            return Math.abs(result)+1;
-        }catch (ParseException e){
+            return Math.abs(result) + 1;
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return 0;
     }
 
     @Test
-    public void test20(){
+    public void test20() {
         String s = RandomUtil.randomString(16);
         String s1 = RandomUtil.randomNumbers(16);
 
@@ -311,7 +314,7 @@ public class test {
 
 
     static {
-        Map<String,List<String >> menuMap = new HashMap<>();
+        Map<String, List<String>> menuMap = new HashMap<>();
         List<String> 肉 = new ArrayList<>();
         肉.add("干锅虾");
         肉.add("干锅鸡杂");
@@ -346,44 +349,50 @@ public class test {
 
 
         汤.add("大煮干丝");
-        menuMap.put("肉",肉);
-        menuMap.put("菜",菜);
-        menuMap.put("汤",汤);
-        menuMap.put("不辣",不辣);
-        menuMap.put("辣",辣);
+        menuMap.put("肉", 肉);
+        menuMap.put("菜", 菜);
+        menuMap.put("汤", 汤);
+        menuMap.put("不辣", 不辣);
+        menuMap.put("辣", 辣);
 
 
     }
 
     @Test
-    public void test(){
+    public void test() {
         //
     }
 
     @Test
-    public void test21(){
+    public void test21() {
         class Cat {
             public Cat(String name) {
                 this.name = name;
             }
+
             private String name;
+
             public String getName() {
                 return name;
             }
+
             public void setName(String name) {
-                this.name = name;    }
+                this.name = name;
+            }
         }
-        Cat c1 = new Cat("王磊");Cat c2 = new Cat("王磊");System.out.println(c1.equals(c2));
+        Cat c1 = new Cat("王磊");
+        Cat c2 = new Cat("王磊");
+        System.out.println(c1.equals(c2));
     }
 
     @Test
-    public void test22(){
+    public void test22() {
         String userHome = System.getProperty("user.home");
         System.out.println(userHome);
     }
 
     @Test
-    public void test23(){
+    public void test23() {
 
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
@@ -395,10 +404,10 @@ public class test {
         jsonArray.add(jsonObject2);
         jsonArray.add(jsonObject3);
 
-        jsonObject.put("id",1);
-        jsonObject1.put("id",11);
-        jsonObject2.put("id",10);
-        jsonObject3.put("id",5);
+        jsonObject.put("id", 1);
+        jsonObject1.put("id", 11);
+        jsonObject2.put("id", 10);
+        jsonObject3.put("id", 5);
         List<JSONObject> jsonObjects = jsonArray.toJavaList(JSONObject.class);
         JSONObject jsonObject4 = jsonObjects.stream().max(Comparator.comparingInt(a -> a.getInteger("id"))).get();
         System.out.println(jsonObject4);
@@ -414,12 +423,12 @@ public class test {
 
     @AllArgsConstructor
     @Data
-    class  Clone1{
+    class Clone1 {
         public Integer id;
     }
 
     @Data
-    class CloneTest implements Cloneable{
+    class CloneTest implements Cloneable {
         public Integer id;
         public Clone1 clone1;
 
@@ -427,18 +436,6 @@ public class test {
         protected Object clone() throws CloneNotSupportedException {
             return super.clone();
         }
-    }
-    @Test
-    public void test24() throws CloneNotSupportedException {
-        CloneTest cloneTest = new CloneTest();
-        cloneTest.clone1 = new Clone1(1);
-        cloneTest.setId(1);
-        CloneTest clone = (CloneTest)cloneTest.clone();
-
-        clone.setClone1(new Clone1(2));
-
-        System.out.println(cloneTest.getClone1() == clone.getClone1());
-        System.out.println(clone);
     }
 
     @Test
@@ -463,10 +460,10 @@ public class test {
 ////        robot.keyPress(KeyEvent.VK_Q);
 ////        robot.keyRelease(KeyEvent.VK_Q);
 //        int[] ks = new int[]{KeyEvent.VK_C,KeyEvent.VK_L,KeyEvent.VK_S, KeyEvent.VK_ENTER};
-        pressMouse(robot,InputEvent.BUTTON1_MASK,500);
+        pressMouse(robot, InputEvent.BUTTON1_MASK, 500);
     }
 
-    private static void pressMouse(Robot r,int m,int delay){
+    private static void pressMouse(Robot r, int m, int delay) {
         r.mousePress(m);
         r.delay(10);
         r.mouseRelease(m);
@@ -474,9 +471,9 @@ public class test {
     }
 
     @Test
-    public void test26(){
-        Map<String,String> map = Maps.newHashMap();
-        map.put("","");
+    public void test26() {
+        Map<String, String> map = Maps.newHashMap();
+        map.put("", "");
         for (Map.Entry<String, String> entry : map.entrySet()) {
             System.out.println(entry);
         }
@@ -485,31 +482,31 @@ public class test {
     }
 
     @Test
-    public void test27(){
-            String str = "{\"interfaceName\":\"sbDoYwsl\",\"parameter\":\"{\\\"channelCode\\\":\\\"2002\\\",\\\"interfaceCode\\\":\\\"TYSL0106\\\",\\\"tzBusiHeader\\\":{\\\"aaa027\\\":\\\"360106\\\",\\\"aaz010\\\":\\\"3000000001237470\\\",\\\"aaa028\\\":\\\"2\\\",\\\"bae813\\\":\\\"360106\\\",\\\"bae814\\\":\\\"南昌市红谷滩新区\\\",\\\"userid\\\":\\\"91360125MA39U3Y5XR\\\",\\\"username\\\":\\\"江西人力云企业服务有限公司\\\",\\\"projid\\\":\\\"29746ba68d984e0eafb9981355021f62\\\"},\\\"data\\\":{\\\"searchText\\\":\\\"362201199601140618\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aab998\\\":\\\"91360125MA39U3Y5XR\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aac999\\\":\\\"500001049402\\\",\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac058\\\":\\\"01\\\",\\\"aac050\\\":\\\"22\\\",\\\"DIC_QYZS_AAE160\\\":\\\"2102080101\\\",\\\"aae035\\\":\\\"2022-10-16T16:00:00.000Z\\\",\\\"aaa121\\\":\\\"F210208\\\",\\\"ac05List\\\":[{\\\"aaz159\\\":\\\"3620000006928774\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"410\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1413601000000200\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0,\\\"aaa042\\\":0.002,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":26,\\\"_uid\\\":26},{\\\"aaz159\\\":\\\"3620000006928775\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"210\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1210360100000100\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0.005,\\\"aaa042\\\":0.005,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":27,\\\"_uid\\\":27},{\\\"aaz159\\\":\\\"3620000006928776\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"110\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1110360100000100\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0.08,\\\"aaa042\\\":0.16,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":28,\\\"_uid\\\":28}],\\\"aae160\\\":\\\"2102080101\\\"}}\",\"projid\":\"29746ba68d984e0eafb9981355021f62\"}";
-            String str2 = "{\"interfaceName\":\"qgtcAddBjxxApasInfo\",\"parameter\":\"{\\\"projid\\\":\\\"29746ba68d984e0eafb9981355021f62\\\",\\\"dataBody\\\":{\\\"formData\\\":{\\\"form\\\":{\\\"searchText\\\":\\\"362201199601140618\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aab998\\\":\\\"91360125MA39U3Y5XR\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aac999\\\":\\\"500001049402\\\",\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac058\\\":\\\"01\\\",\\\"aac050\\\":\\\"22\\\",\\\"DIC_QYZS_AAE160\\\":\\\"2102080101\\\",\\\"aae035\\\":\\\"2022-10-17\\\"}},\\\"gridData\\\":{\\\"datagrid266\\\":[{\\\"searchText\\\":null,\\\"aab001\\\":null,\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aac999\\\":\\\"500001049402\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac003\\\":\\\"冯青云\\\",\\\"aac004\\\":\\\"1\\\",\\\"aac005\\\":\\\"01\\\",\\\"aac006\\\":\\\"19960114\\\",\\\"aac007\\\":\\\"20220801\\\",\\\"aac058\\\":\\\"01\\\",\\\"bae535\\\":null,\\\"bac238\\\":null,\\\"aac009\\\":null,\\\"bab001\\\":null,\\\"aac010\\\":null,\\\"aae006\\\":null,\\\"aac012\\\":null,\\\"aae005\\\":null,\\\"bac243\\\":null,\\\"aae159\\\":null,\\\"aae007\\\":null,\\\"bae226\\\":null,\\\"aac161\\\":\\\"CHN\\\",\\\"aac225\\\":null,\\\"aac226\\\":null,\\\"aac227\\\":null,\\\"aac228\\\":null,\\\"aac229\\\":null,\\\"aac230\\\":null,\\\"aac231\\\":null,\\\"aac232\\\":null,\\\"aac233\\\":null,\\\"aac234\\\":null,\\\"aac235\\\":null,\\\"aac084\\\":\\\"0\\\",\\\"aac081\\\":null,\\\"aac060\\\":\\\"1\\\",\\\"aac031\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aac222\\\":null,\\\"_id\\\":25,\\\"_uid\\\":25}],\\\"datagrid\\\":[{\\\"aaz159\\\":\\\"3620000006928774\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"410\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1413601000000200\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0,\\\"aaa042\\\":0.002,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":26,\\\"_uid\\\":26},{\\\"aaz159\\\":\\\"3620000006928775\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"210\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1210360100000100\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0.005,\\\"aaa042\\\":0.005,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":27,\\\"_uid\\\":27},{\\\"aaz159\\\":\\\"3620000006928776\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"110\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1110360100000100\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0.08,\\\"aaa042\\\":0.16,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":28,\\\"_uid\\\":28}],\\\"companyGrid\\\":[],\\\"companyCbGrid\\\":[]},\\\"gridSelData\\\":{\\\"datagrid266\\\":[{\\\"searchText\\\":null,\\\"aab001\\\":null,\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aac999\\\":\\\"500001049402\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac003\\\":\\\"冯青云\\\",\\\"aac004\\\":\\\"1\\\",\\\"aac005\\\":\\\"01\\\",\\\"aac006\\\":\\\"19960114\\\",\\\"aac007\\\":\\\"20220801\\\",\\\"aac058\\\":\\\"01\\\",\\\"bae535\\\":null,\\\"bac238\\\":null,\\\"aac009\\\":null,\\\"bab001\\\":null,\\\"aac010\\\":null,\\\"aae006\\\":null,\\\"aac012\\\":null,\\\"aae005\\\":null,\\\"bac243\\\":null,\\\"aae159\\\":null,\\\"aae007\\\":null,\\\"bae226\\\":null,\\\"aac161\\\":\\\"CHN\\\",\\\"aac225\\\":null,\\\"aac226\\\":null,\\\"aac227\\\":null,\\\"aac228\\\":null,\\\"aac229\\\":null,\\\"aac230\\\":null,\\\"aac231\\\":null,\\\"aac232\\\":null,\\\"aac233\\\":null,\\\"aac234\\\":null,\\\"aac235\\\":null,\\\"aac084\\\":\\\"0\\\",\\\"aac081\\\":null,\\\"aac060\\\":\\\"1\\\",\\\"aac031\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aac222\\\":null,\\\"_id\\\":25,\\\"_uid\\\":25}],\\\"datagrid\\\":[{\\\"aaz159\\\":\\\"3620000006928774\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"410\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1413601000000200\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0,\\\"aaa042\\\":0.002,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":26,\\\"_uid\\\":26},{\\\"aaz159\\\":\\\"3620000006928775\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"210\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1210360100000100\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0.005,\\\"aaa042\\\":0.005,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":27,\\\"_uid\\\":27},{\\\"aaz159\\\":\\\"3620000006928776\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"110\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1110360100000100\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0.08,\\\"aaa042\\\":0.16,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":28,\\\"_uid\\\":28}],\\\"companyGrid\\\":[],\\\"companyCbGrid\\\":[]},\\\"tzBusiHeader\\\":{\\\"aaa027\\\":\\\"360106\\\",\\\"aaz010\\\":\\\"3000000001237470\\\",\\\"aaa028\\\":\\\"2\\\",\\\"bae813\\\":\\\"360106\\\",\\\"bae814\\\":\\\"南昌市红谷滩新区\\\",\\\"userid\\\":\\\"91360125MA39U3Y5XR\\\",\\\"username\\\":\\\"江西人力云企业服务有限公司\\\",\\\"projid\\\":\\\"29746ba68d984e0eafb9981355021f62\\\"},\\\"channelCode\\\":\\\"2002\\\"},\\\"dataType\\\":\\\"JSON\\\"}\",\"projid\":\"29746ba68d984e0eafb9981355021f62\"}";
-            JSONObject jsonObject = JSON.parseObject(str);
-            JSONObject jsonObject2 = JSON.parseObject(str2);
-            System.out.println(jsonObject);
-            System.out.println(jsonObject2);
-            System.out.println(new Date());
+    public void test27() {
+        String str = "{\"interfaceName\":\"sbDoYwsl\",\"parameter\":\"{\\\"channelCode\\\":\\\"2002\\\",\\\"interfaceCode\\\":\\\"TYSL0106\\\",\\\"tzBusiHeader\\\":{\\\"aaa027\\\":\\\"360106\\\",\\\"aaz010\\\":\\\"3000000001237470\\\",\\\"aaa028\\\":\\\"2\\\",\\\"bae813\\\":\\\"360106\\\",\\\"bae814\\\":\\\"南昌市红谷滩新区\\\",\\\"userid\\\":\\\"91360125MA39U3Y5XR\\\",\\\"username\\\":\\\"江西人力云企业服务有限公司\\\",\\\"projid\\\":\\\"29746ba68d984e0eafb9981355021f62\\\"},\\\"data\\\":{\\\"searchText\\\":\\\"362201199601140618\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aab998\\\":\\\"91360125MA39U3Y5XR\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aac999\\\":\\\"500001049402\\\",\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac058\\\":\\\"01\\\",\\\"aac050\\\":\\\"22\\\",\\\"DIC_QYZS_AAE160\\\":\\\"2102080101\\\",\\\"aae035\\\":\\\"2022-10-16T16:00:00.000Z\\\",\\\"aaa121\\\":\\\"F210208\\\",\\\"ac05List\\\":[{\\\"aaz159\\\":\\\"3620000006928774\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"410\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1413601000000200\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0,\\\"aaa042\\\":0.002,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":26,\\\"_uid\\\":26},{\\\"aaz159\\\":\\\"3620000006928775\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"210\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1210360100000100\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0.005,\\\"aaa042\\\":0.005,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":27,\\\"_uid\\\":27},{\\\"aaz159\\\":\\\"3620000006928776\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"110\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1110360100000100\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0.08,\\\"aaa042\\\":0.16,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":28,\\\"_uid\\\":28}],\\\"aae160\\\":\\\"2102080101\\\"}}\",\"projid\":\"29746ba68d984e0eafb9981355021f62\"}";
+        String str2 = "{\"interfaceName\":\"qgtcAddBjxxApasInfo\",\"parameter\":\"{\\\"projid\\\":\\\"29746ba68d984e0eafb9981355021f62\\\",\\\"dataBody\\\":{\\\"formData\\\":{\\\"form\\\":{\\\"searchText\\\":\\\"362201199601140618\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aab998\\\":\\\"91360125MA39U3Y5XR\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aac999\\\":\\\"500001049402\\\",\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac058\\\":\\\"01\\\",\\\"aac050\\\":\\\"22\\\",\\\"DIC_QYZS_AAE160\\\":\\\"2102080101\\\",\\\"aae035\\\":\\\"2022-10-17\\\"}},\\\"gridData\\\":{\\\"datagrid266\\\":[{\\\"searchText\\\":null,\\\"aab001\\\":null,\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aac999\\\":\\\"500001049402\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac003\\\":\\\"冯青云\\\",\\\"aac004\\\":\\\"1\\\",\\\"aac005\\\":\\\"01\\\",\\\"aac006\\\":\\\"19960114\\\",\\\"aac007\\\":\\\"20220801\\\",\\\"aac058\\\":\\\"01\\\",\\\"bae535\\\":null,\\\"bac238\\\":null,\\\"aac009\\\":null,\\\"bab001\\\":null,\\\"aac010\\\":null,\\\"aae006\\\":null,\\\"aac012\\\":null,\\\"aae005\\\":null,\\\"bac243\\\":null,\\\"aae159\\\":null,\\\"aae007\\\":null,\\\"bae226\\\":null,\\\"aac161\\\":\\\"CHN\\\",\\\"aac225\\\":null,\\\"aac226\\\":null,\\\"aac227\\\":null,\\\"aac228\\\":null,\\\"aac229\\\":null,\\\"aac230\\\":null,\\\"aac231\\\":null,\\\"aac232\\\":null,\\\"aac233\\\":null,\\\"aac234\\\":null,\\\"aac235\\\":null,\\\"aac084\\\":\\\"0\\\",\\\"aac081\\\":null,\\\"aac060\\\":\\\"1\\\",\\\"aac031\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aac222\\\":null,\\\"_id\\\":25,\\\"_uid\\\":25}],\\\"datagrid\\\":[{\\\"aaz159\\\":\\\"3620000006928774\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"410\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1413601000000200\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0,\\\"aaa042\\\":0.002,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":26,\\\"_uid\\\":26},{\\\"aaz159\\\":\\\"3620000006928775\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"210\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1210360100000100\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0.005,\\\"aaa042\\\":0.005,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":27,\\\"_uid\\\":27},{\\\"aaz159\\\":\\\"3620000006928776\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"110\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1110360100000100\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0.08,\\\"aaa042\\\":0.16,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":28,\\\"_uid\\\":28}],\\\"companyGrid\\\":[],\\\"companyCbGrid\\\":[]},\\\"gridSelData\\\":{\\\"datagrid266\\\":[{\\\"searchText\\\":null,\\\"aab001\\\":null,\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aac999\\\":\\\"500001049402\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac003\\\":\\\"冯青云\\\",\\\"aac004\\\":\\\"1\\\",\\\"aac005\\\":\\\"01\\\",\\\"aac006\\\":\\\"19960114\\\",\\\"aac007\\\":\\\"20220801\\\",\\\"aac058\\\":\\\"01\\\",\\\"bae535\\\":null,\\\"bac238\\\":null,\\\"aac009\\\":null,\\\"bab001\\\":null,\\\"aac010\\\":null,\\\"aae006\\\":null,\\\"aac012\\\":null,\\\"aae005\\\":null,\\\"bac243\\\":null,\\\"aae159\\\":null,\\\"aae007\\\":null,\\\"bae226\\\":null,\\\"aac161\\\":\\\"CHN\\\",\\\"aac225\\\":null,\\\"aac226\\\":null,\\\"aac227\\\":null,\\\"aac228\\\":null,\\\"aac229\\\":null,\\\"aac230\\\":null,\\\"aac231\\\":null,\\\"aac232\\\":null,\\\"aac233\\\":null,\\\"aac234\\\":null,\\\"aac235\\\":null,\\\"aac084\\\":\\\"0\\\",\\\"aac081\\\":null,\\\"aac060\\\":\\\"1\\\",\\\"aac031\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aac222\\\":null,\\\"_id\\\":25,\\\"_uid\\\":25}],\\\"datagrid\\\":[{\\\"aaz159\\\":\\\"3620000006928774\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"410\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1413601000000200\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0,\\\"aaa042\\\":0.002,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":26,\\\"_uid\\\":26},{\\\"aaz159\\\":\\\"3620000006928775\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"210\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1210360100000100\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0.005,\\\"aaa042\\\":0.005,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":27,\\\"_uid\\\":27},{\\\"aaz159\\\":\\\"3620000006928776\\\",\\\"aac001\\\":\\\"3000000001237470\\\",\\\"aab001\\\":\\\"1000000005323692\\\",\\\"aae140\\\":\\\"110\\\",\\\"aac008\\\":\\\"1\\\",\\\"aac049\\\":202208,\\\"aac030\\\":\\\"20220901\\\",\\\"aae868\\\":null,\\\"aae206\\\":202209,\\\"aab033\\\":null,\\\"aac013\\\":null,\\\"aac031\\\":\\\"1\\\",\\\"aac066\\\":\\\"101\\\",\\\"aac313\\\":\\\"1101\\\",\\\"aac314\\\":\\\"企业一般人员\\\",\\\"aae041\\\":202209,\\\"aae042\\\":null,\\\"aae030\\\":null,\\\"aae031\\\":null,\\\"aae100\\\":\\\"1\\\",\\\"aac335\\\":null,\\\"aac336\\\":null,\\\"aac337\\\":null,\\\"aae180\\\":3528,\\\"aac040\\\":null,\\\"aaz003\\\":null,\\\"aaz113\\\":null,\\\"aaz165\\\":null,\\\"aaz289\\\":\\\"1110360100000100\\\",\\\"aaz434\\\":null,\\\"aaz136\\\":null,\\\"aae823\\\":null,\\\"aae013\\\":null,\\\"aaz649\\\":null,\\\"aae860\\\":null,\\\"aae859\\\":null,\\\"aae011\\\":null,\\\"aae036\\\":null,\\\"aaz262\\\":null,\\\"aab034\\\":null,\\\"aab360\\\":null,\\\"aab359\\\":null,\\\"aaf018\\\":null,\\\"aaa431\\\":null,\\\"aaz673\\\":null,\\\"aaa027\\\":\\\"360106\\\",\\\"aaa508\\\":null,\\\"bac245\\\":null,\\\"includeHistory\\\":null,\\\"aae140Like\\\":null,\\\"aae017\\\":null,\\\"ym\\\":null,\\\"ajc050_start\\\":null,\\\"ajc050_end\\\":null,\\\"aac030Begin\\\":null,\\\"aac030End\\\":null,\\\"aac999\\\":\\\"500001049402\\\",\\\"aab004\\\":\\\"江西人力云企业服务有限公司\\\",\\\"aab999\\\":\\\"100000400005\\\",\\\"aaa041\\\":0.08,\\\"aaa042\\\":0.16,\\\"aac031s\\\":null,\\\"aae140s\\\":null,\\\"aaz692\\\":null,\\\"aaa350\\\":null,\\\"aae870\\\":null,\\\"aae878\\\":null,\\\"aaa121\\\":null,\\\"aac008s\\\":null,\\\"aac003\\\":\\\"冯青云\\\",\\\"aac002\\\":\\\"362201199601140618\\\",\\\"aac006\\\":null,\\\"aae140Sub\\\":null,\\\"baa102\\\":null,\\\"bab138\\\":null,\\\"aab019\\\":\\\"100\\\",\\\"_id\\\":28,\\\"_uid\\\":28}],\\\"companyGrid\\\":[],\\\"companyCbGrid\\\":[]},\\\"tzBusiHeader\\\":{\\\"aaa027\\\":\\\"360106\\\",\\\"aaz010\\\":\\\"3000000001237470\\\",\\\"aaa028\\\":\\\"2\\\",\\\"bae813\\\":\\\"360106\\\",\\\"bae814\\\":\\\"南昌市红谷滩新区\\\",\\\"userid\\\":\\\"91360125MA39U3Y5XR\\\",\\\"username\\\":\\\"江西人力云企业服务有限公司\\\",\\\"projid\\\":\\\"29746ba68d984e0eafb9981355021f62\\\"},\\\"channelCode\\\":\\\"2002\\\"},\\\"dataType\\\":\\\"JSON\\\"}\",\"projid\":\"29746ba68d984e0eafb9981355021f62\"}";
+        JSONObject jsonObject = JSON.parseObject(str);
+        JSONObject jsonObject2 = JSON.parseObject(str2);
+        System.out.println(jsonObject);
+        System.out.println(jsonObject2);
+        System.out.println(new Date());
     }
 
     @Test
-    public void tset28(){
+    public void tset28() {
 //        System.out.printf("%s月无费用%n", DateUtil.offsetMonth(new Date(),2).month());
-        System.out.println(DateUtil.offsetMonth(new Date(),6).month());
+        System.out.println(DateUtil.offsetMonth(new Date(), 6).month());
     }
 
     @Test
-    public void test29(){
+    public void test29() {
         System.out.println(DateUtil.beginOfYear(new Date()).getTime());
         // 1640966400000
         // 1640966400000
     }
 
     @Test
-    public void test30(){
+    public void test30() {
         try {
             List<String> list = new ArrayList<>(0);
             Field elementData = ArrayList.class.getDeclaredField("elementData");
@@ -524,26 +521,26 @@ public class test {
     }
 
     @Test
-    public void test31(){
+    public void test31() {
         System.out.println(IdcardUtil.getGenderByIdCard("130530198711061549"));
     }
 
     @Test
-    public void test32(){
-        Map<String,String> map = Maps.newHashMap();
-        map.put("","");
+    public void test32() {
+        Map<String, String> map = Maps.newHashMap();
+        map.put("", "");
         for (Map.Entry<String, String> entry : map.entrySet()) {
             System.out.println(entry.getKey());
         }
     }
 
     @Test
-    public void test33(){
+    public void test33() {
         System.out.println(StringUtils.contains("1,2,3", "1"));
     }
 
     @Test
-    public void test34(){
+    public void test34() {
         StopWatch sw = new StopWatch("测试");
         sw.start("task1");
         StringBuilder sb = new StringBuilder();
@@ -567,31 +564,31 @@ public class test {
 
     // map中一些一些方法的使用
     @Test
-    public void test111(){
-        Map<String,Integer> map = new HashMap<>();
+    public void test111() {
+        Map<String, Integer> map = new HashMap<>();
 
-        map.put("apple",1);
-        map.put("pink",1);
-        map.put("dog",1);
-        map.put("cat",1);
+        map.put("apple", 1);
+        map.put("pink", 1);
+        map.put("dog", 1);
+        map.put("cat", 1);
 
         // 如果当前key存在，就什么操作也不进行，如果不存在，将key存入，第二个参数是存入value的操作（key）->{....}
-        map.computeIfAbsent("apple1",(key)->3);
+        map.computeIfAbsent("apple1", (key) -> 3);
 
         // 如果存在，就进行计算，如果不存在，就忽略
-        map.computeIfPresent("pink1",(key,val)->{
+        map.computeIfPresent("pink1", (key, val) -> {
             System.out.println(val);
             return val;
         });
 
         // 不存在就添加进去，存在什么操作都不进行
-        map.putIfAbsent("pink1",4);
+        map.putIfAbsent("pink1", 4);
 
         // 不关系存不存在，存在就更新value，不存在就put进去，返回值为新的value
-        map.compute("11",(key,val)->1);
+        map.compute("11", (key, val) -> 1);
 
         // key不存在就直接存入value，存在就进行第三个参数的操作
-        map.merge("11",2,(key,val)->3);
+        map.merge("11", 2, (key, val) -> 3);
 
 // {pink1=4, apple=1, pink=1, apple1=3, cat=1, dog=1}
 
@@ -599,12 +596,12 @@ public class test {
     }
 
     @Test
-    public void test222(){
+    public void test222() {
         List<Integer> integers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
         Iterator<Integer> iterator = integers.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Integer next = iterator.next();
-            if(Objects.equals(3,next)){
+            if (Objects.equals(3, next)) {
                 iterator.remove();
             }
         }
@@ -612,31 +609,31 @@ public class test {
     }
 
     @Test
-    public void test35(){
+    public void test35() {
         System.out.println(DateUtil.format(DateUtil.parse("202212", DatePattern.SIMPLE_MONTH_PATTERN).offset(DateField.HOUR_OF_DAY, -8), DatePattern.UTC_MS_PATTERN));
     }
 
     @Test
-    public void test36(){
-        Person person = new Person(1L,"11","11");
+    public void test36() {
+        Person person = new Person(1L, "11", "11");
 
         Person person1 = new Person();
         person1.setId(2L);
 
         String[] beanField = getBeanField(person1);
-        BeanUtil.copyProperties(person1,person,beanField);
+        BeanUtil.copyProperties(person1, person, beanField);
 
         System.out.println(person);
     }
 
-    public String[] getBeanField(Object obj){
+    public String[] getBeanField(Object obj) {
         Field[] declaredFields = obj.getClass().getDeclaredFields();
         List<String> list = new ArrayList<>();
         for (Field declaredField : declaredFields) {
             try {
                 declaredField.setAccessible(true);
                 Object o = declaredField.get(obj);
-                if(Objects.isNull(o)){
+                if (Objects.isNull(o)) {
                     list.add(declaredField.getName());
                 }
             } catch (IllegalAccessException e) {
@@ -647,7 +644,7 @@ public class test {
     }
 
     @Test
-    public void test37(){
+    public void test37() {
         // Optional 用法
         Person person = new Person();
         person.setName("ab111");
@@ -659,13 +656,13 @@ public class test {
     }
 
     @Test
-    public void test38(){
-        System.out.println(DateUtil.offset(new Date(),DateField.MONTH,1).monthBaseOne());
+    public void test38() {
+        System.out.println(DateUtil.offset(new Date(), DateField.MONTH, 1).monthBaseOne());
     }
 
     @Test
-    public void test39(){
-        Person p = new Person(1L,"1","1");
+    public void test39() {
+        Person p = new Person(1L, "1", "1");
         Person1 person1 = PersonMapStruct.INSTANT.pTop1(p);
         System.out.println(person1);
     }
@@ -680,23 +677,23 @@ public class test {
 ////        method1();
 //    }
 
-    public static int method2(int a,int b){
-        int c = Math.max(a,b);
+    public static int method2(int a, int b) {
+        int c = Math.max(a, b);
         return c;
     }
 
     @Test
-    public void test40(){
+    public void test40() {
         int i = 0;
-        try{
+        try {
             System.out.println("try");
             i = 5;
             throw new Exception();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("catch");
             i = 20;
             return;
-        }finally {
+        } finally {
             System.out.println("finally");
             i = 10;
         }
@@ -705,22 +702,22 @@ public class test {
     }
 
     @Test
-    public void test41(){
+    public void test41() {
         int i = test42();
         System.out.println(i);
 //        System.out.println(i);
     }
 
-    public static int test42(){
-        try{
+    public static int test42() {
+        try {
             return 10;
-        }finally {
+        } finally {
             return 20;
         }
     }
 
     @Test
-    public void test43(){
+    public void test43() {
         /**
          *     public ThreadPoolExecutor(int corePoolSize,  核心线程数
          *                               int maximumPoolSize, 最大线程数
@@ -746,30 +743,30 @@ public class test {
          *
          */
 
-        executorService.submit(()->{
+        executorService.submit(() -> {
             log.info("1111");
         });
     }
 
     @Test
-    public void test44(){
+    public void test44() {
         String key = "111";
         int p;
         System.out.println((p = key.hashCode()) ^ (p >>> 16));
     }
 
     @Test
-    public void test45(){
+    public void test45() {
         System.out.println(Math.round(-1.5));
         System.out.println(Math.round(-0.5));
     }
 
-    abstract class AA{
+    abstract class AA {
 
     }
 
     @Test
-    public void test46(){
+    public void test46() {
         /**
          * volatile和synchronized的区别
          * volatile本质是在告诉jvm当前变量在寄存器（工作内存）中的值是不确定的，需要从主存中读取； synchronized则是锁定当前变量，只有当前线程可以访问该变量，其他线程被阻塞住。
@@ -781,7 +778,7 @@ public class test {
     }
 
     @Test
-    public void test47(){
+    public void test47() {
         /**
          * 自动装配原理
          * 1）通过注解@SpringBootApplication=>@EnableAutoConfiguration=>@Import({AutoConfigurationImportSelector.class})实现自动装配
@@ -792,7 +789,7 @@ public class test {
     }
 
     @Test
-    public void test48(){
+    public void test48() {
         /**
          * 说一下 mybatis 的一级缓存和二级缓存？
          * 一级缓存是session级别的缓存，默认开启，当查询一次数据库时，对查询结果进行缓存，如果之后的查询在一级缓存中存在，则无需再访问数据库；
@@ -801,7 +798,7 @@ public class test {
     }
 
     @Test
-    public void test49(){
+    public void test49() {
         /**
          * 事务(Transaction)是并发控制的基本单位。所谓事务，它是一个操作序列，这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位。例如，银行转帐工作：从一个帐号扣款并使另一个帐号增款，这两个操作要么都执行，要么都不执行。
          * 1、数据库事务必须具备ACID特性，ACID是Atomic（原子性）、Consistency（一致性）、Isolation（隔离性）和Durability（持久性）的英文缩写。
@@ -864,20 +861,20 @@ public class test {
 //        System.out.println(Arrays.toString(floats));
 //    }
 
-    public static float toFloat(String str){
+    public static float toFloat(String str) {
         float sum = 0;
         float h = 1f;
         for (int i = 0; i < str.length(); i++) {
-            if(str.charAt(i) == '.'){
+            if (str.charAt(i) == '.') {
                 h = 0.1f;
-            }else {
+            } else {
                 int i1 = Integer.parseInt(str.substring(i, i + 1));
-                if( h >= 1){
-                    sum = sum*h + i1;
-                    h = h*10;
-                }else {
-                    sum = sum + i1*h;
-                    h= h/10;
+                if (h >= 1) {
+                    sum = sum * h + i1;
+                    h = h * 10;
+                } else {
+                    sum = sum + i1 * h;
+                    h = h / 10;
                 }
             }
         }
@@ -885,55 +882,54 @@ public class test {
     }
 
     @Test
-    public void tt(){
-        System.out.println(containsDuplicate(new int[]{1, 2, 3,1}));
+    public void tt() {
+        System.out.println(containsDuplicate(new int[]{1, 2, 3, 1}));
     }
 
 
-
     public boolean containsDuplicate(int[] nums) {
-        Set<Integer> set  = new HashSet<>();
-        for(int i = 0;i<nums.length;i++){
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < nums.length; i++) {
             set.add(nums[i]);
         }
         return nums.length == set.size();
     }
 
 
-    public int maxSum(int[] sz){
+    public int maxSum(int[] sz) {
         int pr = sz[0];
         int sum = 0;
         for (int i : sz) {
-            if(sum > 0){
+            if (sum > 0) {
                 sum += i;
-            }else {
+            } else {
                 sum = i;
             }
-            pr = Math.max(sum,pr);
+            pr = Math.max(sum, pr);
         }
         return pr;
     }
 
     @Test
-    public void test444(){
-        System.out.println(maxSum(new int[]{-2,3,-1,1,-3}));
+    public void test444() {
+        System.out.println(maxSum(new int[]{-2, 3, -1, 1, -3}));
     }
 
 
-    class MovingAverage{
+    class MovingAverage {
         private Integer size;
         private ArrayDeque<Integer> arrayDeque;
 
         private double sum;
 
-        public  MovingAverage(int size){
+        public MovingAverage(int size) {
             this.size = size;
             arrayDeque = new ArrayDeque<>(size);
             this.sum = 0;
         }
 
-        public double next(int val){
-            if(this.size == arrayDeque.size()){
+        public double next(int val) {
+            if (this.size == arrayDeque.size()) {
                 sum -= arrayDeque.poll();
             }
 
@@ -944,7 +940,7 @@ public class test {
     }
 
     @Test
-    public void test4441(){
+    public void test4441() {
         // inputs = [[3], [1], [10], [3], [5]]
         MovingAverage ma = new MovingAverage(3);
         double next = ma.next(3);
@@ -960,32 +956,32 @@ public class test {
     }
 
 
-    private int zhongLei(int[] arr){
+    private int zhongLei(int[] arr) {
         Set<Integer> set = new HashSet<>(arr.length);
         for (int i : arr) {
             set.add(i);
         }
-        return Math.min(set.size(),arr.length / 2);
+        return Math.min(set.size(), arr.length / 2);
     }
 
     @Test
-    public void test4442(){
-        System.out.println(zhongLei(new int[]{1,1,2,3}));
+    public void test4442() {
+        System.out.println(zhongLei(new int[]{1, 1, 2, 3}));
     }
 
     @Test
-    public void test4443(){
+    public void test4443() {
         System.out.println(toRom(1994));
     }
 
-    public String toRom(int num){
-        int[] values={1000,900,500,400,100,90,50,40,10,9,5,4,1};
-        String[] rom={"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+    public String toRom(int num) {
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] rom = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
 
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < values.length; i++) {
-            while (values[i] <= num){
+            while (values[i] <= num) {
                 sb.append(rom[i]);
                 num -= values[i];
             }
@@ -994,8 +990,8 @@ public class test {
     }
 
     @Test
-    public void test4444(){
-        Table<String,String,Integer> table= HashBasedTable.create();
+    public void test4444() {
+        Table<String, String, Integer> table = HashBasedTable.create();
 //存放元素
         table.put("Hydra", "Jan", 20);
         table.put("Hydra", "Feb", 28);
@@ -1007,83 +1003,10 @@ public class test {
         Integer dayCount = table.get("Hydra", "Feb");
     }
 
-    public static class BinarySearchTree {
-        private Node root;
-
-        public BinarySearchTree() {
-            root = null;
-        }
-
-        public void insert(int data) {
-            Node newNode = new Node(data);
-            if (root == null) {
-                root = newNode;
-            } else {
-                Node current = root;
-                Node parent;
-                while (true) {
-                    parent = current;
-                    if (data < current.data) {
-                        current = current.left;
-                        if (current == null) {
-                            parent.left = newNode;
-                            return;
-                        }
-                    } else {
-                        current = current.right;
-                        if (current == null) {
-                            parent.right = newNode;
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-
-        public void inorder(Node root) {
-            if (root != null) {
-                inorder(root.left);
-                System.out.print(root.data + " ");
-                inorder(root.right);
-            }
-        }
-
-
-        public class Node {
-            int data;
-            Node left;
-            Node right;
-
-            public Node(int data) {
-                this.data = data;
-                left = null;
-                right = null;
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        BinarySearchTree bst = new BinarySearchTree();
-        bst.insert(3);
-        bst.insert(8);
-        bst.insert(1);
-        bst.insert(4);
-        bst.insert(6);
-        bst.insert(2);
-        bst.insert(10);
-        bst.insert(9);
-        bst.insert(20);
-        bst.insert(25);
-        bst.insert(15);
-        bst.insert(16);
-        System.out.println("Inorder traversal: ");
-        bst.inorder(bst.root);
-    }
-
     @Test
-    public void test123(){
+    public void test123() {
 //        merge(new int[]{1,2,3,0,0,0},3,new int[]{2,5,6},3);
-        merge1(new int[]{2,0},1,new int[]{1},1);
+        merge1(new int[]{2, 0}, 1, new int[]{1}, 1);
         /**
          * 输入：nums1 = [1,2,2,1], nums2 = [2,2]
          * 输出：[2,2]
@@ -1091,27 +1014,27 @@ public class test {
     }
 
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        if(m == 0){
+        if (m == 0) {
             for (int i = 0; i < nums2.length; i++) {
                 nums1[i] = nums2[i];
             }
             return;
         }
-        if(n == 0){
+        if (n == 0) {
             return;
         }
         int j = 0;
         for (int i = 0; i < m + n; i++) {
-            if(nums1[i] > nums2[j]){
-                for (int k = m + n -1; k > i; k--) {
-                    nums1[k] = nums1[k-1];
+            if (nums1[i] > nums2[j]) {
+                for (int k = m + n - 1; k > i; k--) {
+                    nums1[k] = nums1[k - 1];
                 }
                 nums1[i] = nums2[j];
-                if(++j >= n){
+                if (++j >= n) {
                     break;
                 }
-            }else {
-                if(nums1[i] == 0){
+            } else {
+                if (nums1[i] == 0) {
                     nums1[i] = nums2[j++];
                 }
             }
@@ -1119,18 +1042,18 @@ public class test {
     }
 
     public void merge1(int[] nums1, int m, int[] nums2, int n) {
-        int m1 = m-1;
-        int n1 = n-1;
-        int wz = m+n-1;
+        int m1 = m - 1;
+        int n1 = n - 1;
+        int wz = m + n - 1;
         int cur = 0;
-        while(m1 >= 0 || n1 >= 0){
-            if(m1 == -1){
+        while (m1 >= 0 || n1 >= 0) {
+            if (m1 == -1) {
                 cur = nums2[n1--];
-            }else if(n1 == -1){
+            } else if (n1 == -1) {
                 cur = nums1[m1--];
-            }else if(nums1[m1] > nums2[n1]){
+            } else if (nums1[m1] > nums2[n1]) {
                 cur = nums1[m1--];
-            }else {
+            } else {
                 cur = nums2[n1--];
             }
             nums1[wz--] = cur;
@@ -1139,25 +1062,26 @@ public class test {
 
 
     @Test
-    public void test124(){
+    public void test124() {
         System.out.println(Arrays.toString(intersect(new int[]{1, 2, 2, 1}, new int[]{2, 2})));
     }
+
     public int[] intersect(int[] nums1, int[] nums2) {
-        if(nums1.length > nums2.length){
-            return intersect(nums2,nums1);
+        if (nums1.length > nums2.length) {
+            return intersect(nums2, nums1);
         }
-        Map<Integer,Integer> map = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<>();
         for (int i : nums1) {
-            if(map.computeIfPresent(i,(k,v)-> v+=1)== null){
-                map.put(i,1);
+            if (map.computeIfPresent(i, (k, v) -> v += 1) == null) {
+                map.put(i, 1);
             }
         }
 
         int[] ints = new int[nums1.length];
         int index = 0;
         for (int i : nums2) {
-            Integer count = map.getOrDefault(i,0);
-            if(count > 0) {
+            Integer count = map.getOrDefault(i, 0);
+            if (count > 0) {
                 ints[index++] = i;
                 --count;
                 if (count > 0) {
@@ -1167,12 +1091,12 @@ public class test {
                 }
             }
         }
-        return Arrays.copyOfRange(ints,0,index);
+        return Arrays.copyOfRange(ints, 0, index);
     }
 
     @Test
-    public void test125(){
-        System.out.println(maxProfit(new int[]{7,1,5,3,6,4}));
+    public void test125() {
+        System.out.println(maxProfit(new int[]{7, 1, 5, 3, 6, 4}));
     }
 
     public int maxProfit(int[] prices) {
@@ -1191,9 +1115,10 @@ public class test {
     // [[1,2],[3,4]], r = 1, c = 4
 
     @Test
-    public void test126(){
-        System.out.println(matrixReshape(new int[][]{{1,2},{3,4}},2,2));
+    public void test126() {
+        System.out.println(matrixReshape(new int[][]{{1, 2}, {3, 4}}, 2, 2));
     }
+
     public int[][] matrixReshape(int[][] nums, int r, int c) {
         int m = nums.length;
         int n = nums[0].length;
@@ -1209,7 +1134,7 @@ public class test {
     }
 
     @Test
-    public void test127(){
+    public void test127() {
         System.out.println(generate(6));
     }
 
@@ -1217,18 +1142,18 @@ public class test {
         List<List<Integer>> lists = new ArrayList<>(numRows);
         Integer[][] numRowsArr = new Integer[numRows][];
         for (int i = 0; i < numRows; i++) {
-            Integer[] nums = new Integer[i+1];
-            for (int j = 0; j <=i; j++) {
-                if(j== 0 || i == j){
-                    nums[j]=1;
+            Integer[] nums = new Integer[i + 1];
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || i == j) {
+                    nums[j] = 1;
                 }
             }
             numRowsArr[i] = nums;
         }
 
         for (int i = 2; i < numRows; i++) {
-            for (int j = 1; j <i; j++) {
-                numRowsArr[i][j] = numRowsArr[i-1][j]+numRowsArr[i-1][j-1];
+            for (int j = 1; j < i; j++) {
+                numRowsArr[i][j] = numRowsArr[i - 1][j] + numRowsArr[i - 1][j - 1];
             }
         }
         for (Integer[] integers : numRowsArr) {
@@ -1237,4 +1162,196 @@ public class test {
         return lists;
     }
 
+    @Test
+    public void test128() {
+        to("11");
+    }
+
+    public void to(String str) {
+        String str2 = str;
+
+
+        str2 = "222";
+        System.out.println(str2 == str);
+    }
+
+    @Getter
+    @Setter
+    @EqualsAndHashCode
+    public class DemoData {
+        @ExcelProperty("字符串标题")
+        private String string;
+        @ExcelProperty("日期标题")
+        private Date date;
+        @ExcelProperty("数字标题")
+        private Double doubleData;
+        /**
+         * 忽略这个字段
+         */
+        @ExcelIgnore
+        private String ignore;
+    }
+
+    @Test
+    public void simpleWrite() {
+        // 注意 simpleWrite在数据量不大的情况下可以使用（5000以内，具体也要看实际情况），数据量大参照 重复多次写入
+
+        // 写法1 JDK8+
+        // since: 3.0.0-beta1
+        String fileName = TestFileUtil.getPath() + "simpleWrite" + System.currentTimeMillis() + ".xlsx";
+//        // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
+//        // 如果这里想使用03 则 传入excelType参数即可
+//        // 分页查询数据
+//        EasyExcel.write(fileName, DemoData.class)
+//                .sheet("模板")
+//                .doWrite(this::data);
+//
+//        // 写法2
+//        fileName = TestFileUtil.getPath() + "simpleWrite" + System.currentTimeMillis() + ".xlsx";
+//        // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
+//        // 如果这里想使用03 则 传入excelType参数即可
+//        EasyExcel.write(fileName, DemoData.class).sheet("模板").doWrite(data());
+
+        // 写法3
+        fileName = TestFileUtil.getPath() + "simpleWrite" + System.currentTimeMillis() + ".xlsx";
+        // 这里 需要指定写用哪个class去写
+        ExcelWriter excelWriter = null;
+        try {
+            excelWriter = EasyExcel.write(fileName, DemoData.class).build();
+//            for (int i = 0; i < 3; i++) {
+            WriteSheet writeSheet = EasyExcel.writerSheet("模板" + 1).build();
+            excelWriter.write(data(), writeSheet);
+//            }
+        } finally {
+            if (null != excelWriter) {
+                excelWriter.close();
+            }
+        }
+    }
+
+    private List<DemoData> data() {
+        List<DemoData> list = ListUtils.newArrayList();
+        for (int i = 0; i < 10; i++) {
+            DemoData data = new DemoData();
+            data.setString("字符串" + i);
+            data.setDate(new Date());
+            data.setDoubleData(0.56);
+//            list.add(data);
+        }
+        return list;
+    }
+
+    @Test
+    public void test165(){
+        System.out.println(data().stream()
+                .map(DemoData::getDoubleData)
+                .reduce(Double::sum).orElse(null));
+        System.out.println(data().stream()
+                .map(DemoData::getDoubleData)
+                .reduce(1D,Double::sum));
+        System.out.println(data().stream()
+                .map(DemoData::getDoubleData)
+                .reduce(1D,Double::sum, Double::sum));
+    }
+
+    @Test
+    public void test175(){
+        Double dd = 10.01;
+        Double dd1 = 0D;
+        System.out.println( dd / dd1 );
+
+        Integer integer = 10;
+        Integer ii = 0;
+        System.out.println( integer / ii );
+    }
+
+    @Test
+    public void test176(){
+        List<DemoData> collect = data().stream().peek(item -> item.setString("1111")).collect(Collectors.toList());
+        System.out.println(collect);
+    }
+
+    @Test
+    public void test177(){
+        long sTime = System.currentTimeMillis();
+        CompletableFuture<BigDecimal> A = CompletableFuture.supplyAsync(
+                () -> getA("A")
+        );
+        CompletableFuture<BigDecimal> B = CompletableFuture.supplyAsync(
+                () -> getB("B")
+        );
+        CompletableFuture<BigDecimal> C = CompletableFuture.supplyAsync(
+                () -> getC("C")
+        );
+
+        BigDecimal bigDecimal = Stream.of(A, B, C)
+                .map(CompletableFuture::join)
+                .min(BigDecimal::compareTo)
+                .orElse(BigDecimal.ZERO);
+
+        long eTime = System.currentTimeMillis();
+        System.out.println((eTime-sTime)/1000);
+
+        System.out.println(bigDecimal);
+    }
+
+
+
+    public long getRandom(){
+        return RandomUtil.randomLong(1,5);
+    }
+
+    public BigDecimal getPrice(){
+        return RandomUtil.randomBigDecimal(BigDecimal.valueOf(50),BigDecimal.valueOf(5000));
+    }
+
+    public BigDecimal getA(String item){
+        try {
+            long random = getRandom();
+            BigDecimal price = getPrice();
+            log.info("{}-{}-{}",item,random,price);
+            TimeUnit.SECONDS.sleep(random);
+            return price;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public BigDecimal getB(String item){
+        try {
+            long random = getRandom();
+            BigDecimal price = getPrice();
+            log.info("{}-{}-{}",item,random,price);
+            TimeUnit.SECONDS.sleep(random);
+            return price;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public BigDecimal getC(String item){
+        try {
+            long random = getRandom();
+            BigDecimal price = getPrice();
+            log.info("{}-{}-{}",item,random,price);
+            TimeUnit.SECONDS.sleep(random);
+            return price;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void test179() throws ExecutionException, InterruptedException {
+        // 没有返回结果
+        CompletableFuture<Void> voidGatA = CompletableFuture.runAsync(() -> getA(""));
+        System.out.println(voidGatA.get());
+        CompletableFuture<BigDecimal> getA = CompletableFuture.supplyAsync(() -> getA(""));
+        System.out.println(getA.get());
+    }
+
+    @Test
+    public void test180(){
+
+    }
 }
