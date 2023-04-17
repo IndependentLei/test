@@ -20,6 +20,8 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
+import com.google.common.hash.BloomFilter;
+import com.google.common.hash.Funnels;
 import com.shebao.test.config.TaskThreadPool;
 import com.shebao.test.model.entity.Person;
 import com.shebao.test.model.entity.Person1;
@@ -1350,8 +1352,52 @@ public class test {
         System.out.println(getA.get());
     }
 
+    @Data
+    @AllArgsConstructor
+    public class FData{
+        private Boolean isSucc;
+        private String fStr;
+    }
+    private List<FData> fDataTest(){
+        List<FData> fDataList = Lists.newArrayList();
+        fDataList.add(new FData(true,"1"));
+        fDataList.add(new FData(false,"1"));
+        return fDataList;
+    }
     @Test
     public void test180(){
+        boolean b = fDataTest().stream()
+                .allMatch(FData::getIsSucc);
+        System.out.println(b);
+    }
+
+    @Test
+    public void test181(){
+        Double d = 1.0;
+        Double a = Math.ceil(d/1000);
+        System.out.println(a);
+        System.out.println(Objects.equals(d, a));
+    }
+
+    @Test
+    public void test182() {
+        BloomFilter<Integer> bloomFilter = BloomFilter.create(
+                Funnels.integerFunnel(),
+                100000,
+                0.001
+        );
+        bloomFilter.put(1);
+        bloomFilter.put(2);
+        bloomFilter.put(3);
+        bloomFilter.put(4);
+        bloomFilter.put(5);
+        bloomFilter.put(6);
+
+        boolean b = bloomFilter.mightContain(7);
+        System.out.println(b);
+
+        boolean b1 = bloomFilter.mightContain(2);
+        System.out.println(b1);
 
     }
 }
