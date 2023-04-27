@@ -1,11 +1,14 @@
 package com.shebao.test.test;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.extra.qrcode.QrCodeUtil;
+import cn.hutool.extra.qrcode.QrConfig;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.annotation.ExcelIgnore;
@@ -15,6 +18,7 @@ import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.util.UUIDUtils;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.HashBasedTable;
@@ -34,18 +38,22 @@ import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.checkerframework.checker.units.qual.C;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.StopWatch;
 
+import javax.imageio.ImageIO;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -54,6 +62,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -1400,4 +1411,194 @@ public class test {
         System.out.println(b1);
 
     }
+
+
+
+
+//    public List<R> sendAsyncBatch(List<P> list, Executor executor, TaskLoader<R,P> loader) {
+//
+//        List<R> resultList = Collections.synchronizedList(Lists.newArrayList());
+//        if (CollectionUtils.isNotEmpty(list)) {
+//            Executor finalExecutor = executor;
+//            // 将任务拆分分成每50个为一个任务
+//            CollUtil.split(list, 50)
+//                    .forEach(tempList -> {
+//                        CompletableFuture[] completableFutures = tempList.stream()
+//                                .map(p -> CompletableFuture.supplyAsync(() -> {
+//                                                    try {
+//                                                        return loader.load(p);
+//                                                    } catch (InterruptedException e) {
+//                                                        e.printStackTrace();
+//                                                    }
+//                                                    return null;
+//                                                }, finalExecutor)
+//                                                .handle((result, throwable) -> {
+//                                                    if (Objects.nonNull(throwable)) {
+//                                                        //log.error("async error:{}", throwable.getMessage());
+//                                                    } else if (Objects.nonNull(result)) {
+//                                                        //log.info("async success:{}", result);
+//                                                    } else {
+//                                                        //log.error("async result is null");
+//                                                    }
+//                                                    return result;
+//                                                }).whenComplete((r, ex) -> {
+//                                                    if (Objects.nonNull(r)) {
+//                                                        resultList.add((R) r);
+//                                                    }
+//                                                })
+//                                ).toArray(CompletableFuture[]::new);
+//                        CompletableFuture.allOf(completableFutures).join()
+//                        System.out.println(resultList.size());
+//                    });
+//        }
+//        return resultList;
+//    }
+
+    @Test
+    public void test183() throws IOException {
+//        BufferedImage bufferedImage = QrCodeUtil.generate("qrcode_test",300,300);
+//        File file = new File(System.getProperty("user.home") + File.separator + DateUtil.format(new Date(), DatePattern.PURE_DATETIME_MS_PATTERN));
+//        System.out.println(file.getAbsolutePath());
+//        ImageIO.write(bufferedImage, "jpg", file);
+    }
+
+    @Test
+    public void test184(){
+        String pat = "\\d{4}-\\d{2}-\\d{2}";
+        System.out.println(Pattern.matches(pat, "2023-04-19"));
+        System.out.println(Pattern.matches(pat, "202204"));
+    }
+
+    @Test
+    public void test185(){
+        int i = Stream.of(1, 2, 3, 4, 5, 6, 7, 18, 9, 10)
+                .reduce((x, y) -> {
+                    System.out.println("x = " + x + "   " + "y =" + y);
+                    return x + y;
+                }).get();
+        System.out.println("i = " + i);        // i = 65
+    }
+
+    @Data
+    @AllArgsConstructor
+    public class Book implements Comparable<Book>{
+
+        private String bookName;
+
+        private String author;
+
+        private Integer age;
+
+        private Integer price;
+
+        @Override
+        public int compareTo(Book o) {
+            return age - o.age;
+        }
+    }
+
+    @Test
+    public void test186(){
+        List<Book> books = Stream.of(
+                new Book("剑来", "烽火", 38, 100),
+                new Book("斗破", "土豆", 34, 60),
+                new Book("完美", "辰东", 37, 70)
+        ).collect(Collectors.toList());
+
+        Integer i = books.parallelStream().reduce(0, (integer, book) -> {
+            System.out.println("线程 " + Thread.currentThread().getId() + " ===> " + "integer = " + integer);
+            System.out.println("线程 " + Thread.currentThread().getId() + " ===> " + "bookPrice = " + book.getPrice());
+            return integer + book.getPrice();
+        }, (integer1, integer2) -> {
+            System.out.println("线程 " + Thread.currentThread().getId() + " ===> " + "integer1 = " + integer1);
+            System.out.println("线程 " + Thread.currentThread().getId() + " ===> " + "integer2 = " + integer2);
+            return integer1 + integer2;
+        });
+
+        System.out.println("i = " + i);
+    }
+
+
+    @Test
+    public void test187() {
+        List<String[]> collect = Stream.of(
+                new String[]{"a,b,c","1"},
+                new String[]{"d,e,f"},
+                new String[]{"g,h,j"}
+        ).collect(Collectors.toList());
+
+        collect.stream()
+                .flatMap(Arrays::stream)
+                .peek(System.out::println)
+                .map(String::toUpperCase)
+                .forEach(System.out::println);
+    }
+
+    @Test
+    public void test188(){
+        Map<String,String> map = Maps.newHashMap();
+        map.put("1","1");
+        map.put("2","1");
+        map.put("3","1");
+        map.put("4","1");
+        map.put("5","1");
+
+        for (Map.Entry<String, String> stringStringEntry : map.entrySet()) {
+            if(stringStringEntry.getKey() .equals("3")){
+                map.remove(stringStringEntry.getKey());
+            }else {
+                System.out.println(stringStringEntry);
+            }
+        }
+    }
+
+    @Test
+    public void test189(){
+        Map<String,List<com.alibaba.fastjson2.JSONObject>> opMap = Maps.newHashMap();
+
+//        opMap.computeIfAbsent("1",key-> {
+//            List<com.alibaba.fastjson2.JSONObject> list = opMap.get(key);
+//            if( null == list ){
+//                list = com.google.common.collect.Lists.newArrayList();
+//            }
+//            com.alibaba.fastjson2.JSONObject js = new com.alibaba.fastjson2.JSONObject();
+//            js.put("1","2");
+//            list.add(js);
+//            return list;
+//        });
+//
+//        opMap.computeIfAbsent("1",key-> {
+//            List<com.alibaba.fastjson2.JSONObject> list = opMap.get(key);
+//            if( null == list ){
+//                list = com.google.common.collect.Lists.newArrayList();
+//            }
+//            com.alibaba.fastjson2.JSONObject js = new com.alibaba.fastjson2.JSONObject();
+//            js.put("1","2");
+//            list.add(js);
+//            return list;
+//        });
+
+        List<com.alibaba.fastjson2.JSONObject> jsonObjects = opMap.computeIfPresent("1", (key, value) -> {
+            List<com.alibaba.fastjson2.JSONObject> list = opMap.get(key);
+            com.alibaba.fastjson2.JSONObject js = new com.alibaba.fastjson2.JSONObject();
+            js.put("1", "2");
+            list.add(js);
+            return list;
+        });
+        if( null == jsonObjects ){
+            List<com.alibaba.fastjson2.JSONObject> jsonObjectList = Lists.newArrayList();
+            com.alibaba.fastjson2.JSONObject js = new com.alibaba.fastjson2.JSONObject();
+            js.put("1", "2");
+            jsonObjectList.add(js);
+            opMap.put("1",jsonObjectList);
+        }
+        List<com.alibaba.fastjson2.JSONObject> jsonObject1 = opMap.computeIfPresent("1", (key, value) -> {
+            List<com.alibaba.fastjson2.JSONObject> list = opMap.get(key);
+            com.alibaba.fastjson2.JSONObject js = new com.alibaba.fastjson2.JSONObject();
+            js.put("1", "2");
+            list.add(js);
+            return list;
+        });
+    }
+
 }
