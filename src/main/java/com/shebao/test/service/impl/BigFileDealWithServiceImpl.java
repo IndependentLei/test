@@ -1,6 +1,7 @@
 package com.shebao.test.service.impl;
 
 import cn.hutool.core.io.FileTypeUtil;
+import cn.hutool.core.lang.Assert;
 import cn.hutool.core.lang.UUID;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -95,7 +96,7 @@ public class BigFileDealWithServiceImpl implements BigFileDealWithService {
             }
             RandomAccessFile finalOut = out;
             // 判断是否合并成功
-            boolean b = deque.stream().map(
+            boolean allSuccess = deque.stream().map(
                     item -> CompletableFuture.supplyAsync(() -> {
                         try {
                             finalOut.seek(item.getIndex());
@@ -115,6 +116,9 @@ public class BigFileDealWithServiceImpl implements BigFileDealWithService {
                 }
                 return false;
             }).allMatch(BooleanUtils::isTrue);
+            Assert.isTrue(allSuccess,()->{
+                throw new RuntimeException("文件合并失败");
+            });
         }catch (Exception e){
             log.error("merge error {} {}",e,e.getMessage());
         }finally {
