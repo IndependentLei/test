@@ -1601,4 +1601,132 @@ public class test {
         });
     }
 
+
+    @Test
+    public void test190(){
+        Integer a = new Integer(1);
+        Integer b = new Integer(1);
+
+
+
+        Integer c = 1;
+        Integer d = Integer.valueOf(1);
+
+        System.out.println( a == b ); // false
+
+        System.out.println( c == d ); // true
+
+        System.out.println( a == c); // false
+
+        System.out.println( b == d); // false
+    }
+
+
+    @Test
+    public void test191(){
+        String a = "1";
+
+        String b = "2";
+
+        String ab = "12";
+
+        String c = a + b;
+
+        System.out.println( ab == c );
+    }
+
+    @Test
+    public void test192(){
+        Set<String> set = new HashSet<>();
+        set.add("1");
+        set.add("2");
+
+        set.add("1");
+
+        set.forEach(item->{
+
+        });
+    }
+
+    @Test
+    public void test193(){
+        try {
+            File file = new File("D:\\test\\test.txt");
+            RandomAccessFile accessFile = new RandomAccessFile(file,"rw");
+//            accessFile.writeBytes("1111");
+            for (int i = 0; i < 5; i++) {
+                int index = i;
+                CompletableFuture.runAsync(()->{
+                    try {
+                        accessFile.writeBytes(index+"--->"+index);
+                        System.out.println(accessFile.getFilePointer());
+                    } catch (Exception e) {
+                        log.info("error {}",e.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            System.out.println("111");
+        }
+    }
+
+    @Test
+    public void test194() throws IOException {
+        String mergeName = "D:\\test\\merge.txt";
+        File file = new File(mergeName);
+        if(file.exists()){
+            file.delete();
+        }
+        file.createNewFile();
+        try (RandomAccessFile mergeFile = new RandomAccessFile(mergeName,"rw");){
+            String baseUrl = "D:\\test\\test%s.txt";
+            for (int i = 0; i < 3; i++) {
+                int index = i;
+                mergeFile(String.format(baseUrl,index),mergeFile);
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    private void mergeFile(String fileName,RandomAccessFile mergeFile) {
+
+        File file = new File(fileName);
+        try (RandomAccessFile in=new RandomAccessFile(file,"rw");){
+            String count=in.readLine();
+            while(count!=null) {
+                mergeFile.writeChars(count);
+                count=in.readLine();
+            }
+        } catch (IOException e) {
+        }
+    }
+
+    @Test
+    public void test195(){
+        Semaphore semaphore = new Semaphore(1);
+
+        for (int i = 0; i < 2; i++) {
+            new Thread(()->{
+               try{
+                   semaphore.acquire();
+                   System.out.println(Thread.currentThread().getName()+"---->正在开始");
+                   TimeUnit.SECONDS.sleep(3);
+                   System.out.println(Thread.currentThread().getName()+"---->正在结束");
+               }catch (Exception e){
+                   System.out.println(111);
+               }finally {
+                   semaphore.release();
+               }
+            }).start();
+        }
+
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        }catch (Exception e){
+
+        }
+
+    }
+
 }
