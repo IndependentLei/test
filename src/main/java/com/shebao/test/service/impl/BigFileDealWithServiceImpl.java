@@ -116,9 +116,7 @@ public class BigFileDealWithServiceImpl implements BigFileDealWithService {
                 }
                 return false;
             }).allMatch(BooleanUtils::isTrue);
-            Assert.isTrue(allSuccess,()->{
-                throw new RuntimeException("文件合并失败");
-            });
+            Assert.isTrue(allSuccess,RuntimeException::new);
         }catch (Exception e){
             log.error("merge error {} {}",e,e.getMessage());
         }finally {

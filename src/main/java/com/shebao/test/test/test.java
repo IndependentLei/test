@@ -44,6 +44,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.checkerframework.checker.units.qual.C;
 import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StopWatch;
@@ -1726,6 +1727,192 @@ public class test {
         }catch (Exception e){
 
         }
+
+    }
+
+    @Test
+    public void deque(){
+        ArrayDeque<String> deque = new ArrayDeque<>();
+        deque.push("1");
+        deque.push("2");
+        deque.push("3");
+
+        log.info("deque {}",JSON.toJSONString(deque));
+
+        for (String item : deque) {
+            log.info("deque item {}",JSON.toJSONString(item));
+        }
+
+        deque.addLast("1");
+
+        log.info("deque {}",JSON.toJSONString(deque));
+
+        deque.remove();
+
+        log.info("deque {}",JSON.toJSONString(deque));
+    }
+
+
+    @Test
+    public void test196(){
+        ArrayBlockingQueue<String> blockingQueue = new ArrayBlockingQueue<>(5);
+
+        for (int i = 0; i < 10; i++) {
+            final int index = i;
+            new Thread(()->{
+                try {
+                    blockingQueue.put(String.valueOf(index));
+                    log.info("{}---->添加成功",index);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }).start();
+        }
+
+        try{
+            TimeUnit.SECONDS.sleep(3);
+        }catch (Exception e){
+
+        }
+
+        for (int i = 0; i < 10; i++) {
+            final int index = i;
+            new Thread(()->{
+                blockingQueue.remove(String.valueOf(index));
+                log.info("{}---->删除成功",index);
+            }).start();
+        }
+    }
+
+    @Test
+    public void test197(){
+        int index = 1;
+        do{
+            try{
+                if( index % 2 == 0){
+                    continue;
+                }
+                if( index == 5){
+                    throw new RuntimeException("error");
+                }
+            }catch (Exception e){
+                log.error("~~~~ {}",e.getMessage());
+            }finally {
+                log.info("~~~~~ {}",index);
+                index++;
+            }
+        }while (index < 10);
+    }
+
+
+    @Test
+    public void test198(){
+        List<String> stringList = Arrays.asList("1", "2", "3", "4", "5");
+        String str = stringList.stream()
+                .filter(item -> Objects.equals("6", item))
+                .findFirst()
+                .orElse("null");
+        System.out.println(str);
+    }
+
+    @AllArgsConstructor
+    @Data
+    static class Test199{
+        private String name;
+        private String phone;
+    }
+
+
+    @Test
+    public void test199(){
+        List<Test199> test199List = Lists.newArrayList();
+        test199List.add(new Test199("1","11111"));
+        test199List.add(new Test199("2","22222"));
+        test199List.add(new Test199("3","33333"));
+        test199List.add(new Test199("4","11111"));
+
+        List<Test199> newList = Lists.newArrayList();
+        List<Test199> noList = Lists.newArrayList();
+        test199List.stream()
+                .collect(Collectors.groupingBy(Test199::getPhone))
+                .forEach((k,v)->{
+                    if(1 < CollectionUtils.size(v)){
+                        noList.addAll(v);
+                    }else {
+                        newList.addAll(v);
+                    }
+                });
+        System.out.println(newList);
+        System.out.println(noList);
+    }
+
+    @Test
+    public void test200(){
+        /**
+         * ArrayBlockingQueue：一个基于数组的有界阻塞队列。
+         * LinkedBlockingQueue：一个基于链表的可选有界阻塞队列。
+         * PriorityBlockingQueue：一个支持优先级排序的无界阻塞队列。
+         * DelayQueue：一个支持延迟获取元素的无界阻塞队列。
+         * SynchronousQueue：一个不存储元素的阻塞队列，用于线程间的直接传输。
+         */
+
+
+
+    }
+
+    @Test
+    public void test201(){
+        BigDecimal bigDecimal = BigDecimal.valueOf(1700.0);
+        String json = "{\"js\":1700}";
+        JSONObject jsonObject = JSON.parseObject(json);
+        if(bigDecimal.compareTo(jsonObject.getBigDecimal("js")) == 0){
+            System.out.println("111");
+        }else {
+            System.out.println("222");
+        }
+    }
+
+
+    @Test
+    public void test202(){
+        try {
+            CompletableFuture<String> demo = new CompletableFuture<>();
+            demo.complete("success");
+            System.out.println(demo.get());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void test203(){
+        CountDownLatch count = new CountDownLatch(1);
+        CompletableFuture.runAsync(()->{
+            try {
+                int index = 0;
+                do {
+                    index++;
+                    if(index == 10){
+//                        System.out.println(index);
+                        return;
+                    }
+                }while (index < 20);
+
+                System.out.println(111);
+            } finally {
+                count.countDown();
+            }
+
+        });
+        try {
+            count.await();
+            System.out.println("main");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 
