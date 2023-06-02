@@ -33,7 +33,7 @@ public class MyServer {
                             socketChannel.pipeline().addLast(new MyServerHandler());
                         }
                     });//给workerGroup的EventLoop对应的管道设置处理器
-            System.out.println("java技术爱好者的服务端已经准备就绪...");
+//            System.out.println("java技术爱好者的服务端已经准备就绪...");
             //绑定端口号，启动服务端
             ChannelFuture channelFuture = bootstrap.bind(6666).sync();
             //对关闭通道进行监听

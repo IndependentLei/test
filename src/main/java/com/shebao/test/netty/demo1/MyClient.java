@@ -26,7 +26,7 @@ public class MyClient {
                             ch.pipeline().addLast(new MyClientHandler());
                         }
                     });
-            System.out.println("客户端准备就绪，随时可以起飞~");
+//            System.out.println("客户端准备就绪，随时可以起飞~");
             //连接服务端
             ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 6666).sync();
             //对通道关闭进行监听

@@ -30,4 +30,5 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
         //发生异常，关闭通道
         ctx.close();
     }
+
 }

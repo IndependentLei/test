@@ -28,5 +28,6 @@ public class ThreadLocalController {
     private void test3(){
         String s = threadLocal.get();
         log.info("test3 ---> 取出的结果为:{}",s);
+        threadLocal.remove();
     }
 }
