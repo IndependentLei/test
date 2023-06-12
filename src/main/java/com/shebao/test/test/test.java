@@ -1916,4 +1916,24 @@ public class test {
 
     }
 
+    @Test
+    public void test204(){
+        List<String> list = Lists.newArrayList();
+        for (int i = 0; i < 50; i++) {
+            list.add(i+"");
+        }
+        List<List<String>> partition = com.google.common.collect.Lists.partition(list, 20);
+        System.out.println(partition);
+        for (List<String> strings : partition) {
+            strings.removeIf(item->{
+                if(Integer.parseInt(item) %2 == 0){
+                    return true;
+                }else {
+                    return false;
+                }
+            });
+            System.out.println(partition);
+        }
+    }
+
 }
