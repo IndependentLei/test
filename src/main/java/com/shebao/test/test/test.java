@@ -1,14 +1,11 @@
 package com.shebao.test.test;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.RandomUtil;
-import cn.hutool.extra.qrcode.QrCodeUtil;
-import cn.hutool.extra.qrcode.QrConfig;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.annotation.ExcelIgnore;
@@ -18,7 +15,6 @@ import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson2.util.UUIDUtils;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.HashBasedTable;
@@ -32,39 +28,26 @@ import com.shebao.test.model.entity.Person1;
 import com.shebao.test.model.entity.TestPerson;
 import com.shebao.test.model.enums.TypeEnum;
 import com.shebao.test.test.mapStruct.PersonMapStruct;
-import io.netty.util.concurrent.CompleteFuture;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.Test;
-import org.junit.experimental.theories.suppliers.TestedOn;
 import org.springframework.beans.BeanUtils;
-import org.springframework.util.Base64Utils;
 import org.springframework.util.StopWatch;
 
-import javax.imageio.ImageIO;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.awt.*;
 import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.concurrent.*;
-import java.util.function.BiFunction;
-import java.util.function.BinaryOperator;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -1370,18 +1353,18 @@ public class test {
         private Boolean isSucc;
         private String fStr;
     }
-    private List<FData> fDataTest(){
-        List<FData> fDataList = Lists.newArrayList();
-        fDataList.add(new FData(true,"1"));
-        fDataList.add(new FData(false,"1"));
-        return fDataList;
-    }
-    @Test
-    public void test180(){
-        boolean b = fDataTest().stream()
-                .allMatch(FData::getIsSucc);
-        System.out.println(b);
-    }
+//    private List<FData> fDataTest(){
+//        List<FData> fDataList = Lists.newArrayList();
+//        fDataList.add(new FData(true,"1"));
+//        fDataList.add(new FData(false,"1"));
+//        return fDataList;
+//    }
+//    @Test
+//    public void test180(){
+//        boolean b = fDataTest().stream()
+//                .allMatch(FData::getIsSucc);
+//        System.out.println(b);
+//    }
 
     @Test
     public void test181(){
@@ -1498,26 +1481,26 @@ public class test {
         }
     }
 
-    @Test
-    public void test186(){
-        List<Book> books = Stream.of(
-                new Book("剑来", "烽火", 38, 100),
-                new Book("斗破", "土豆", 34, 60),
-                new Book("完美", "辰东", 37, 70)
-        ).collect(Collectors.toList());
-
-        Integer i = books.parallelStream().reduce(0, (integer, book) -> {
-            System.out.println("线程 " + Thread.currentThread().getId() + " ===> " + "integer = " + integer);
-            System.out.println("线程 " + Thread.currentThread().getId() + " ===> " + "bookPrice = " + book.getPrice());
-            return integer + book.getPrice();
-        }, (integer1, integer2) -> {
-            System.out.println("线程 " + Thread.currentThread().getId() + " ===> " + "integer1 = " + integer1);
-            System.out.println("线程 " + Thread.currentThread().getId() + " ===> " + "integer2 = " + integer2);
-            return integer1 + integer2;
-        });
-
-        System.out.println("i = " + i);
-    }
+//    @Test
+//    public void test186(){
+//        List<Book> books = Stream.of(
+//                new Book("剑来", "烽火", 38, 100),
+//                new Book("斗破", "土豆", 34, 60),
+//                new Book("完美", "辰东", 37, 70)
+//        ).collect(Collectors.toList());
+//
+//        Integer i = books.parallelStream().reduce(0, (integer, book) -> {
+//            System.out.println("线程 " + Thread.currentThread().getId() + " ===> " + "integer = " + integer);
+//            System.out.println("线程 " + Thread.currentThread().getId() + " ===> " + "bookPrice = " + book.getPrice());
+//            return integer + book.getPrice();
+//        }, (integer1, integer2) -> {
+//            System.out.println("线程 " + Thread.currentThread().getId() + " ===> " + "integer1 = " + integer1);
+//            System.out.println("线程 " + Thread.currentThread().getId() + " ===> " + "integer2 = " + integer2);
+//            return integer1 + integer2;
+//        });
+//
+//        System.out.println("i = " + i);
+//    }
 
 
     @Test
@@ -1823,28 +1806,28 @@ public class test {
     }
 
 
-    @Test
-    public void test199(){
-        List<Test199> test199List = Lists.newArrayList();
-        test199List.add(new Test199("1","11111"));
-        test199List.add(new Test199("2","22222"));
-        test199List.add(new Test199("3","33333"));
-        test199List.add(new Test199("4","11111"));
-
-        List<Test199> newList = Lists.newArrayList();
-        List<Test199> noList = Lists.newArrayList();
-        test199List.stream()
-                .collect(Collectors.groupingBy(Test199::getPhone))
-                .forEach((k,v)->{
-                    if(1 < CollectionUtils.size(v)){
-                        noList.addAll(v);
-                    }else {
-                        newList.addAll(v);
-                    }
-                });
-        System.out.println(newList);
-        System.out.println(noList);
-    }
+//    @Test
+//    public void test199(){
+//        List<Test199> test199List = Lists.newArrayList();
+//        test199List.add(new Test199("1","11111"));
+//        test199List.add(new Test199("2","22222"));
+//        test199List.add(new Test199("3","33333"));
+//        test199List.add(new Test199("4","11111"));
+//
+//        List<Test199> newList = Lists.newArrayList();
+//        List<Test199> noList = Lists.newArrayList();
+//        test199List.stream()
+//                .collect(Collectors.groupingBy(Test199::getPhone))
+//                .forEach((k,v)->{
+//                    if(1 < CollectionUtils.size(v)){
+//                        noList.addAll(v);
+//                    }else {
+//                        newList.addAll(v);
+//                    }
+//                });
+//        System.out.println(newList);
+//        System.out.println(noList);
+//    }
 
     @Test
     public void test200(){
@@ -1933,6 +1916,93 @@ public class test {
                 }
             });
             System.out.println(partition);
+        }
+    }
+
+    @Test
+    public void test205(){
+        List<String> list = Lists.newArrayList();
+        for (int i = 0; i < 50; i++) {
+            list.add(i+"");
+        }
+        list.forEach(item->{
+            if(item.equals("20")){
+                return;
+            }else {
+                System.out.println(item);
+            }
+        });
+    }
+
+    @Test
+    public void test206(){
+         int HASH_INCREMENT = 0x61c88647;
+         ggget(HASH_INCREMENT);
+    }
+
+    public void ggget(int a){
+        System.out.println(a);
+    }
+
+    @Test
+    public void test207() {
+        /**
+            // 泛型方法接受 Number 及其子类的参数
+            void myGenericMethod (List < ? extends Number > list){
+                // 方法体
+            }
+
+            // 泛型方法接受 Integer 及其父类的参数
+            void myGenericMethod (List < ? super Integer > list){
+                // 方法体
+            }
+         **/
+
+        Test209 test209 = new Test209();
+
+        List<String> stringList = Lists.newArrayList();
+        stringList.add("1");
+
+        List<Integer> test1 = Lists.newArrayList();
+        test1.add(1);
+
+        List<Number> numberList = Lists.newArrayList();
+        numberList.add(1);
+
+        // 泛型方法接受 Number 及其子类的参数
+        test209.myGenericMethod1(test1);
+        test209.myGenericMethod1(numberList);
+        // 报错
+        // test209.myGenericMethod1(stringList);
+
+
+
+        // 泛型方法接受 Integer 及其父类的参数
+        test209.myGenericMethod(test1);
+        test209.myGenericMethod(numberList);
+        // 报错
+        // test209.myGenericMethod(stringList);
+
+    }
+
+    interface Test208{
+        // 泛型方法接受 Number 及其子类的参数
+        void myGenericMethod1 (List < ? extends Number > list);
+
+        // 泛型方法接受 Integer 及其父类的参数
+        void myGenericMethod (List < ? super Integer > list);
+    }
+
+    class Test209 implements Test208{
+
+        @Override
+        public void myGenericMethod1(List<? extends Number> list) {
+            System.out.println("--->"+list.toString());
+        }
+
+        @Override
+        public void myGenericMethod(List<? super Integer> list) {
+            System.out.println("--->"+list.toString());
         }
     }
 
