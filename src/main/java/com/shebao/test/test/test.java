@@ -36,6 +36,7 @@ import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
 import java.awt.*;
@@ -43,6 +44,7 @@ import java.awt.event.InputEvent;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -2005,5 +2007,42 @@ public class test {
             System.out.println("--->"+list.toString());
         }
     }
+
+
+
+    static class Father {
+        public Object name;
+
+        public void sout(){
+            System.out.println(this.name.toString());
+        }
+    }
+
+
+    static class Son1 extends Father{
+        public Son1(){
+
+        }
+
+        {
+            super.name = new Object();
+        }
+    }
+
+
+    static class Son2 extends Father{
+        {
+            super.name = new Object();
+        }
+    }
+
+    public static void main(String[] args) {
+        Son1 son1 = new Son1();
+        Son2 son2 = new Son2();
+
+        son1.sout();
+        son2.sout();
+    }
+
 
 }
