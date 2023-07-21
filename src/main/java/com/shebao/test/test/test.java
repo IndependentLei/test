@@ -1946,46 +1946,46 @@ public class test {
         System.out.println(a);
     }
 
-    @Test
-    public void test207() {
-        /**
-            // 泛型方法接受 Number 及其子类的参数
-            void myGenericMethod (List < ? extends Number > list){
-                // 方法体
-            }
-
-            // 泛型方法接受 Integer 及其父类的参数
-            void myGenericMethod (List < ? super Integer > list){
-                // 方法体
-            }
-         **/
-
-        Test209 test209 = new Test209();
-
-        List<String> stringList = Lists.newArrayList();
-        stringList.add("1");
-
-        List<Integer> test1 = Lists.newArrayList();
-        test1.add(1);
-
-        List<Number> numberList = Lists.newArrayList();
-        numberList.add(1);
-
-        // 泛型方法接受 Number 及其子类的参数
-        test209.myGenericMethod1(test1);
-        test209.myGenericMethod1(numberList);
-        // 报错
-        // test209.myGenericMethod1(stringList);
-
-
-
-        // 泛型方法接受 Integer 及其父类的参数
-        test209.myGenericMethod(test1);
-        test209.myGenericMethod(numberList);
-        // 报错
-        // test209.myGenericMethod(stringList);
-
-    }
+//    @Test
+//    public void test207() {
+//        /**
+//            // 泛型方法接受 Number 及其子类的参数
+//            void myGenericMethod (List < ? extends Number > list){
+//                // 方法体
+//            }
+//
+//            // 泛型方法接受 Integer 及其父类的参数
+//            void myGenericMethod (List < ? super Integer > list){
+//                // 方法体
+//            }
+//         **/
+//
+//        Test209 test209 = new Test209();
+//
+//        List<String> stringList = Lists.newArrayList();
+//        stringList.add("1");
+//
+//        List<Integer> test1 = Lists.newArrayList();
+//        test1.add(1);
+//
+//        List<Number> numberList = Lists.newArrayList();
+//        numberList.add(1);
+//
+//        // 泛型方法接受 Number 及其子类的参数
+//        test209.myGenericMethod1(test1);
+//        test209.myGenericMethod1(numberList);
+//        // 报错
+//        // test209.myGenericMethod1(stringList);
+//
+//
+//
+//        // 泛型方法接受 Integer 及其父类的参数
+//        test209.myGenericMethod(test1);
+//        test209.myGenericMethod(numberList);
+//        // 报错
+//        // test209.myGenericMethod(stringList);
+//
+//    }
 
     interface Test208{
         // 泛型方法接受 Number 及其子类的参数
@@ -1995,54 +1995,80 @@ public class test {
         void myGenericMethod (List < ? super Integer > list);
     }
 
-    class Test209 implements Test208{
+//    class Test209 implements Test208{
+//
+//        @Override
+//        public void myGenericMethod1(List<? extends Number> list) {
+//            System.out.println("--->"+list.toString());
+//        }
+//
+//        @Override
+//        public void myGenericMethod(List<? super Integer> list) {
+//            System.out.println("--->"+list.toString());
+//        }
+//    }
 
-        @Override
-        public void myGenericMethod1(List<? extends Number> list) {
-            System.out.println("--->"+list.toString());
-        }
 
-        @Override
-        public void myGenericMethod(List<? super Integer> list) {
-            System.out.println("--->"+list.toString());
-        }
+
+//    static class Father {
+//        public Object name;
+//
+//        public void sout(){
+//            System.out.println(this.name.toString());
+//        }
+//    }
+//
+//
+//    static class Son1 extends Father{
+//        public Son1(){
+//
+//        }
+//
+//        {
+//            super.name = new Object();
+//        }
+//    }
+//
+//
+//    static class Son2 extends Father{
+//        {
+//            super.name = new Object();
+//        }
+//    }
+//
+//    public static void main(String[] args) {
+//        Son1 son1 = new Son1();
+//        Son2 son2 = new Son2();
+//
+//        son1.sout();
+//        son2.sout();
+//    }
+
+    private static final ThreadLocal<String> arTl = new ThreadLocal<>();
+    @Test
+    public void test210(){
+//        arTl.set("1111");
+        System.out.println(arTl.get());
+        arTl.remove();
+        System.out.println(arTl.get());
+
+        arTl.set("222");
+        System.out.println(arTl.get());
     }
 
-
-
-    static class Father {
-        public Object name;
-
-        public void sout(){
-            System.out.println(this.name.toString());
-        }
+    @Test
+    public void test211(){
+        System.out.println(DateUtil.format(DateUtil.offset(DateUtil.beginOfMonth(new Date()), DateField.DAY_OF_MONTH, 14), DatePattern.NORM_DATE_PATTERN));
     }
 
+    @Test
+    public void test212(){
+        String msg = "1111";
 
-    static class Son1 extends Father{
-        public Son1(){
+        String msg1 = "";
 
-        }
+        String msg2 = msg + msg1;
 
-        {
-            super.name = new Object();
-        }
+        System.out.println();
     }
-
-
-    static class Son2 extends Father{
-        {
-            super.name = new Object();
-        }
-    }
-
-    public static void main(String[] args) {
-        Son1 son1 = new Son1();
-        Son2 son2 = new Son2();
-
-        son1.sout();
-        son2.sout();
-    }
-
-
 }
