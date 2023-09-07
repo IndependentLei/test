@@ -3,6 +3,7 @@ package com.shebao.test.test;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.RandomUtil;
@@ -23,28 +24,35 @@ import com.google.common.collect.Table;
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
 import com.shebao.test.config.TaskThreadPool;
+import com.shebao.test.model.dto.A;
+import com.shebao.test.model.dto.B;
 import com.shebao.test.model.entity.Person;
 import com.shebao.test.model.entity.Person1;
 import com.shebao.test.model.entity.TestPerson;
 import com.shebao.test.model.enums.TypeEnum;
 import com.shebao.test.test.mapStruct.PersonMapStruct;
+import com.shebao.test.test.threadPool.ThreadPoolTest1;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
+import org.testng.internal.thread.DefaultThreadPoolExecutorFactory;
 
+import javax.annotation.Resource;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -1241,37 +1249,37 @@ public class test {
     }
 
     @Test
-    public void test165(){
+    public void test165() {
         System.out.println(data().stream()
                 .map(DemoData::getDoubleData)
                 .reduce(Double::sum).orElse(null));
         System.out.println(data().stream()
                 .map(DemoData::getDoubleData)
-                .reduce(1D,Double::sum));
+                .reduce(1D, Double::sum));
         System.out.println(data().stream()
                 .map(DemoData::getDoubleData)
-                .reduce(1D,Double::sum, Double::sum));
+                .reduce(1D, Double::sum, Double::sum));
     }
 
     @Test
-    public void test175(){
+    public void test175() {
         Double dd = 10.01;
         Double dd1 = 0D;
-        System.out.println( dd / dd1 );
+        System.out.println(dd / dd1);
 
         Integer integer = 10;
         Integer ii = 0;
-        System.out.println( integer / ii );
+        System.out.println(integer / ii);
     }
 
     @Test
-    public void test176(){
+    public void test176() {
         List<DemoData> collect = data().stream().peek(item -> item.setString("1111")).collect(Collectors.toList());
         System.out.println(collect);
     }
 
     @Test
-    public void test177(){
+    public void test177() {
         long sTime = System.currentTimeMillis();
         CompletableFuture<BigDecimal> A = CompletableFuture.supplyAsync(
                 () -> getA("A")
@@ -1289,26 +1297,25 @@ public class test {
                 .orElse(BigDecimal.ZERO);
 
         long eTime = System.currentTimeMillis();
-        System.out.println((eTime-sTime)/1000);
+        System.out.println((eTime - sTime) / 1000);
 
         System.out.println(bigDecimal);
     }
 
 
-
-    public long getRandom(){
-        return RandomUtil.randomLong(1,5);
+    public long getRandom() {
+        return RandomUtil.randomLong(1, 5);
     }
 
-    public BigDecimal getPrice(){
-        return RandomUtil.randomBigDecimal(BigDecimal.valueOf(50),BigDecimal.valueOf(5000));
+    public BigDecimal getPrice() {
+        return RandomUtil.randomBigDecimal(BigDecimal.valueOf(50), BigDecimal.valueOf(5000));
     }
 
-    public BigDecimal getA(String item){
+    public BigDecimal getA(String item) {
         try {
             long random = getRandom();
             BigDecimal price = getPrice();
-            log.info("{}-{}-{}",item,random,price);
+            log.info("{}-{}-{}", item, random, price);
             TimeUnit.SECONDS.sleep(random);
             return price;
         } catch (InterruptedException e) {
@@ -1316,11 +1323,11 @@ public class test {
         }
     }
 
-    public BigDecimal getB(String item){
+    public BigDecimal getB(String item) {
         try {
             long random = getRandom();
             BigDecimal price = getPrice();
-            log.info("{}-{}-{}",item,random,price);
+            log.info("{}-{}-{}", item, random, price);
             TimeUnit.SECONDS.sleep(random);
             return price;
         } catch (InterruptedException e) {
@@ -1328,11 +1335,11 @@ public class test {
         }
     }
 
-    public BigDecimal getC(String item){
+    public BigDecimal getC(String item) {
         try {
             long random = getRandom();
             BigDecimal price = getPrice();
-            log.info("{}-{}-{}",item,random,price);
+            log.info("{}-{}-{}", item, random, price);
             TimeUnit.SECONDS.sleep(random);
             return price;
         } catch (InterruptedException e) {
@@ -1351,7 +1358,7 @@ public class test {
 
     @Data
     @AllArgsConstructor
-    public class FData{
+    public class FData {
         private Boolean isSucc;
         private String fStr;
     }
@@ -1369,9 +1376,9 @@ public class test {
 //    }
 
     @Test
-    public void test181(){
+    public void test181() {
         Double d = 1.0;
-        Double a = Math.ceil(d/1000);
+        Double a = Math.ceil(d / 1000);
         System.out.println(a);
         System.out.println(Objects.equals(d, a));
     }
@@ -1397,8 +1404,6 @@ public class test {
         System.out.println(b1);
 
     }
-
-
 
 
 //    public List<R> sendAsyncBatch(List<P> list, Executor executor, TaskLoader<R,P> loader) {
@@ -1449,14 +1454,14 @@ public class test {
     }
 
     @Test
-    public void test184(){
+    public void test184() {
         String pat = "\\d{4}-\\d{2}-\\d{2}";
         System.out.println(Pattern.matches(pat, "2023-04-19"));
         System.out.println(Pattern.matches(pat, "202204"));
     }
 
     @Test
-    public void test185(){
+    public void test185() {
         int i = Stream.of(1, 2, 3, 4, 5, 6, 7, 18, 9, 10)
                 .reduce((x, y) -> {
                     System.out.println("x = " + x + "   " + "y =" + y);
@@ -1467,7 +1472,7 @@ public class test {
 
     @Data
     @AllArgsConstructor
-    public class Book implements Comparable<Book>{
+    public class Book implements Comparable<Book> {
 
         private String bookName;
 
@@ -1508,7 +1513,7 @@ public class test {
     @Test
     public void test187() {
         List<String[]> collect = Stream.of(
-                new String[]{"a,b,c","1"},
+                new String[]{"a,b,c", "1"},
                 new String[]{"d,e,f"},
                 new String[]{"g,h,j"}
         ).collect(Collectors.toList());
@@ -1521,26 +1526,26 @@ public class test {
     }
 
     @Test
-    public void test188(){
-        Map<String,String> map = Maps.newHashMap();
-        map.put("1","1");
-        map.put("2","1");
-        map.put("3","1");
-        map.put("4","1");
-        map.put("5","1");
+    public void test188() {
+        Map<String, String> map = Maps.newHashMap();
+        map.put("1", "1");
+        map.put("2", "1");
+        map.put("3", "1");
+        map.put("4", "1");
+        map.put("5", "1");
 
         for (Map.Entry<String, String> stringStringEntry : map.entrySet()) {
-            if(stringStringEntry.getKey() .equals("3")){
+            if (stringStringEntry.getKey().equals("3")) {
                 map.remove(stringStringEntry.getKey());
-            }else {
+            } else {
                 System.out.println(stringStringEntry);
             }
         }
     }
 
     @Test
-    public void test189(){
-        Map<String,List<com.alibaba.fastjson2.JSONObject>> opMap = Maps.newHashMap();
+    public void test189() {
+        Map<String, List<com.alibaba.fastjson2.JSONObject>> opMap = Maps.newHashMap();
 
 //        opMap.computeIfAbsent("1",key-> {
 //            List<com.alibaba.fastjson2.JSONObject> list = opMap.get(key);
@@ -1571,12 +1576,12 @@ public class test {
             list.add(js);
             return list;
         });
-        if( null == jsonObjects ){
+        if (null == jsonObjects) {
             List<com.alibaba.fastjson2.JSONObject> jsonObjectList = Lists.newArrayList();
             com.alibaba.fastjson2.JSONObject js = new com.alibaba.fastjson2.JSONObject();
             js.put("1", "2");
             jsonObjectList.add(js);
-            opMap.put("1",jsonObjectList);
+            opMap.put("1", jsonObjectList);
         }
         List<com.alibaba.fastjson2.JSONObject> jsonObject1 = opMap.computeIfPresent("1", (key, value) -> {
             List<com.alibaba.fastjson2.JSONObject> list = opMap.get(key);
@@ -1589,27 +1594,26 @@ public class test {
 
 
     @Test
-    public void test190(){
+    public void test190() {
         Integer a = new Integer(1);
         Integer b = new Integer(1);
-
 
 
         Integer c = 1;
         Integer d = Integer.valueOf(1);
 
-        System.out.println( a == b ); // false
+        System.out.println(a == b); // false
 
-        System.out.println( c == d ); // true
+        System.out.println(c == d); // true
 
-        System.out.println( a == c); // false
+        System.out.println(a == c); // false
 
-        System.out.println( b == d); // false
+        System.out.println(b == d); // false
     }
 
 
     @Test
-    public void test191(){
+    public void test191() {
         String a = "1";
 
         String b = "2";
@@ -1618,36 +1622,36 @@ public class test {
 
         String c = a + b;
 
-        System.out.println( ab == c );
+        System.out.println(ab == c);
     }
 
     @Test
-    public void test192(){
+    public void test192() {
         Set<String> set = new HashSet<>();
         set.add("1");
         set.add("2");
 
         set.add("1");
 
-        set.forEach(item->{
+        set.forEach(item -> {
 
         });
     }
 
     @Test
-    public void test193(){
+    public void test193() {
         try {
             File file = new File("D:\\test\\test.txt");
-            RandomAccessFile accessFile = new RandomAccessFile(file,"rw");
+            RandomAccessFile accessFile = new RandomAccessFile(file, "rw");
 //            accessFile.writeBytes("1111");
             for (int i = 0; i < 5; i++) {
                 int index = i;
-                CompletableFuture.runAsync(()->{
+                CompletableFuture.runAsync(() -> {
                     try {
-                        accessFile.writeBytes(index+"--->"+index);
+                        accessFile.writeBytes(index + "--->" + index);
                         System.out.println(accessFile.getFilePointer());
                     } catch (Exception e) {
-                        log.info("error {}",e.getMessage());
+                        log.info("error {}", e.getMessage());
                     }
                 });
             }
@@ -1660,138 +1664,138 @@ public class test {
     public void test194() throws IOException {
         String mergeName = "D:\\test\\merge.txt";
         File file = new File(mergeName);
-        if(file.exists()){
+        if (file.exists()) {
             file.delete();
         }
         file.createNewFile();
-        try (RandomAccessFile mergeFile = new RandomAccessFile(mergeName,"rw");){
+        try (RandomAccessFile mergeFile = new RandomAccessFile(mergeName, "rw");) {
             String baseUrl = "D:\\test\\test%s.txt";
             for (int i = 0; i < 3; i++) {
                 int index = i;
-                mergeFile(String.format(baseUrl,index),mergeFile);
+                mergeFile(String.format(baseUrl, index), mergeFile);
             }
         } catch (Exception e) {
 
         }
     }
 
-    private void mergeFile(String fileName,RandomAccessFile mergeFile) {
+    private void mergeFile(String fileName, RandomAccessFile mergeFile) {
 
         File file = new File(fileName);
-        try (RandomAccessFile in=new RandomAccessFile(file,"rw");){
-            String count=in.readLine();
-            while(count!=null) {
+        try (RandomAccessFile in = new RandomAccessFile(file, "rw");) {
+            String count = in.readLine();
+            while (count != null) {
                 mergeFile.writeChars(count);
-                count=in.readLine();
+                count = in.readLine();
             }
         } catch (IOException e) {
         }
     }
 
     @Test
-    public void test195(){
+    public void test195() {
         Semaphore semaphore = new Semaphore(1);
 
         for (int i = 0; i < 2; i++) {
-            new Thread(()->{
-               try{
-                   semaphore.acquire();
-                   System.out.println(Thread.currentThread().getName()+"---->正在开始");
-                   TimeUnit.SECONDS.sleep(3);
-                   System.out.println(Thread.currentThread().getName()+"---->正在结束");
-               }catch (Exception e){
-                   System.out.println(111);
-               }finally {
-                   semaphore.release();
-               }
+            new Thread(() -> {
+                try {
+                    semaphore.acquire();
+                    System.out.println(Thread.currentThread().getName() + "---->正在开始");
+                    TimeUnit.SECONDS.sleep(3);
+                    System.out.println(Thread.currentThread().getName() + "---->正在结束");
+                } catch (Exception e) {
+                    System.out.println(111);
+                } finally {
+                    semaphore.release();
+                }
             }).start();
         }
 
         try {
             TimeUnit.SECONDS.sleep(10);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
     }
 
     @Test
-    public void deque(){
+    public void deque() {
         ArrayDeque<String> deque = new ArrayDeque<>();
         deque.push("1");
         deque.push("2");
         deque.push("3");
 
-        log.info("deque {}",JSON.toJSONString(deque));
+        log.info("deque {}", JSON.toJSONString(deque));
 
         for (String item : deque) {
-            log.info("deque item {}",JSON.toJSONString(item));
+            log.info("deque item {}", JSON.toJSONString(item));
         }
 
         deque.addLast("1");
 
-        log.info("deque {}",JSON.toJSONString(deque));
+        log.info("deque {}", JSON.toJSONString(deque));
 
         deque.remove();
 
-        log.info("deque {}",JSON.toJSONString(deque));
+        log.info("deque {}", JSON.toJSONString(deque));
     }
 
 
     @Test
-    public void test196(){
+    public void test196() {
         ArrayBlockingQueue<String> blockingQueue = new ArrayBlockingQueue<>(5);
 
         for (int i = 0; i < 10; i++) {
             final int index = i;
-            new Thread(()->{
+            new Thread(() -> {
                 try {
                     blockingQueue.put(String.valueOf(index));
-                    log.info("{}---->添加成功",index);
+                    log.info("{}---->添加成功", index);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }).start();
         }
 
-        try{
+        try {
             TimeUnit.SECONDS.sleep(3);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
         for (int i = 0; i < 10; i++) {
             final int index = i;
-            new Thread(()->{
+            new Thread(() -> {
                 blockingQueue.remove(String.valueOf(index));
-                log.info("{}---->删除成功",index);
+                log.info("{}---->删除成功", index);
             }).start();
         }
     }
 
     @Test
-    public void test197(){
+    public void test197() {
         int index = 1;
-        do{
-            try{
-                if( index % 2 == 0){
+        do {
+            try {
+                if (index % 2 == 0) {
                     continue;
                 }
-                if( index == 5){
+                if (index == 5) {
                     throw new RuntimeException("error");
                 }
-            }catch (Exception e){
-                log.error("~~~~ {}",e.getMessage());
-            }finally {
-                log.info("~~~~~ {}",index);
+            } catch (Exception e) {
+                log.error("~~~~ {}", e.getMessage());
+            } finally {
+                log.info("~~~~~ {}", index);
                 index++;
             }
-        }while (index < 10);
+        } while (index < 10);
     }
 
 
     @Test
-    public void test198(){
+    public void test198() {
         List<String> stringList = Arrays.asList("1", "2", "3", "4", "5");
         String str = stringList.stream()
                 .filter(item -> Objects.equals("6", item))
@@ -1802,7 +1806,7 @@ public class test {
 
     @AllArgsConstructor
     @Data
-    static class Test199{
+    static class Test199 {
         private String name;
         private String phone;
     }
@@ -1832,7 +1836,7 @@ public class test {
 //    }
 
     @Test
-    public void test200(){
+    public void test200() {
         /**
          * ArrayBlockingQueue：一个基于数组的有界阻塞队列。
          * LinkedBlockingQueue：一个基于链表的可选有界阻塞队列。
@@ -1842,24 +1846,23 @@ public class test {
          */
 
 
-
     }
 
     @Test
-    public void test201(){
+    public void test201() {
         BigDecimal bigDecimal = BigDecimal.valueOf(1700.0);
         String json = "{\"js\":1700}";
         JSONObject jsonObject = JSON.parseObject(json);
-        if(bigDecimal.compareTo(jsonObject.getBigDecimal("js")) == 0){
+        if (bigDecimal.compareTo(jsonObject.getBigDecimal("js")) == 0) {
             System.out.println("111");
-        }else {
+        } else {
             System.out.println("222");
         }
     }
 
 
     @Test
-    public void test202(){
+    public void test202() {
         try {
             CompletableFuture<String> demo = new CompletableFuture<>();
             demo.complete("success");
@@ -1872,18 +1875,18 @@ public class test {
     }
 
     @Test
-    public void test203(){
+    public void test203() {
         CountDownLatch count = new CountDownLatch(1);
-        CompletableFuture.runAsync(()->{
+        CompletableFuture.runAsync(() -> {
             try {
                 int index = 0;
                 do {
                     index++;
-                    if(index == 10){
+                    if (index == 10) {
 //                        System.out.println(index);
                         return;
                     }
-                }while (index < 20);
+                } while (index < 20);
 
                 System.out.println(111);
             } finally {
@@ -1902,18 +1905,18 @@ public class test {
     }
 
     @Test
-    public void test204(){
+    public void test204() {
         List<String> list = Lists.newArrayList();
         for (int i = 0; i < 50; i++) {
-            list.add(i+"");
+            list.add(i + "");
         }
         List<List<String>> partition = com.google.common.collect.Lists.partition(list, 20);
         System.out.println(partition);
         for (List<String> strings : partition) {
-            strings.removeIf(item->{
-                if(Integer.parseInt(item) %2 == 0){
+            strings.removeIf(item -> {
+                if (Integer.parseInt(item) % 2 == 0) {
                     return true;
-                }else {
+                } else {
                     return false;
                 }
             });
@@ -1922,27 +1925,27 @@ public class test {
     }
 
     @Test
-    public void test205(){
+    public void test205() {
         List<String> list = Lists.newArrayList();
         for (int i = 0; i < 50; i++) {
-            list.add(i+"");
+            list.add(i + "");
         }
-        list.forEach(item->{
-            if(item.equals("20")){
+        list.forEach(item -> {
+            if (item.equals("20")) {
                 return;
-            }else {
+            } else {
                 System.out.println(item);
             }
         });
     }
 
     @Test
-    public void test206(){
-         int HASH_INCREMENT = 0x61c88647;
-         ggget(HASH_INCREMENT);
+    public void test206() {
+        int HASH_INCREMENT = 0x61c88647;
+        ggget(HASH_INCREMENT);
     }
 
-    public void ggget(int a){
+    public void ggget(int a) {
         System.out.println(a);
     }
 
@@ -1987,12 +1990,12 @@ public class test {
 //
 //    }
 
-    interface Test208{
+    interface Test208 {
         // 泛型方法接受 Number 及其子类的参数
-        void myGenericMethod1 (List < ? extends Number > list);
+        void myGenericMethod1(List<? extends Number> list);
 
         // 泛型方法接受 Integer 及其父类的参数
-        void myGenericMethod (List < ? super Integer > list);
+        void myGenericMethod(List<? super Integer> list);
     }
 
 //    class Test209 implements Test208{
@@ -2007,7 +2010,6 @@ public class test {
 //            System.out.println("--->"+list.toString());
 //        }
 //    }
-
 
 
 //    static class Father {
@@ -2045,8 +2047,9 @@ public class test {
 //    }
 
     private static final ThreadLocal<String> arTl = new ThreadLocal<>();
+
     @Test
-    public void test210(){
+    public void test210() {
 //        arTl.set("1111");
         System.out.println(arTl.get());
         arTl.remove();
@@ -2057,12 +2060,12 @@ public class test {
     }
 
     @Test
-    public void test211(){
+    public void test211() {
         System.out.println(DateUtil.format(DateUtil.offset(DateUtil.beginOfMonth(new Date()), DateField.DAY_OF_MONTH, 14), DatePattern.NORM_DATE_PATTERN));
     }
 
     @Test
-    public void test212(){
+    public void test212() {
         String msg = "1111";
 
         String msg1 = "";
@@ -2070,5 +2073,180 @@ public class test {
         String msg2 = msg + msg1;
 
         System.out.println();
+    }
+
+    @Test
+    public void test213() throws InterruptedException {
+
+        ExecutorService executorService = new ThreadPoolExecutor(2,
+                5,
+                60,
+                TimeUnit.SECONDS,
+                new ArrayBlockingQueue<>(5),
+                new DefaultThreadFactory("工厂1"),
+                new ThreadPoolExecutor.CallerRunsPolicy());
+
+        LinkedBlockingDeque<String> linkedBlockingDeque = new LinkedBlockingDeque<>(2);
+
+        executorService.execute(() -> {
+            for (int i = 0; i < 20; i++) {
+                if (!linkedBlockingDeque.offer(String.valueOf(i))) {
+                    log.info("第" + i + "个添加不进去");
+                } else {
+                    log.info("第" + i + "个添加已经进去");
+                }
+            }
+        });
+        for (int i = 0; i < 20; i++) {
+            linkedBlockingDeque.take();
+        }
+    }
+
+
+    @Resource
+    A a;
+
+    @Resource
+    B b;
+
+    @Test
+    public void test214() {
+        System.out.println(a.InstantiationTracingBeanPostProcessor);
+        System.out.println(b.InstantiationTracingBeanPostProcessor);
+    }
+
+    @Test
+    public void test215() {
+        LinkedHashMap<String, Object> linkedHashMap = Maps.newLinkedHashMap();
+        linkedHashMap.put("1", "1");
+        linkedHashMap.put("2", "2");
+        linkedHashMap.put("3", "3");
+        linkedHashMap.put("4", "4");
+
+        JSONObject jsonObject = new JSONObject(linkedHashMap);
+
+        System.out.println(JSON.toJSON(jsonObject));
+
+    }
+
+    @Data
+    public class tet111 {
+        private List<String> list;
+    }
+
+    @Test
+    public void test216() {
+        tet111 tet = new tet111();
+        tet.setList(Arrays.asList("1", "2", "3"));
+        List<String> collect = tet.getList().stream().filter(item -> Objects.equals("2", item)).collect(Collectors.toList());
+        tet.setList(collect);
+
+        tet.getList().add("6");
+        System.out.println(JSON.toJSONString(tet.getList()));
+    }
+
+    @Test
+    public void test217(){
+        List<String> list = Lists.newArrayList();
+        list.add("202405");
+        list.add("202205");
+        list.add("202301");
+
+        DateTime dateTime = list.stream()
+                .map(item -> DateUtil.parse(item, DatePattern.SIMPLE_MONTH_PATTERN))
+                .max(Comparator.naturalOrder()).orElse(null);
+        if(null!=dateTime){
+            String parse = DateUtil.format(dateTime, DatePattern.SIMPLE_MONTH_PATTERN);
+            System.out.println(parse);
+        }
+    }
+
+    @Test
+    public void test218(){
+        int times = 3;
+        boolean flag = false;
+        while (!flag && times-- > 0) {
+            System.out.println(1111);
+        }
+    }
+
+
+    @Test
+    public void test219(){
+        int times = 3;
+        boolean flag = false;
+        while (!flag && times-- > 0) {
+            System.out.println(1111);
+        }
+    }
+
+    @Test
+    public void test220(){
+        List<String> list = new ArrayList<>(4);
+        list.add("2");
+        list.add("1");
+        list.add("4");
+        list.add("5");
+
+        for (int i = 0; i <list.size(); i++) {
+            if("2".equals(list.get(i))){
+                list.remove(i);
+            }
+        }
+
+    }
+
+    @Test
+    public void test221(){
+        List<String> list = new ArrayList<>(4);
+        list.add("2");
+        list.add("1");
+        list.add("4");
+        list.add("5");
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()){
+            String next = iterator.next();
+            if("2".equals(next)){
+                iterator.remove();
+            }else {
+                System.out.println(next);
+            }
+        }
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class Test223{
+        private String idNo;
+        private String name;
+        private String age;
+        private String ossKey;
+    }
+
+    @Test
+    public void test223(){
+        List<Test223> test223List = Lists.newArrayList();
+        Map<String,String> map = Maps.newHashMap();
+        for (int i = 0; i <100; i++) {
+            String s = RandomUtil.randomNumbers(18);
+            Test223 test223 = new Test223(s,String.valueOf(i),String.valueOf(i),"");
+            test223List.add(test223);
+            map.put(s,JSON.toJSONString(test223));
+        }
+        List<Callable<Boolean>> callableList = Lists.newArrayList();
+        List<List<Test223>> partition = com.google.common.collect.Lists.partition(test223List, 20);
+
+        partition.forEach(item->{
+            callableList.add(()->{
+                TimeUnit.SECONDS.sleep(5);
+                String ossKey = RandomUtil.randomString(6);
+                item.forEach(kk->{
+                    kk.setOssKey(ossKey);
+                });
+                return true;
+            });
+        });
+        TaskThreadPool.addTask(callableList);
+        System.out.println(JSON.toJSON(partition));
     }
 }
