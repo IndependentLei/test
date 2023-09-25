@@ -11,11 +11,11 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-  data:
-    mongodb:
-      host: 94.74.123.183
-      username: admin
-      password: 123456
+#  data:
+#    mongodb:
+#      host: 94.74.123.183
+#      username: admin
+#      password: 123456
 #  rabbitmq:
 #    host: 94.74.123.183
 #    port: 5672

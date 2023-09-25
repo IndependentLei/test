@@ -1,5 +1,8 @@
 package com.shebao.test.test;
 
+import cn.hutool.bloomfilter.BitMapBloomFilter;
+import cn.hutool.bloomfilter.BitSetBloomFilter;
+import cn.hutool.bloomfilter.BloomFilterUtil;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DatePattern;
@@ -16,6 +19,9 @@ import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.antherd.smcrypto.sm2.SignatureOptions;
+import com.antherd.smcrypto.sm2.Sm2;
+import com.antherd.smcrypto.sm4.Sm4;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.HashBasedTable;
@@ -32,6 +38,7 @@ import com.shebao.test.model.entity.TestPerson;
 import com.shebao.test.model.enums.TypeEnum;
 import com.shebao.test.test.mapStruct.PersonMapStruct;
 import com.shebao.test.test.threadPool.ThreadPoolTest1;
+import com.shebao.test.util.SM4;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +59,7 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -2248,5 +2256,133 @@ public class test {
         });
         TaskThreadPool.addTask(callableList);
         System.out.println(JSON.toJSON(partition));
+    }
+
+    public int[] StringToInt(String[] arr){
+        int[] array = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+                array[i] = Integer.parseInt(arr[i]);
+        }
+        return array;
+    }
+
+    public static byte[] intToBytes(int a){
+        byte[] ans=new byte[4];
+        for(int i=0;i<4;i++)
+            ans[i]=(byte)(a>>(i*8));//截断 int 的低 8 位为一个字节 byte，并存储起来
+        return ans;
+    }
+
+    @Test
+    public void test224(){
+        SignatureOptions signatureOptions4 = new SignatureOptions();
+        signatureOptions4.setHash(true);
+        String sigValueHex4 = Sm2.doSignature("appId=460000010&data={\"appcode\":\"460000099\",\"hnCode\":\"111\"}&reqNo=3cd81124-9888-4e85-910a-6d1305278295&serviceName=ylzms.hnocs.userstruct.special.smscode&timestamp=1694497809260&key=hjikY0WSw6r6rHPS", "0088eacdcb541553ea1bac38cee836ba4d652de6a8202ee0505505fba48af06e39",signatureOptions4);
+        System.out.println(sigValueHex4);
+//        String s = Sm2.doEncrypt("appId=460000010&data={\"appcode\":\"460000099\",\"hnCode\":\"4601994269996\"}&reqNo=680f3cda-cf1c-4a36-a67d-12d9f4daa6aa&serviceName=ylzms.hnocs.userstruct.special.smscode&timestamp=1694165408305&key=hjikY0WSw6r6rHPS", "0088eacdcb541553ea1bac38cee836ba4d652de6a8202ee0505505fba48af06e39");
+//        System.out.println(s);
+//         4553018d4f6bc142cf92de0dbdb036dba0f2246eb92b7d899db6a47d646174d7ea978f0895319a6ef2f8dde5a5469a67384dbd9357f99cb7f3369aac048dcb89
+        // 2fc094a0458d1920289496a517d0f765b4b755170aaf33ac8ac7a36730546eab4d2bd93ad01395d6992916c943a56b82304f693d388b53b9dbf42c33e3744ec5
+//        int[] eee = new int[]{52, 54, 48, 48, 48, 48, 48, 49, 48, 48, 48, 48, 48, 48, 48, 48};
+//        byte[] bytes = SM4.sm4Main("hjikY0WSw6r6rHPS".getBytes(StandardCharsets.UTF_8), eee, 1);
+//        System.out.println(bytes);
+//        String hjikY0WSw6r6rHPS = Sm4.encrypt("hjikY0WSw6r6rHPS", Arrays.toString(Sm4.utf8ToArray("4600000100000000"))).toUpperCase();
+//        System.out.println(hjikY0WSw6r6rHPS);
+//        String encryptData1 = Sm4.encrypt("{\"appcode\":\"460000099\",\"hnCode\":\"111\",\"smsCode\":\"222\"}",hjikY0WSw6r6rHPS);
+//        // 9C670DFA72D9759BFDFC1FF575AFD66394D19F1D7024E4DCAFD0551974B4788150707E82BAA1155A42D361DC3C6C534E23699DF01CF2CC83E6604BEC7FDD8DC5
+//        System.out.println(encryptData1);
+    }
+
+    @Test
+    public void test225(){
+        System.out.println(Arrays.toString(Sm4.utf8ToArray("4600000100000000")));
+    }
+
+    @Test
+    public void test226(){
+        List<String> list = com.google.common.collect.Lists.newArrayList();
+        for (int i = 0; i < 100; i++) {
+            list.add(String.valueOf(i));
+        }
+        List<List<String>> partition = com.google.common.collect.Lists.partition(list,30);
+        List<String> reduce = partition.stream()
+                .reduce(com.google.common.collect.Lists.newArrayList(), (ylist, item) -> {
+                    ylist.addAll(item);
+                    return ylist;
+                });
+        System.out.println(reduce);
+    }
+
+    @Test
+    public void test227(){
+        String str = "11111111";
+        String ss = str.intern();
+        System.out.println(str == ss);
+    }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Data
+    @Builder
+    static class Com implements Comparable<Com>{
+        private Integer mode;
+        private Integer mode1;
+        private String name;
+
+        @Override
+        public int compareTo(Com o) {
+            if(this.getMode().equals(4) &&this.getMode().equals(o.getMode())){
+                return this.getMode1().compareTo(o.getMode1());
+            } else if(this.getMode().equals(o.getMode())){
+                return 0;
+            }else if(this.getMode() < o.getMode() ){
+                if(this.getMode() ==1 && o.getMode() ==2){
+                    return 1;
+                }else {
+                    return -1;
+                }
+            }else {
+                if(o.getMode() ==1 && this.getMode() ==2){
+                    return -1;
+                }else {
+                    return 1;
+                }
+            }
+        }
+    }
+
+    @Test
+    public void test228(){
+        List<Com> comList = Lists.newArrayList();
+        for (int i = 0; i < 3 ; i++) {
+            Com com = new Com(RandomUtil.randomInt(1, 4),RandomUtil.randomInt(1, 5),String.valueOf(i));
+            comList.add(com);
+        }
+        Com com = comList.stream().max(Com::compareTo).orElse(null);
+        System.out.println(com);
+    }
+
+    @Test
+    public void test229(){
+        String format = String.format("单位%s+个人%s", "5%", "5%");
+        System.out.println(format);
+    }
+
+    @Test
+    public void test230(){
+        System.out.println(RandomUtil.randomNumbers(15));
+    }
+
+    @Test
+    public void test231(){
+//        BitMapBloomFilter bitMap = BloomFilterUtil.createBitMap(1000);
+        BitSetBloomFilter bitMap = BloomFilterUtil.createBitSet(2000,1000,3);
+        bitMap.add("968");
+        for (int i = 0; i <100; i++) {
+            bitMap.add(RandomUtil.randomNumbers(1000));
+        }
+        if(bitMap.contains("968")){
+            System.out.println(bitMap);
+        }
     }
 }
