@@ -66,6 +66,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -2384,5 +2385,98 @@ public class test {
         if(bitMap.contains("968")){
             System.out.println(bitMap);
         }
+    }
+
+    @Test
+    public void test234() {
+        ReentrantLock lock = new ReentrantLock();
+        new Thread(() -> {
+            lock.lock();
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            } catch (Exception e) {
+            } finally {
+                lock.unlock();
+            }
+        }, "thread-1").start();
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (Exception e) {
+        }
+        new Thread(() -> {
+            lock.lock();
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (Exception e) {
+            } finally {
+                lock.unlock();
+            }
+        }, "thread-2").start();
+        CountDownLatch countDownLatch = new CountDownLatch(5);
+
+        new Thread(() -> {
+            for (int i = 0; i < 5; i++) {
+                try {
+                    TimeUnit.SECONDS.sleep(5);
+                } catch (Exception e) {
+
+                }
+                countDownLatch.countDown();
+            }
+        }).start();
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void test236() throws InterruptedException {
+        LinkedBlockingDeque<String> str = new LinkedBlockingDeque<>();
+        String poll = str.poll(5,TimeUnit.SECONDS);
+        String take = str.take();
+        System.out.println(111);
+    }
+
+    @Test
+    public void test235() {
+        /**
+         *  ctl: 一个int类型是4个字节，32位，高三位 表示 线程池的状态，其他29为表示线程池的 个数
+         *  线程池的状态 ：
+         *      RUNNING     : -1  可以正常的接受正常的任务
+         *      SHUTDOWN    : 0   调用 SHUTDOWN 方法  无法添加新的任务，但是可以继续处理队列里面的任务，并且工作线程清零
+         *      STOP        : 1   调用 SHUTDOWNNOW方法
+         *      TIDYING     : 2
+         *      TERMINATED  :3
+         *  线程池的状态流转
+         *                   --- shutdown() ------- SHUTDOWN-----  (任务执行完并且工作线程清零)
+         *      RUNNING ----|                                   |-------- TIDYING -----terminated()---- TERMINATED
+         *                  ---- shutdownNow() ---- STOP -------- 工作线程清零
+         */
+        ThreadPoolExecutor executorService = new ThreadPoolExecutor(10,
+                20,
+                0L,
+                TimeUnit.MICROSECONDS,
+                new LinkedBlockingQueue<>(),
+                Executors.defaultThreadFactory(),
+                new ThreadPoolExecutor.AbortPolicy());
+        executorService.shutdownNow();
+        executorService.execute(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(5);
+                System.out.println(1);
+            }catch (Exception e){
+
+            }
+        });
+
+//        executorService.shutdown();
+//      1100000000000000000000000000000
+//      11100000000000000000000000000000
+//      11111111111111111111111111111
+//
+
+
     }
 }
