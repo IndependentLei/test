@@ -2448,28 +2448,40 @@ public class test {
          *      SHUTDOWN    : 0   调用 SHUTDOWN 方法  无法添加新的任务，但是可以继续处理队列里面的任务，并且工作线程清零
          *      STOP        : 1   调用 SHUTDOWNNOW方法
          *      TIDYING     : 2
-         *      TERMINATED  :3
+         *      TERMINATED  : 3
          *  线程池的状态流转
          *                   --- shutdown() ------- SHUTDOWN-----  (任务执行完并且工作线程清零)
          *      RUNNING ----|                                   |-------- TIDYING -----terminated()---- TERMINATED
          *                  ---- shutdownNow() ---- STOP -------- 工作线程清零
          */
-        ThreadPoolExecutor executorService = new ThreadPoolExecutor(10,
-                20,
+        ThreadPoolExecutor executorService = new ThreadPoolExecutor(0,
+                1,
                 0L,
                 TimeUnit.MICROSECONDS,
-                new LinkedBlockingQueue<>(),
+                new LinkedBlockingQueue<>(1),
                 Executors.defaultThreadFactory(),
                 new ThreadPoolExecutor.AbortPolicy());
         executorService.shutdownNow();
+        executorService.shutdown();
         executorService.execute(() -> {
             try {
-                TimeUnit.SECONDS.sleep(5);
+                TimeUnit.HOURS.sleep(1);
                 System.out.println(1);
             }catch (Exception e){
 
             }
         });
+
+        executorService.execute(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(5);
+                System.out.println(2);
+            }catch (Exception e){
+
+            }
+        });
+        // //检查线程池 是否是 SHUTDOWN 状态
+        // ,如果 “是SHUTDOWN 状态” && “不是SHUTDOWN or  firstTask不是null or  workQueue不是空” 就不能添加
 
 //        executorService.shutdown();
 //      1100000000000000000000000000000
@@ -2478,5 +2490,99 @@ public class test {
 //
 
 
+    }
+
+    @Test
+    public void test237() {
+        int i = 0;
+        retry:
+        while (true) {
+            if (i == 10) {
+                break;
+            }
+            while (true) {
+                i++;
+                System.out.println(i);
+                if (i == 10) {
+                    continue retry;
+                }
+            }
+        }
+    }
+
+    @Test
+    public void test238(){
+        List<Integer> list = Lists.newArrayList();
+        list.add(1);
+        list.add(1);
+        list.add(1);
+        list.add(1);
+        list.add(1);
+        list.forEach(p -> {
+            new Thread(() -> {
+                System.out.println(System.identityHashCode(list));
+            }).start();
+        });
+    }
+
+    @Test
+    public void test239(){
+        new MyRunnable(new Thread(),()->{
+            System.out.println(111);
+        }).thread.start();
+    }
+
+
+    static class MyRunnable implements Runnable{
+
+        final Thread thread;
+
+        Runnable firstTask;
+
+        public MyRunnable(Thread thread,Runnable firstTask) {
+            this.thread = thread;
+            this.firstTask = firstTask;
+        }
+
+        @Override
+        public void run() {
+            System.out.println(Thread.currentThread().getName());
+        }
+    }
+
+    @Test
+    public void test240(){
+        Semaphore semaphore = new Semaphore(1);
+        for (int i = 0; i < 10; i++) {
+            new Thread(()->{
+                try {
+                    semaphore.acquire();
+                    System.out.println(Thread.currentThread().getName());
+                    TimeUnit.SECONDS.sleep(10);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    semaphore.release();
+                }
+            }).start();
+        }
+        try {
+            TimeUnit.HOURS.sleep(10);
+        }catch (Exception e){
+
+        }
+    }
+
+
+    @Test
+    public void test250(){
+        /**
+         * 类加载过程
+         * 1.加载：根据全类名，去找class文件，解析成二进制，转成方法区的运行时数据结构
+         * 2、验证：类的字节码是否符合规范
+         * 3、准备：被static修饰的属性分配内存空间并初始化，并给默认值，如果还被final你直接被赋值
+         * 3、解析：常量池内的符号引用转换为直接引用。主要解析的是 类或接口、字段、类方法、接口方法、方法类型、方法句柄等符号引用
+         * 4、初始化：执行类构造器 <clinit>()（静态代码块） 方法，初始化类变量，执行静态代码块
+         */
     }
 }
