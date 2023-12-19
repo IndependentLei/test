@@ -66,7 +66,9 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -2582,5 +2584,31 @@ public class test {
          * 3、解析：常量池内的符号引用转换为直接引用。主要解析的是 类或接口、字段、类方法、接口方法、方法类型、方法句柄等符号引用
          * 4、初始化：执行类构造器 <clinit>()（静态代码块） 方法，初始化类变量，执行静态代码块
          */
+    }
+
+
+    @Test
+    public void  test251(){
+        HashMap<String,String> map = new HashMap<>();
+        map.put("1","1");
+
+        String s = map.get(null);
+
+
+        ConcurrentHashMap<String,String> concurrentHashMap = new ConcurrentHashMap<>();
+        concurrentHashMap.put("1","1");
+        String s1 = concurrentHashMap.get("1");
+    }
+
+    @Test
+    public void test252(){
+        ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+        ReentrantReadWriteLock.ReadLock readLock = lock.readLock();
+        readLock.lock();
+        readLock.unlock();
+
+        ReentrantReadWriteLock.WriteLock writeLock = lock.writeLock();
+        writeLock.lock();
+        writeLock.unlock();
     }
 }
