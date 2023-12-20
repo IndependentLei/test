@@ -2601,7 +2601,7 @@ public class test {
     }
 
     @Test
-    public void test252(){
+    public void test252() {
         ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
         ReentrantReadWriteLock.ReadLock readLock = lock.readLock();
         readLock.lock();
@@ -2610,5 +2610,13 @@ public class test {
         ReentrantReadWriteLock.WriteLock writeLock = lock.writeLock();
         writeLock.lock();
         writeLock.unlock();
+    }
+
+    @Test
+    public void test253(){
+        List<String> list1 = null;
+        List<String> list2 = Arrays.asList("2");
+        Collection<String> union = CollectionUtils.union(list1, list2);
+        System.out.println(union);
     }
 }
