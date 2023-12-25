@@ -2716,7 +2716,7 @@ public class test {
     }
 
     @Test
-    public void test254() {
+    public void test259() {
         ReentrantLock lock = new ReentrantLock();
         Condition A = lock.newCondition();
         Condition B = lock.newCondition();
@@ -2762,7 +2762,7 @@ public class test {
     }
 
     @Test
-    public void test256(){
+    public void test260(){
         List<Long> list = new ArrayList<>();
         list.add(1L);
         List<Long> list1 = new ArrayList<>();
@@ -2773,7 +2773,7 @@ public class test {
     }
 
     @Test
-    public void test257(){
+    public void test261(){
         // 项目启动 初始化 SqlSessionFactory 工厂
         // 执行：
         //      1、通过 MapperProxy获取 mapper代理对象
