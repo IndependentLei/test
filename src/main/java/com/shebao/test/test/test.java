@@ -66,6 +66,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -2604,12 +2605,28 @@ public class test {
     public void test252() {
         ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
         ReentrantReadWriteLock.ReadLock readLock = lock.readLock();
-        readLock.lock();
-        readLock.unlock();
-
         ReentrantReadWriteLock.WriteLock writeLock = lock.writeLock();
-        writeLock.lock();
-        writeLock.unlock();
+        try {
+            readLock.lock();
+            System.out.println("读锁");
+            try {
+                writeLock.lock();
+                System.out.println("写锁");
+            }catch (Exception e){
+
+            }finally {
+                writeLock.unlock();
+            }
+
+        }catch (Exception e) {
+
+        }finally {
+            readLock.unlock();
+        }
+
+
+
+
     }
 
     @Test
@@ -2618,5 +2635,92 @@ public class test {
         List<String> list2 = Arrays.asList("2");
         Collection<String> union = CollectionUtils.union(list1, list2);
         System.out.println(union);
+    }
+
+    @Test
+    public void test254() {
+        ReentrantLock lock = new ReentrantLock();
+        Condition A = lock.newCondition();
+        Condition B = lock.newCondition();
+
+        for (int i = 0; i < 5; i++) {
+            new Thread(() -> {
+                lock.lock();
+                try {
+                    A.await();
+                    System.out.println(111);
+                } catch (Exception e) {
+                    log.error("异常", e);
+                } finally {
+                    lock.unlock();
+                }
+            }).start();
+        }
+
+
+        try {
+            Thread.sleep(1000);
+        }catch (Exception e){
+
+        }
+        new Thread(() -> {
+            lock.lock();
+            try {
+                A.signalAll();
+                System.out.println("signalAll");
+            } catch (Exception e) {
+                log.error("异常", e);
+            } finally {
+                System.out.println("unlock");
+                lock.unlock();
+            }
+        }).start();
+
+        try {
+            Thread.sleep(10000000);
+        }catch (Exception e){
+
+        }
+    }
+
+    @Test
+    public void test256(){
+        List<Long> list = new ArrayList<>();
+        list.add(1L);
+        List<Long> list1 = new ArrayList<>();
+        list1.add(1L);
+
+        boolean b1 = Objects.deepEquals(list.toArray(), list1.toArray());
+        System.out.println(b1);
+    }
+
+    @Test
+    public void test257(){
+        // 项目启动 初始化 SqlSessionFactory 工厂
+        // 执行：
+        //      1、通过 MapperProxy获取 mapper代理对象
+        //      2、反射调用方法
+        //      3、mapperMethod 调用 execute方法 选择执行方式（INSERT | UPDATE | DELETE |SELECT）
+        //      4、判断是否分页，通过 sqlSession 调用查询方法，（在通过 sqlSessionProxy 调用查询方法）
+        //      5、根据（类名+方法名）获取 MappedStatement，获取二级缓存的key，如果查询到，返回，没有查询到，执行查询
+        //      然后再去一级缓存中查询，查询到返回，没有查询到执行查询
+        //      6、根据 configuration 获取 StatementHandler，准备 Statement，查询，设置结果集 ResultHandler
+        //
+
+
+        /**
+         * 首先读取配置文件，然后加载映射文件，由SqlSessionFactory工厂对象去创建核心对象SqlSession，SqlSession对象会通过Executor执行器对象执行sql。
+         * 然后Executor执行器对象会调用StatementHandler对象去真正的访问数据库执行sql语句。
+         * 在执行sql语句前MapperStatement会先对映射信息进行封装，然后StatementHandler调用ParameterHandler去设置编译参数【#{}，${}】，编译在StatementHandler中进行。
+         * 然后StatementHandler调用JBDC原生API进行处理，获取执行结果，这个执行结果交给ResultSetHandler 来进行结果集封装，然后将结果返回给StatementHandler。
+         * 注意： 这里MapperStatement是对映射信息的封装，用于存储要映射的SQL语句的id、参数等信息。TypeHandler进行数据库类型和JavaBean类型映射处理。
+         */
+
+        /**
+         * 1、执行器Executor，执行器负责整个SQL执行过程的总体控制。
+         * 2、语句处理器StatementHandler，语句处理器负责和JDBC层具体交互，包括prepare语句，执行语句，以及调用ParameterHandler.parameterize ()设置参数。
+         * 3、参数处理器ParameterHandler，参数处理器负责PreparedStatement入参的具体设置。
+         * 4、结果集处理器ResultSetHandler，结果处理器负责将JDBC查询结果映射到java对象。
+         */
     }
 }
