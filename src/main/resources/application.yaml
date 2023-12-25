@@ -4,13 +4,13 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://94.74.123.183:3306/db2022?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-    url: jdbc:mysql://127.0.0.1:3306/db2022?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
-    password: root
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+    password: 123456
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
 #  data:
 #    mongodb:
 #      host: 94.74.123.183

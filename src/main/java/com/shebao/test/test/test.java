@@ -70,6 +70,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.locks.StampedLock;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -2396,7 +2397,7 @@ public class test {
         new Thread(() -> {
             lock.lock();
             try {
-                TimeUnit.SECONDS.sleep(5);
+                TimeUnit.SECONDS.sleep(20);
             } catch (Exception e) {
             } finally {
                 lock.unlock();
@@ -2415,18 +2416,20 @@ public class test {
                 lock.unlock();
             }
         }, "thread-2").start();
-        CountDownLatch countDownLatch = new CountDownLatch(5);
 
-        new Thread(() -> {
-            for (int i = 0; i < 5; i++) {
+
+
+        CountDownLatch countDownLatch = new CountDownLatch(2);
+        for (int i = 0; i < 5; i++) {
+            new Thread(() -> {
                 try {
-                    TimeUnit.SECONDS.sleep(5);
+                    TimeUnit.SECONDS.sleep(10);
                 } catch (Exception e) {
 
                 }
                 countDownLatch.countDown();
-            }
-        }).start();
+            }).start();
+        }
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {
@@ -2553,7 +2556,7 @@ public class test {
 
     @Test
     public void test240(){
-        Semaphore semaphore = new Semaphore(1);
+        Semaphore semaphore = new Semaphore(3);
         for (int i = 0; i < 10; i++) {
             new Thread(()->{
                 try {
@@ -2605,28 +2608,12 @@ public class test {
     public void test252() {
         ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
         ReentrantReadWriteLock.ReadLock readLock = lock.readLock();
+        readLock.lock();
+        readLock.unlock();
+
         ReentrantReadWriteLock.WriteLock writeLock = lock.writeLock();
-        try {
-            readLock.lock();
-            System.out.println("读锁");
-            try {
-                writeLock.lock();
-                System.out.println("写锁");
-            }catch (Exception e){
-
-            }finally {
-                writeLock.unlock();
-            }
-
-        }catch (Exception e) {
-
-        }finally {
-            readLock.unlock();
-        }
-
-
-
-
+        writeLock.lock();
+        writeLock.unlock();
     }
 
     @Test
@@ -2635,6 +2622,97 @@ public class test {
         List<String> list2 = Arrays.asList("2");
         Collection<String> union = CollectionUtils.union(list1, list2);
         System.out.println(union);
+    }
+
+    @Test
+    public void test254(){
+        CopyOnWriteArrayList<String> copy = new CopyOnWriteArrayList<>();
+        copy.add("1");
+        copy.get(0);
+
+        CopyOnWriteArraySet<String> copySet = new CopyOnWriteArraySet<>();
+        copySet.add("s");
+        copySet.remove("S");
+    }
+
+    @Test
+    public void test255(){
+        HashMap<String,String> map = new HashMap<>(17);
+        map.put("null",null);
+        map.put("null",null);
+
+        ConcurrentHashMap<String,String> map1 = new ConcurrentHashMap<>();
+        map1.put("1","1");
+
+        LinkedList<String> strings = new LinkedList<>();
+        strings.add("1");
+
+        Hashtable hashtable = new Hashtable();
+        hashtable.put("1","");
+    }
+
+    @Test
+    public void test256(){
+        ThreadPoolExecutor executorService = new ThreadPoolExecutor(2,
+                20,
+                0L,
+                TimeUnit.MICROSECONDS,
+                new LinkedBlockingQueue<>(2000),
+                Executors.defaultThreadFactory(),
+                new ThreadPoolExecutor.AbortPolicy());
+        System.out.println();
+        executorService.execute(()-> System.out.println(Thread.currentThread().getName()));
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        }catch (Exception e){
+
+        }
+        executorService.execute(()-> System.out.println(Thread.currentThread().getName()));
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        }catch (Exception e){
+
+        }
+        executorService.execute(()-> System.out.println(Thread.currentThread().getName()));
+
+        LinkedHashMap linkedHashMap = new LinkedHashMap();
+        linkedHashMap.put("","");
+    }
+
+    @Test
+    public void test257() {
+        /**
+         * 写：独占锁
+         * 读：共享锁
+         * 锁的降级，升级
+         * 降级：写锁变成读锁 （允许）
+         * 升级：读锁变成写锁 （不允许）
+         */
+        ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
+        ReentrantReadWriteLock.WriteLock writeLock = rwLock.writeLock();
+        ReentrantReadWriteLock.ReadLock readLock = rwLock.readLock();
+
+        writeLock.lock();
+        writeLock.unlock();
+
+        readLock.lock();
+        readLock.unlock();
+
+        StampedLock lock = new StampedLock();
+        lock.readLock();
+
+        lock.unlockRead(1);
+
+        lock.writeLock();
+
+        lock.unlockWrite(1);
+
+
+    }
+
+    @Test
+    public void test258() {
+        System.out.println(Integer.toBinaryString(Integer.MAX_VALUE));
     }
 
     @Test
