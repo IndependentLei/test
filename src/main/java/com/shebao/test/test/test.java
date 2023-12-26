@@ -2801,4 +2801,13 @@ public class test {
          * 4、结果集处理器ResultSetHandler，结果处理器负责将JDBC查询结果映射到java对象。
          */
     }
+
+    @Test
+    public void test262(){
+        /**
+         * @Transactional，作用是定义代理植入点。【aop实现原理分析】中，
+         * 分析知道代理对象创建的通过BeanPostProcessor的实现类AnnotationAwareAspectJAutoProxyCreator的postProcessAfterInstantiation方法来实现个，
+         * 如果需要进行代理，那么在这个方法就会返回一个代理对象给容器，同时判断植入点也是在这个方法中。
+         */
+    }
 }
