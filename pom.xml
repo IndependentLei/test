@@ -204,6 +204,16 @@
             <artifactId>amqp-client</artifactId>
             <version>5.15.0</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.mybatis.spring.boot</groupId>-->
+<!--            <artifactId>mybatis-spring-boot-starter</artifactId>-->
+<!--            <version>1.3.2</version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.4.6</version>
+        </dependency>
         <!-- javaMail -->
         <dependency>
             <groupId>javax.mail</groupId>

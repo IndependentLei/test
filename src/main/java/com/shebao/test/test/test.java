@@ -2652,7 +2652,7 @@ public class test {
     }
 
     @Test
-    public void test256(){
+    public void test256() {
         ThreadPoolExecutor executorService = new ThreadPoolExecutor(2,
                 20,
                 0L,
@@ -2661,22 +2661,22 @@ public class test {
                 Executors.defaultThreadFactory(),
                 new ThreadPoolExecutor.AbortPolicy());
         System.out.println();
-        executorService.execute(()-> System.out.println(Thread.currentThread().getName()));
+        executorService.execute(() -> System.out.println(Thread.currentThread().getName()));
         try {
             TimeUnit.SECONDS.sleep(2);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
-        executorService.execute(()-> System.out.println(Thread.currentThread().getName()));
+        executorService.execute(() -> System.out.println(Thread.currentThread().getName()));
         try {
             TimeUnit.SECONDS.sleep(2);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
-        executorService.execute(()-> System.out.println(Thread.currentThread().getName()));
+        executorService.execute(() -> System.out.println(Thread.currentThread().getName()));
 
         LinkedHashMap linkedHashMap = new LinkedHashMap();
-        linkedHashMap.put("","");
+        linkedHashMap.put("", "");
     }
 
     @Test
@@ -2696,7 +2696,7 @@ public class test {
         writeLock.unlock();
 
         readLock.lock();
-        readLock.unlock();
+
 
         StampedLock lock = new StampedLock();
         lock.readLock();
@@ -2712,7 +2712,28 @@ public class test {
 
     @Test
     public void test258() {
-        System.out.println(Integer.toBinaryString(Integer.MAX_VALUE));
+//        System.out.println(Integer.toBinaryString(Integer.MAX_VALUE));
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(5, () -> System.out.println("完成了"));
+
+        for (int i = 0; i < 5; i++) {
+            final int finalI = i + 1;
+            new Thread(() -> {
+                try {
+                    TimeUnit.SECONDS.sleep(finalI);
+                    cyclicBarrier.await();
+//                    cyclicBarrier.reset();
+                    System.out.println(Thread.currentThread().getName() + "正在执行");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (Exception e) {
+
+        }
     }
 
     @Test
@@ -2810,4 +2831,112 @@ public class test {
          * 如果需要进行代理，那么在这个方法就会返回一个代理对象给容器，同时判断植入点也是在这个方法中。
          */
     }
+
+    @Test
+    public void test263(){
+        /**
+         * Spring MVC 执行流程
+         * 根据url匹配（HandlerMethod）  获取处理器执行链（HandlerExecutionChain） 加入 HandlerInterceptor 拦截器
+         * 执行拦截器的前置拦截功能，根据 HandlerMethod 选择 HandlerAdapter调用 handle方法，然后调用 invokeHandlerMethod 方法
+         * 选择数据绑定工厂  选择Model工厂，根据 HandlerMethod创建 ServletInvocableHandlerMethod
+         * 设置参数解析器、返回值解析器，创建 ModelAndViewContainer，调用 方法执行 ~
+         * 根据返回值选择对应的返回值处理器，返回值ModelAndView ，执行拦截器的后置拦截功能
+         */
+
+        /**
+         * protected ModelAndView invokeHandlerMethod(HttpServletRequest request,
+         * 			HttpServletResponse response, HandlerMethod handlerMethod) throws Exception {
+         *
+         * 		ServletWebRequest webRequest = new ServletWebRequest(request, response);
+         * 		try {
+         * 			WebDataBinderFactory binderFactory = getDataBinderFactory(handlerMethod);
+         * 			ModelFactory modelFactory = getModelFactory(handlerMethod, binderFactory);
+         *
+         * 			ServletInvocableHandlerMethod invocableMethod = createInvocableHandlerMethod(handlerMethod);
+         * 			if (this.argumentResolvers != null) {
+         * 				invocableMethod.setHandlerMethodArgumentResolvers(this.argumentResolvers);
+         *                        }
+         * 			if (this.returnValueHandlers != null) {
+         * 				invocableMethod.setHandlerMethodReturnValueHandlers(this.returnValueHandlers);
+         *            }
+         * 			invocableMethod.setDataBinderFactory(binderFactory);
+         * 			invocableMethod.setParameterNameDiscoverer(this.parameterNameDiscoverer);
+         *
+         * 			ModelAndViewContainer mavContainer = new ModelAndViewContainer();
+         * 			mavContainer.addAllAttributes(RequestContextUtils.getInputFlashMap(request));
+         * 			modelFactory.initModel(webRequest, mavContainer, invocableMethod);
+         * 			mavContainer.setIgnoreDefaultModelOnRedirect(this.ignoreDefaultModelOnRedirect);
+         *
+         * 			AsyncWebRequest asyncWebRequest = WebAsyncUtils.createAsyncWebRequest(request, response);
+         * 			asyncWebRequest.setTimeout(this.asyncRequestTimeout);
+         *
+         * 			WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);
+         * 			asyncManager.setTaskExecutor(this.taskExecutor);
+         * 			asyncManager.setAsyncWebRequest(asyncWebRequest);
+         * 			asyncManager.registerCallableInterceptors(this.callableInterceptors);
+         * 			asyncManager.registerDeferredResultInterceptors(this.deferredResultInterceptors);
+         *
+         * 			if (asyncManager.hasConcurrentResult()) {
+         * 				Object result = asyncManager.getConcurrentResult();
+         * 				mavContainer = (ModelAndViewContainer) asyncManager.getConcurrentResultContext()[0];
+         * 				asyncManager.clearConcurrentResult();
+         * 				LogFormatUtils.traceDebug(logger, traceOn -> {
+         * 					String formatted = LogFormatUtils.formatValue(result, !traceOn);
+         * 					return "Resume with async result [" + formatted + "]";
+         *                });
+         * 				invocableMethod = invocableMethod.wrapConcurrentResult(result);
+         *            }
+         *
+         * 			invocableMethod.invokeAndHandle(webRequest, mavContainer);
+         * 			if (asyncManager.isConcurrentHandlingStarted()) {
+         * 				return null;
+         *            }
+         *
+         * 			return getModelAndView(mavContainer, modelFactory, webRequest);* 		}
+         * 		finally {
+         * 			webRequest.requestCompleted();
+         * 		}
+         * 	}
+         */
+    }
+
+    @Test
+    public void test264(){
+        /**
+         * sizeCtl
+         *      为 0 代表数据没有初始化，数组的初始化容量为 16
+         *      为 正数 如果数组未初始化，那么其记录的数组初始化容量，如果数据已经初始化，那么记录的是数组扩容的阈值
+         *      为 -1 表示数组正在初始化
+         *      小于 0 并且不是 -1 表示数组正在扩容，-（1+n）表示此时有n个线程正在共同完成数组的扩容操作
+         */
+        ConcurrentHashMap<String,String> hashMap = new ConcurrentHashMap<>();
+        hashMap.put("1","1");
+        String s = hashMap.get("1");
+    }
+
+    @Test
+    public void test265(){
+        /**
+         * InnoDB的行锁
+         * InnoDB行锁通过对索引数据页上的记录加锁实现的，主要实现的算法有 3 种 : Record Lock ，Gap Lock 和 Next-key Lock。
+         *      Record Lock锁：锁定单个行记录的锁（记录锁，RC，RR隔离级别都支持）
+         *      GapLock锁：间隙锁 锁定索引记录间隙，确保索引记录的间隙不变。（范围锁，RR隔离级别支持）
+         *      Next-key Lock锁：记录锁和间隙锁组合，同时锁住数据，并且锁住数据前后范围。（记录锁 + 范围锁，RR隔离级别支持）
+         *  在RR隔离级别，InnoDB对于记录加锁行为都是先采用Next-key Lock,但是当SQL操作含有唯一索引时，InnoDB会对Next-key Lock进行优化，降级为RecordLock，仅锁住索引本身而非范围
+         *      select  ... from ... mvcc 实现非阻塞读，innoDB不加锁
+         *      select ... from lock in share mode 追加共享锁，InnoDB会使用 Next-key Lock 锁进行处理，如果扫描发现唯一索引，可以降级为RecordLock锁
+         *      select ... from for update ，追加排他锁，InnoDB会使用 Next-key Lock 锁进行处理，如果扫描发现唯一索引，可以降级为RecordLock锁
+         *      update ... where ... ，InnoDB会使用 Next-key Lock 锁进行处理，如果扫描发现唯一索引，可以降级为RecordLock锁
+         *      delete ... where ... ，InnoDB会使用 Next-key Lock 锁进行处理，如果扫描发现唯一索引，可以降级为RecordLock锁
+         *      inset ... ，InnoDB会在将要插入的那一行设置一个排他的RecordLock锁
+         */
+    }
+
+    @Test
+    public void test266(){
+        ConcurrentHashMap<String,String> hashMap = new ConcurrentHashMap<>();
+        hashMap.put("1","1");
+        hashMap.size();
+    }
+
 }
