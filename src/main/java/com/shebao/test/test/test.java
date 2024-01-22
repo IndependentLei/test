@@ -71,6 +71,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.StampedLock;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -2833,7 +2834,140 @@ public class test {
     }
 
     @Test
-    public void test263(){
+    public void test263() {
+        List<Person> list = Lists.newArrayList();
+        Person person = new Person(1L, "name", "age");
+        list.add(person);
+        System.out.println(list);
+        list.stream()
+                .filter(item -> Objects.equals("name", item.getName()))
+                .findFirst()
+                .ifPresent(item -> item.setName("jack"));
+        System.out.println(list);
+    }
+
+    @Test
+    public void test264(){
+        InheritableThreadLocal<Integer> threadLocal = new InheritableThreadLocal<>();
+        ThreadLocal<Integer> tl = new ThreadLocal<>();
+
+        threadLocal.set(5);
+        try{
+            TimeUnit.SECONDS.sleep(3);
+        }catch (Exception e){
+
+        }
+        // 创建子线程的时候，会将 父线程的 inheritableThreadLocals变量复制到子线程的inheritableThreadLocals变量中
+        Thread thread = new Thread(() -> {
+            System.out.println(Thread.currentThread().getName());
+            threadLocal.set(1);
+            tl.set(5);
+        });
+        thread.start();
+
+        try{
+            TimeUnit.SECONDS.sleep(3);
+        }catch (Exception e){
+
+        }
+        System.out.println(Thread.currentThread().getName());
+        Integer i = threadLocal.get();
+        Integer i1 = tl.get();
+        System.out.println(i);
+        System.out.println(i1);
+    }
+
+    @Test
+    public void test265(){
+        InheritableThreadLocal<Integer> threadLocal = new InheritableThreadLocal<>();
+
+        threadLocal.set(1);
+
+        new Thread(()->{
+            Integer i = threadLocal.get();
+            System.out.println(i);
+        }).start();
+    }
+
+    @Test
+    public void test266(){
+        int i = 5;
+        int j = 5;
+        int result = i++;
+        int result1 = ++j;
+        System.out.println(result);
+        System.out.println(result1);
+
+        System.out.println("--------------");
+
+        System.out.println(i);
+        System.out.println(j);
+    }
+
+    @Test
+    public void test267(){
+        // 协变指的是子类型对象可以赋值给父类型引用的情况。在泛型中，协变表示如果 B 是 A 的子类
+        // ，那么 List<B> 就是 List<A> 的子类。这意味着你可以将 List<B> 赋值给 List<A>，但只能读取 List<A> 中的元素，不能向其中添加任何元素。
+        List<? extends Number> numbers = Arrays.asList(1);
+//        numbers.add(Integer.valueOf(1));
+        Number number = numbers.get(0);
+        System.out.println(number);
+
+
+        // 逆变指的是父类型对象可以赋值给子类型引用的情况。在泛型中，逆变表示如果 B 是 A 的子类
+        // ，那么 Consumer<A> 就是 Consumer<B> 的子类。这意味着你可以将 Consumer<A> 赋值给 Consumer<B>，并且可以向其中添加 B 类型的元素，但不能读取其中的元素。
+        Consumer<? super Integer> consumer = System.out::println;
+        consumer.accept(1);
+
+        List<? super Integer> list = new ArrayList<>();
+        list.add(6);
+        Object o = list.get(0);
+        System.out.println(o);
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    static class Fruit{
+        private String name;
+        private String color;
+    }
+
+    static class Apple extends Fruit{
+
+    }
+
+    static class GoodApple extends Apple{
+
+    }
+
+    @Test
+    public void test268(){
+        // https://blog.csdn.net/m0_37796683/article/details/108584499
+        Apple apple = new Apple();
+        Fruit fruit = new Fruit();
+        GoodApple goodApple = new GoodApple();
+
+        // 协变   null - Fruit
+        List<? extends Fruit> fruit1 = new ArrayList<Apple>();
+//        fruit1.add(apple);  不知道是Fruit的那个一个子类，不允许添加
+        Fruit fruit4 = fruit1.get(0);
+
+        // 逆变   Apple - Object
+        List<? super Apple> fruit2 = new ArrayList<Fruit>();
+        fruit2.add(apple); // Apple的子类已经本身可以添加，
+        fruit2.add(goodApple);
+//        fruit2.add(fruit); // Fruit 是 Apple 的超类，不允许添加
+        Object o = fruit2.get(0);
+
+
+        // 不变
+        List<Apple> fruit3 = new ArrayList<Apple>();
+    }
+
+    @Test
+    public void test269(){
         /**
          * Spring MVC 执行流程
          * 根据url匹配（HandlerMethod）  获取处理器执行链（HandlerExecutionChain） 加入 HandlerInterceptor 拦截器
@@ -2901,7 +3035,7 @@ public class test {
     }
 
     @Test
-    public void test264(){
+    public void test270(){
         /**
          * sizeCtl
          *      为 0 代表数据没有初始化，数组的初始化容量为 16
@@ -2915,7 +3049,7 @@ public class test {
     }
 
     @Test
-    public void test265(){
+    public void test271(){
         /**
          * InnoDB的行锁
          * InnoDB行锁通过对索引数据页上的记录加锁实现的，主要实现的算法有 3 种 : Record Lock ，Gap Lock 和 Next-key Lock。
@@ -2933,7 +3067,7 @@ public class test {
     }
 
     @Test
-    public void test266(){
+    public void test272(){
         ConcurrentHashMap<String,String> hashMap = new ConcurrentHashMap<>();
         hashMap.put("1","1");
         hashMap.size();
