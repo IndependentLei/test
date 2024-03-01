@@ -3073,4 +3073,63 @@ public class test {
         hashMap.size();
     }
 
+    @Test
+    public void test273() {
+        // CMS  垃圾回收器  并发 标记 清除
+        /**
+         * 1、初始标记：stw（stop the world） ：主要是标记 GC Root 开始的下级（注：仅下一级）对象，这个过程会 STW，但是跟 GC Root 直接关联的下级对象不会很多，因此这个过程其实很快。
+         * 2、并发标记：gc线程和用户线程并发执行 ：根据上一步的结果，继续向下标识所有关联的对象，直到这条链上的最尽头。这个过程是多线程的，虽然耗时理论上会比较长，但是其它工作线程并不会阻塞，没有 STW。
+         * 3、重新标记：stw（防止并发标记的时候用户线程产生垃圾，再次标记） ：顾名思义，就是要再标记一次。为啥还要再标记一次？因为第 2 步并没有阻塞其它工作线程，其它线程在标识过程中，很有可能会产生新的垃圾。
+         * 4、并发清除
+         */
+
+        // G1 垃圾回收器
+        /**
+         * 1、初始标记：stw 仅使用一条初始标记线程对所有与 GC Roots 直接关联的对象进行标记。
+         * 2、并发标记：使用一条标记线程与用户线程并发执行。此过程进行可达性分析，速度很慢。
+         * 3、最终标记：stw，使用多条标记线程并发执行。
+         * 4、筛选回收：回收废弃对象，此时也要 Stop The World，并使用多条筛选回收线程并发执行。（还会更新Region的统计数据，对各个Region的回收价值和成本进行排序）
+         */
+    }
+
+    @Test
+    public void test274(){
+        // 1、实例化bean 2、属性注入 3、BeanNameAware#setBeanName
+        // 4、BeanFactoryAware#setBeanFactory 5、BeanPostProcesser预处理方法
+        // 6、InitBean#afterPropertiesSet 7、Init-Method方法
+        // 7、BeanPostProcesser后处理方法 8、bean存入缓存，9、实现Depost#detory方法 10、destory-mehtod方法
+    }
+
+    @Test
+    public void test275(){
+        // Producer -- channel -->  Broker ( Exchange - Qyeye )--- channel--> Consumer
+        /**
+         * Producer：消息生产者。负责产生和发送消息到 Broker
+         * Broker：消息处理中心。负责消息存储、确认、重试等，一般其中会包含多个 queue
+         * Consumer：消息消费者。负责从 Broker 中获取消息，并进行相应处理
+         */
+    }
+
+    @Test
+    public void test276(){
+        /**
+         * CAP理论：
+         * Consistency（一致性）
+         * Availability（可用性）
+         * Partition tolerance（分区容忍性）
+         * 这三个性质对应了分布式系统的三个指标：
+         * 而CAP理论说的就是：一个分布式系统，不可能同时做到这三点
+         */
+    }
+
+    @Test
+    public void test277(){
+        // ACID
+        /**
+         * A:原子性
+         * C：一致性
+         * I：隔离性
+         * D：持久性
+         */
+    }
 }

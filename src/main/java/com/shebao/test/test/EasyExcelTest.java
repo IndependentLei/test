@@ -38,12 +38,12 @@ public class EasyExcelTest {
 //        EasyExcelTest.fillData(Collections.singletonList(tjtbQingFeng));
 
         FillData fillData = new FillData();
-        fillData.setBlxz("111111");
-        fillData.setBz("11111");
-        fillData.setName("111111");
-        fillData.setXh("11111");
-        fillData.setHjdz("111111");
-        fillData.setLzyy("111111111");
+//        fillData.setBlxz("111111");
+//        fillData.setBz("11111");
+//        fillData.setName("111111");
+//        fillData.setXh("11111");
+//        fillData.setHjdz("111111");
+//        fillData.setLzyy("111111111");
         EasyExcelTest.fill2Data(Collections.singletonList(fillData));
     }
 
