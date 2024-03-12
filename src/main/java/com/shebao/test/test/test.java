@@ -3132,4 +3132,17 @@ public class test {
          * D：持久性
          */
     }
+
+    @Test
+    public void test278(){
+        CompletableFuture<String> future = CompletableFuture.supplyAsync(()->{
+            return "111";
+        });
+        try {
+            String s = future.get();
+        }catch (Exception e){
+
+        }
+
+    }
 }
