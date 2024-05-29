@@ -63,6 +63,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.*;
 import java.util.concurrent.*;
@@ -3134,15 +3135,48 @@ public class test {
     }
 
     @Test
-    public void test278(){
-        CompletableFuture<String> future = CompletableFuture.supplyAsync(()->{
-            return "111";
+    public void test278() {
+//        CompletableFuture<String> future = CompletableFuture.supplyAsync(()->{
+//            return "111";
+//        }).thenApply(item->{
+//            System.out.println(item);
+//            return item;
+//        });
+//        try {
+//            String s = future.get();
+//        }catch (Exception e){
+//
+//        }
+
+        CompletableFuture<String> handle = CompletableFuture.supplyAsync(() -> {
+            System.out.println("1111");
+            return "1111";
+        }).handle((x, e) -> {
+            System.out.println("handle" + x);
+            return x;
         });
-        try {
-            String s = future.get();
-        }catch (Exception e){
 
-        }
+        String join = handle.join();
+        System.out.println("join" + join);
+    }
 
+    @Test
+    public void test279() {
+        System.out.println(LocalDateTime.now().minusDays(30));
+    }
+
+    @Test
+    public void test280(){
+        ArrayList<Integer> integers = new ArrayList<>();
+        integers.add(1000);
+        System.out.println(integers.contains(1000L));
+    }
+
+    @Test
+    public void test281() {
+        List<Person> personList = Lists.newArrayList();
+        personList.add(new Person(1L, "小李", "3"));
+        personList.add(new Person(2L, "小王", "3"));
+        personList.add(new Person(3L, "小孙", "3"));
     }
 }
