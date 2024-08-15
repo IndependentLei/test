@@ -63,6 +63,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.*;
@@ -3178,5 +3179,11 @@ public class test {
         personList.add(new Person(1L, "小李", "3"));
         personList.add(new Person(2L, "小王", "3"));
         personList.add(new Person(3L, "小孙", "3"));
+    }
+
+    @Test
+    public void test282() {
+        int daysInMonth = LocalDate.now().lengthOfMonth();
+        System.out.println(daysInMonth);
     }
 }
