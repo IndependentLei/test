@@ -65,6 +65,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.*;
 import java.util.concurrent.*;
@@ -77,6 +79,9 @@ import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static com.fasterxml.jackson.databind.type.LogicalType.DateTime;
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.cn;
 
 @Slf4j
 public class test {
@@ -3185,5 +3190,71 @@ public class test {
     public void test282() {
         int daysInMonth = LocalDate.now().lengthOfMonth();
         System.out.println(daysInMonth);
+    }
+
+    @Test
+    public void test283(){
+//        LocalDateTime parse = LocalDateTime.parse("2024-08-01", DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN));
+//        System.out.println(DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN).format(LocalDateTime.of(2024, 8, 21, 0, 0, 0)))
+//        System.out.println(getDateRangeList("2024-08-01"));
+    }
+
+    public static List<String> getDateRangeList(String initStartTime) {
+        // 将开始日期字符串转换为 LocalDate 对象
+        LocalDate startDate = LocalDate.parse(initStartTime, DateTimeFormatter.ISO_LOCAL_DATE);
+        // 获取当前日期
+        LocalDate currentDate = LocalDate.now();
+        // 获取从开始日期到当前日期的日期字符串集合
+        return getDatesInRangeAsString(startDate, currentDate);
+    }
+
+    protected static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN);
+
+    public static List<String> getDatesInRangeAsString(LocalDate startDate, LocalDate endDate) {
+        List<String> dateRange = new ArrayList<>();
+        // 循环遍历从开始日期到结束日期之间的每一天
+        for (LocalDate date = startDate; date.isBefore(endDate.plusDays(1)); date = date.plusDays(1)) {
+            dateRange.add(date.format(DateTimeFormatter.ISO_LOCAL_DATE) + " 00:00:00");
+        }
+        return dateRange;
+    }
+
+    /**
+     * 获取当天结束时间
+     * @return String
+     */
+    public String getLastMonthBeginTime(){
+        LocalDateTime now = LocalDateTime.now();
+        // 获取当前年月
+        YearMonth currentYearMonth = YearMonth.from(now);
+        // 获取上个月的年月
+        YearMonth previousYearMonth = currentYearMonth.minusMonths(1);
+        // 创建上个月第一天的 LocalDateTime 对象
+        LocalDateTime previousMonthStart = LocalDateTime.of(previousYearMonth.getYear(), previousYearMonth.getMonthValue(), 1, 0, 0,0);
+        return previousMonthStart.format(DATE_TIME_FORMATTER);
+    }
+
+    public String getLastMonthEndTime(){
+        LocalDateTime now = LocalDateTime.now();
+        // 获取当前年月
+        YearMonth currentYearMonth = YearMonth.from(now);
+        // 获取上个月的年月
+        YearMonth previousYearMonth = currentYearMonth.minusMonths(1);
+        // 创建上个月第一天的 LocalDateTime 对象
+        LocalDateTime previousMonthStart = LocalDateTime.of(previousYearMonth.getYear(), previousYearMonth.getMonthValue(), previousYearMonth.lengthOfMonth(), 23, 59,59);
+        return previousMonthStart.format(DATE_TIME_FORMATTER);
+    }
+
+    @Test
+    public void test284(){
+        System.out.println(getLastMonthBeginTime());
+        System.out.println(getLastMonthEndTime());
+        System.out.println(BigDecimal.ZERO.compareTo(null));
+    }
+
+    @Test
+    public void test285(){
+        int i = DateUtil.dayOfMonth(new Date());
+        System.out.println(i);
     }
 }
