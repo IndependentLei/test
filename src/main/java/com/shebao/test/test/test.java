@@ -44,7 +44,13 @@ import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.compress.utils.Lists;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.usermodel.*;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
@@ -53,13 +59,22 @@ import org.springframework.util.StopWatch;
 import org.testng.internal.thread.DefaultThreadPoolExecutorFactory;
 
 import javax.annotation.Resource;
+import javax.crypto.Cipher;
+import javax.crypto.CipherOutputStream;
+import javax.crypto.spec.OAEPParameterSpec;
+import javax.crypto.spec.PSource;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.*;
+import java.security.spec.MGF1ParameterSpec;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -81,7 +96,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.fasterxml.jackson.databind.type.LogicalType.DateTime;
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.cn;
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.*;
 
 @Slf4j
 public class test {
@@ -2167,7 +2182,7 @@ public class test {
     }
 
     @Test
-    public void test217(){
+    public void test217() {
         List<String> list = Lists.newArrayList();
         list.add("202405");
         list.add("202205");
@@ -2176,14 +2191,14 @@ public class test {
         DateTime dateTime = list.stream()
                 .map(item -> DateUtil.parse(item, DatePattern.SIMPLE_MONTH_PATTERN))
                 .max(Comparator.naturalOrder()).orElse(null);
-        if(null!=dateTime){
+        if (null != dateTime) {
             String parse = DateUtil.format(dateTime, DatePattern.SIMPLE_MONTH_PATTERN);
             System.out.println(parse);
         }
     }
 
     @Test
-    public void test218(){
+    public void test218() {
         int times = 3;
         boolean flag = false;
         while (!flag && times-- > 0) {
@@ -2193,7 +2208,7 @@ public class test {
 
 
     @Test
-    public void test219(){
+    public void test219() {
         int times = 3;
         boolean flag = false;
         while (!flag && times-- > 0) {
@@ -2202,15 +2217,15 @@ public class test {
     }
 
     @Test
-    public void test220(){
+    public void test220() {
         List<String> list = new ArrayList<>(4);
         list.add("2");
         list.add("1");
         list.add("4");
         list.add("5");
 
-        for (int i = 0; i <list.size(); i++) {
-            if("2".equals(list.get(i))){
+        for (int i = 0; i < list.size(); i++) {
+            if ("2".equals(list.get(i))) {
                 list.remove(i);
             }
         }
@@ -2218,18 +2233,18 @@ public class test {
     }
 
     @Test
-    public void test221(){
+    public void test221() {
         List<String> list = new ArrayList<>(4);
         list.add("2");
         list.add("1");
         list.add("4");
         list.add("5");
         Iterator<String> iterator = list.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             String next = iterator.next();
-            if("2".equals(next)){
+            if ("2".equals(next)) {
                 iterator.remove();
-            }else {
+            } else {
                 System.out.println(next);
             }
         }
@@ -2237,7 +2252,7 @@ public class test {
 
     @Data
     @AllArgsConstructor
-    static class Test223{
+    static class Test223 {
         private String idNo;
         private String name;
         private String age;
@@ -2245,23 +2260,23 @@ public class test {
     }
 
     @Test
-    public void test223(){
+    public void test223() {
         List<Test223> test223List = Lists.newArrayList();
-        Map<String,String> map = Maps.newHashMap();
-        for (int i = 0; i <100; i++) {
+        Map<String, String> map = Maps.newHashMap();
+        for (int i = 0; i < 100; i++) {
             String s = RandomUtil.randomNumbers(18);
-            Test223 test223 = new Test223(s,String.valueOf(i),String.valueOf(i),"");
+            Test223 test223 = new Test223(s, String.valueOf(i), String.valueOf(i), "");
             test223List.add(test223);
-            map.put(s,JSON.toJSONString(test223));
+            map.put(s, JSON.toJSONString(test223));
         }
         List<Callable<Boolean>> callableList = Lists.newArrayList();
         List<List<Test223>> partition = com.google.common.collect.Lists.partition(test223List, 20);
 
-        partition.forEach(item->{
-            callableList.add(()->{
+        partition.forEach(item -> {
+            callableList.add(() -> {
                 TimeUnit.SECONDS.sleep(5);
                 String ossKey = RandomUtil.randomString(6);
-                item.forEach(kk->{
+                item.forEach(kk -> {
                     kk.setOssKey(ossKey);
                 });
                 return true;
@@ -2271,26 +2286,26 @@ public class test {
         System.out.println(JSON.toJSON(partition));
     }
 
-    public int[] StringToInt(String[] arr){
+    public int[] StringToInt(String[] arr) {
         int[] array = new int[arr.length];
         for (int i = 0; i < arr.length; i++) {
-                array[i] = Integer.parseInt(arr[i]);
+            array[i] = Integer.parseInt(arr[i]);
         }
         return array;
     }
 
-    public static byte[] intToBytes(int a){
-        byte[] ans=new byte[4];
-        for(int i=0;i<4;i++)
-            ans[i]=(byte)(a>>(i*8));//截断 int 的低 8 位为一个字节 byte，并存储起来
+    public static byte[] intToBytes(int a) {
+        byte[] ans = new byte[4];
+        for (int i = 0; i < 4; i++)
+            ans[i] = (byte) (a >> (i * 8));//截断 int 的低 8 位为一个字节 byte，并存储起来
         return ans;
     }
 
     @Test
-    public void test224(){
+    public void test224() {
         SignatureOptions signatureOptions4 = new SignatureOptions();
         signatureOptions4.setHash(true);
-        String sigValueHex4 = Sm2.doSignature("appId=460000010&data={\"appcode\":\"460000099\",\"hnCode\":\"111\"}&reqNo=3cd81124-9888-4e85-910a-6d1305278295&serviceName=ylzms.hnocs.userstruct.special.smscode&timestamp=1694497809260&key=hjikY0WSw6r6rHPS", "0088eacdcb541553ea1bac38cee836ba4d652de6a8202ee0505505fba48af06e39",signatureOptions4);
+        String sigValueHex4 = Sm2.doSignature("appId=460000010&data={\"appcode\":\"460000099\",\"hnCode\":\"111\"}&reqNo=3cd81124-9888-4e85-910a-6d1305278295&serviceName=ylzms.hnocs.userstruct.special.smscode&timestamp=1694497809260&key=hjikY0WSw6r6rHPS", "0088eacdcb541553ea1bac38cee836ba4d652de6a8202ee0505505fba48af06e39", signatureOptions4);
         System.out.println(sigValueHex4);
 //        String s = Sm2.doEncrypt("appId=460000010&data={\"appcode\":\"460000099\",\"hnCode\":\"4601994269996\"}&reqNo=680f3cda-cf1c-4a36-a67d-12d9f4daa6aa&serviceName=ylzms.hnocs.userstruct.special.smscode&timestamp=1694165408305&key=hjikY0WSw6r6rHPS", "0088eacdcb541553ea1bac38cee836ba4d652de6a8202ee0505505fba48af06e39");
 //        System.out.println(s);
@@ -2307,17 +2322,17 @@ public class test {
     }
 
     @Test
-    public void test225(){
+    public void test225() {
         System.out.println(Arrays.toString(Sm4.utf8ToArray("4600000100000000")));
     }
 
     @Test
-    public void test226(){
+    public void test226() {
         List<String> list = com.google.common.collect.Lists.newArrayList();
         for (int i = 0; i < 100; i++) {
             list.add(String.valueOf(i));
         }
-        List<List<String>> partition = com.google.common.collect.Lists.partition(list,30);
+        List<List<String>> partition = com.google.common.collect.Lists.partition(list, 30);
         List<String> reduce = partition.stream()
                 .reduce(com.google.common.collect.Lists.newArrayList(), (ylist, item) -> {
                     ylist.addAll(item);
@@ -2327,7 +2342,7 @@ public class test {
     }
 
     @Test
-    public void test227(){
+    public void test227() {
         String str = "11111111";
         String ss = str.intern();
         System.out.println(str == ss);
@@ -2337,27 +2352,27 @@ public class test {
     @NoArgsConstructor
     @Data
     @Builder
-    static class Com implements Comparable<Com>{
+    static class Com implements Comparable<Com> {
         private Integer mode;
         private Integer mode1;
         private String name;
 
         @Override
         public int compareTo(Com o) {
-            if(this.getMode().equals(4) &&this.getMode().equals(o.getMode())){
+            if (this.getMode().equals(4) && this.getMode().equals(o.getMode())) {
                 return this.getMode1().compareTo(o.getMode1());
-            } else if(this.getMode().equals(o.getMode())){
+            } else if (this.getMode().equals(o.getMode())) {
                 return 0;
-            }else if(this.getMode() < o.getMode() ){
-                if(this.getMode() ==1 && o.getMode() ==2){
+            } else if (this.getMode() < o.getMode()) {
+                if (this.getMode() == 1 && o.getMode() == 2) {
                     return 1;
-                }else {
+                } else {
                     return -1;
                 }
-            }else {
-                if(o.getMode() ==1 && this.getMode() ==2){
+            } else {
+                if (o.getMode() == 1 && this.getMode() == 2) {
                     return -1;
-                }else {
+                } else {
                     return 1;
                 }
             }
@@ -2365,10 +2380,10 @@ public class test {
     }
 
     @Test
-    public void test228(){
+    public void test228() {
         List<Com> comList = Lists.newArrayList();
-        for (int i = 0; i < 3 ; i++) {
-            Com com = new Com(RandomUtil.randomInt(1, 4),RandomUtil.randomInt(1, 5),String.valueOf(i));
+        for (int i = 0; i < 3; i++) {
+            Com com = new Com(RandomUtil.randomInt(1, 4), RandomUtil.randomInt(1, 5), String.valueOf(i));
             comList.add(com);
         }
         Com com = comList.stream().max(Com::compareTo).orElse(null);
@@ -2376,25 +2391,25 @@ public class test {
     }
 
     @Test
-    public void test229(){
+    public void test229() {
         String format = String.format("单位%s+个人%s", "5%", "5%");
         System.out.println(format);
     }
 
     @Test
-    public void test230(){
+    public void test230() {
         System.out.println(RandomUtil.randomNumbers(15));
     }
 
     @Test
-    public void test231(){
+    public void test231() {
 //        BitMapBloomFilter bitMap = BloomFilterUtil.createBitMap(1000);
-        BitSetBloomFilter bitMap = BloomFilterUtil.createBitSet(2000,1000,3);
+        BitSetBloomFilter bitMap = BloomFilterUtil.createBitSet(2000, 1000, 3);
         bitMap.add("968");
-        for (int i = 0; i <100; i++) {
+        for (int i = 0; i < 100; i++) {
             bitMap.add(RandomUtil.randomNumbers(1000));
         }
-        if(bitMap.contains("968")){
+        if (bitMap.contains("968")) {
             System.out.println(bitMap);
         }
     }
@@ -2426,7 +2441,6 @@ public class test {
         }, "thread-2").start();
 
 
-
         CountDownLatch countDownLatch = new CountDownLatch(2);
         for (int i = 0; i < 5; i++) {
             new Thread(() -> {
@@ -2448,7 +2462,7 @@ public class test {
     @Test
     public void test236() throws InterruptedException {
         LinkedBlockingDeque<String> str = new LinkedBlockingDeque<>();
-        String poll = str.poll(5,TimeUnit.SECONDS);
+        String poll = str.poll(5, TimeUnit.SECONDS);
         String take = str.take();
         System.out.println(111);
     }
@@ -2481,7 +2495,7 @@ public class test {
             try {
                 TimeUnit.HOURS.sleep(1);
                 System.out.println(1);
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
         });
@@ -2490,7 +2504,7 @@ public class test {
             try {
                 TimeUnit.SECONDS.sleep(5);
                 System.out.println(2);
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
         });
@@ -2523,7 +2537,7 @@ public class test {
     }
 
     @Test
-    public void test238(){
+    public void test238() {
         List<Integer> list = Lists.newArrayList();
         list.add(1);
         list.add(1);
@@ -2538,20 +2552,20 @@ public class test {
     }
 
     @Test
-    public void test239(){
-        new MyRunnable(new Thread(),()->{
+    public void test239() {
+        new MyRunnable(new Thread(), () -> {
             System.out.println(111);
         }).thread.start();
     }
 
 
-    static class MyRunnable implements Runnable{
+    static class MyRunnable implements Runnable {
 
         final Thread thread;
 
         Runnable firstTask;
 
-        public MyRunnable(Thread thread,Runnable firstTask) {
+        public MyRunnable(Thread thread, Runnable firstTask) {
             this.thread = thread;
             this.firstTask = firstTask;
         }
@@ -2563,10 +2577,10 @@ public class test {
     }
 
     @Test
-    public void test240(){
+    public void test240() {
         Semaphore semaphore = new Semaphore(3);
         for (int i = 0; i < 10; i++) {
-            new Thread(()->{
+            new Thread(() -> {
                 try {
                     semaphore.acquire();
                     System.out.println(Thread.currentThread().getName());
@@ -2580,14 +2594,14 @@ public class test {
         }
         try {
             TimeUnit.HOURS.sleep(10);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
 
     @Test
-    public void test250(){
+    public void test250() {
         /**
          * 类加载过程
          * 1.加载：根据全类名，去找class文件，解析成二进制，转成方法区的运行时数据结构
@@ -2600,15 +2614,15 @@ public class test {
 
 
     @Test
-    public void  test251(){
-        HashMap<String,String> map = new HashMap<>();
-        map.put("1","1");
+    public void test251() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("1", "1");
 
         String s = map.get(null);
 
 
-        ConcurrentHashMap<String,String> concurrentHashMap = new ConcurrentHashMap<>();
-        concurrentHashMap.put("1","1");
+        ConcurrentHashMap<String, String> concurrentHashMap = new ConcurrentHashMap<>();
+        concurrentHashMap.put("1", "1");
         String s1 = concurrentHashMap.get("1");
     }
 
@@ -2625,7 +2639,7 @@ public class test {
     }
 
     @Test
-    public void test253(){
+    public void test253() {
         List<String> list1 = null;
         List<String> list2 = Arrays.asList("2");
         Collection<String> union = CollectionUtils.union(list1, list2);
@@ -2633,7 +2647,7 @@ public class test {
     }
 
     @Test
-    public void test254(){
+    public void test254() {
         CopyOnWriteArrayList<String> copy = new CopyOnWriteArrayList<>();
         copy.add("1");
         copy.get(0);
@@ -2644,19 +2658,19 @@ public class test {
     }
 
     @Test
-    public void test255(){
-        HashMap<String,String> map = new HashMap<>(17);
-        map.put("null",null);
-        map.put("null",null);
+    public void test255() {
+        HashMap<String, String> map = new HashMap<>(17);
+        map.put("null", null);
+        map.put("null", null);
 
-        ConcurrentHashMap<String,String> map1 = new ConcurrentHashMap<>();
-        map1.put("1","1");
+        ConcurrentHashMap<String, String> map1 = new ConcurrentHashMap<>();
+        map1.put("1", "1");
 
         LinkedList<String> strings = new LinkedList<>();
         strings.add("1");
 
         Hashtable hashtable = new Hashtable();
-        hashtable.put("1","");
+        hashtable.put("1", "");
     }
 
     @Test
@@ -2767,7 +2781,7 @@ public class test {
 
         try {
             Thread.sleep(1000);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         new Thread(() -> {
@@ -2785,13 +2799,13 @@ public class test {
 
         try {
             Thread.sleep(10000000);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
     @Test
-    public void test260(){
+    public void test260() {
         List<Long> list = new ArrayList<>();
         list.add(1L);
         List<Long> list1 = new ArrayList<>();
@@ -2802,7 +2816,7 @@ public class test {
     }
 
     @Test
-    public void test261(){
+    public void test261() {
         // 项目启动 初始化 SqlSessionFactory 工厂
         // 执行：
         //      1、通过 MapperProxy获取 mapper代理对象
@@ -2832,7 +2846,7 @@ public class test {
     }
 
     @Test
-    public void test262(){
+    public void test262() {
         /**
          * @Transactional，作用是定义代理植入点。【aop实现原理分析】中，
          * 分析知道代理对象创建的通过BeanPostProcessor的实现类AnnotationAwareAspectJAutoProxyCreator的postProcessAfterInstantiation方法来实现个，
@@ -2854,14 +2868,14 @@ public class test {
     }
 
     @Test
-    public void test264(){
+    public void test264() {
         InheritableThreadLocal<Integer> threadLocal = new InheritableThreadLocal<>();
         ThreadLocal<Integer> tl = new ThreadLocal<>();
 
         threadLocal.set(5);
-        try{
+        try {
             TimeUnit.SECONDS.sleep(3);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         // 创建子线程的时候，会将 父线程的 inheritableThreadLocals变量复制到子线程的inheritableThreadLocals变量中
@@ -2872,9 +2886,9 @@ public class test {
         });
         thread.start();
 
-        try{
+        try {
             TimeUnit.SECONDS.sleep(3);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         System.out.println(Thread.currentThread().getName());
@@ -2885,19 +2899,19 @@ public class test {
     }
 
     @Test
-    public void test265(){
+    public void test265() {
         InheritableThreadLocal<Integer> threadLocal = new InheritableThreadLocal<>();
 
         threadLocal.set(1);
 
-        new Thread(()->{
+        new Thread(() -> {
             Integer i = threadLocal.get();
             System.out.println(i);
         }).start();
     }
 
     @Test
-    public void test266(){
+    public void test266() {
         int i = 5;
         int j = 5;
         int result = i++;
@@ -2912,7 +2926,7 @@ public class test {
     }
 
     @Test
-    public void test267(){
+    public void test267() {
         // 协变指的是子类型对象可以赋值给父类型引用的情况。在泛型中，协变表示如果 B 是 A 的子类
         // ，那么 List<B> 就是 List<A> 的子类。这意味着你可以将 List<B> 赋值给 List<A>，但只能读取 List<A> 中的元素，不能向其中添加任何元素。
         List<? extends Number> numbers = Arrays.asList(1);
@@ -2936,21 +2950,21 @@ public class test {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    static class Fruit{
+    static class Fruit {
         private String name;
         private String color;
     }
 
-    static class Apple extends Fruit{
+    static class Apple extends Fruit {
 
     }
 
-    static class GoodApple extends Apple{
+    static class GoodApple extends Apple {
 
     }
 
     @Test
-    public void test268(){
+    public void test268() {
         // https://blog.csdn.net/m0_37796683/article/details/108584499
         Apple apple = new Apple();
         Fruit fruit = new Fruit();
@@ -2974,7 +2988,7 @@ public class test {
     }
 
     @Test
-    public void test269(){
+    public void test269() {
         /**
          * Spring MVC 执行流程
          * 根据url匹配（HandlerMethod）  获取处理器执行链（HandlerExecutionChain） 加入 HandlerInterceptor 拦截器
@@ -3036,13 +3050,13 @@ public class test {
          * 			return getModelAndView(mavContainer, modelFactory, webRequest);* 		}
          * 		finally {
          * 			webRequest.requestCompleted();
-         * 		}
-         * 	}
+         *        }
+         *    }
          */
     }
 
     @Test
-    public void test270(){
+    public void test270() {
         /**
          * sizeCtl
          *      为 0 代表数据没有初始化，数组的初始化容量为 16
@@ -3050,13 +3064,13 @@ public class test {
          *      为 -1 表示数组正在初始化
          *      小于 0 并且不是 -1 表示数组正在扩容，-（1+n）表示此时有n个线程正在共同完成数组的扩容操作
          */
-        ConcurrentHashMap<String,String> hashMap = new ConcurrentHashMap<>();
-        hashMap.put("1","1");
+        ConcurrentHashMap<String, String> hashMap = new ConcurrentHashMap<>();
+        hashMap.put("1", "1");
         String s = hashMap.get("1");
     }
 
     @Test
-    public void test271(){
+    public void test271() {
         /**
          * InnoDB的行锁
          * InnoDB行锁通过对索引数据页上的记录加锁实现的，主要实现的算法有 3 种 : Record Lock ，Gap Lock 和 Next-key Lock。
@@ -3074,9 +3088,9 @@ public class test {
     }
 
     @Test
-    public void test272(){
-        ConcurrentHashMap<String,String> hashMap = new ConcurrentHashMap<>();
-        hashMap.put("1","1");
+    public void test272() {
+        ConcurrentHashMap<String, String> hashMap = new ConcurrentHashMap<>();
+        hashMap.put("1", "1");
         hashMap.size();
     }
 
@@ -3100,7 +3114,7 @@ public class test {
     }
 
     @Test
-    public void test274(){
+    public void test274() {
         // 1、实例化bean 2、属性注入 3、BeanNameAware#setBeanName
         // 4、BeanFactoryAware#setBeanFactory 5、BeanPostProcesser预处理方法
         // 6、InitBean#afterPropertiesSet 7、Init-Method方法
@@ -3108,7 +3122,7 @@ public class test {
     }
 
     @Test
-    public void test275(){
+    public void test275() {
         // Producer -- channel -->  Broker ( Exchange - Qyeye )--- channel--> Consumer
         /**
          * Producer：消息生产者。负责产生和发送消息到 Broker
@@ -3118,7 +3132,7 @@ public class test {
     }
 
     @Test
-    public void test276(){
+    public void test276() {
         /**
          * CAP理论：
          * Consistency（一致性）
@@ -3130,7 +3144,7 @@ public class test {
     }
 
     @Test
-    public void test277(){
+    public void test277() {
         // ACID
         /**
          * A:原子性
@@ -3155,9 +3169,15 @@ public class test {
 //        }
 
         CompletableFuture<String> handle = CompletableFuture.supplyAsync(() -> {
-            System.out.println("1111");
+            try {
+                TimeUnit.MINUTES.sleep(1);
+            } catch (Exception e) {
+
+            }
             return "1111";
-        }).handle((x, e) -> {
+        });
+
+        handle.handle((x, e) -> {
             System.out.println("handle" + x);
             return x;
         });
@@ -3172,7 +3192,7 @@ public class test {
     }
 
     @Test
-    public void test280(){
+    public void test280() {
         ArrayList<Integer> integers = new ArrayList<>();
         integers.add(1000);
         System.out.println(integers.contains(1000L));
@@ -3193,7 +3213,7 @@ public class test {
     }
 
     @Test
-    public void test283(){
+    public void test283() {
 //        LocalDateTime parse = LocalDateTime.parse("2024-08-01", DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN));
 //        System.out.println(DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN).format(LocalDateTime.of(2024, 8, 21, 0, 0, 0)))
 //        System.out.println(getDateRangeList("2024-08-01"));
@@ -3221,40 +3241,379 @@ public class test {
 
     /**
      * 获取当天结束时间
+     *
      * @return String
      */
-    public String getLastMonthBeginTime(){
+    public String getLastMonthBeginTime() {
         LocalDateTime now = LocalDateTime.now();
         // 获取当前年月
         YearMonth currentYearMonth = YearMonth.from(now);
         // 获取上个月的年月
         YearMonth previousYearMonth = currentYearMonth.minusMonths(1);
         // 创建上个月第一天的 LocalDateTime 对象
-        LocalDateTime previousMonthStart = LocalDateTime.of(previousYearMonth.getYear(), previousYearMonth.getMonthValue(), 1, 0, 0,0);
+        LocalDateTime previousMonthStart = LocalDateTime.of(previousYearMonth.getYear(), previousYearMonth.getMonthValue(), 1, 0, 0, 0);
         return previousMonthStart.format(DATE_TIME_FORMATTER);
     }
 
-    public String getLastMonthEndTime(){
+    public String getLastMonthEndTime() {
         LocalDateTime now = LocalDateTime.now();
         // 获取当前年月
         YearMonth currentYearMonth = YearMonth.from(now);
         // 获取上个月的年月
         YearMonth previousYearMonth = currentYearMonth.minusMonths(1);
         // 创建上个月第一天的 LocalDateTime 对象
-        LocalDateTime previousMonthStart = LocalDateTime.of(previousYearMonth.getYear(), previousYearMonth.getMonthValue(), previousYearMonth.lengthOfMonth(), 23, 59,59);
+        LocalDateTime previousMonthStart = LocalDateTime.of(previousYearMonth.getYear(), previousYearMonth.getMonthValue(), previousYearMonth.lengthOfMonth(), 23, 59, 59);
         return previousMonthStart.format(DATE_TIME_FORMATTER);
     }
 
     @Test
-    public void test284(){
+    public void test284() {
         System.out.println(getLastMonthBeginTime());
         System.out.println(getLastMonthEndTime());
         System.out.println(BigDecimal.ZERO.compareTo(null));
     }
 
     @Test
-    public void test285(){
+    public void test285() {
         int i = DateUtil.dayOfMonth(new Date());
         System.out.println(i);
     }
+
+    @Test
+    public void test286() {
+        LocalDate localDate = LocalDate.now().minusDays(1);
+        System.out.println(localDate);
+    }
+
+    private static final DateTimeFormatter SECOND_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN);
+
+    public static List<String> getMonthsInRange(String startDateStr, String endDateStr) {
+        LocalDateTime startDate = LocalDateTime.parse(startDateStr, SECOND_DATE_TIME_FORMATTER);
+        LocalDateTime endDate = LocalDateTime.parse(endDateStr, SECOND_DATE_TIME_FORMATTER);
+        // 将 LocalDateTime 转换为 LocalDate 以处理日期部分
+        LocalDate startDateDate = startDate.toLocalDate();
+        LocalDate endDateDate = endDate.toLocalDate();
+        List<String> months = new ArrayList<>();
+        LocalDate currentDate = startDateDate.withDayOfMonth(1); // 设置为月份的第一天
+        // 循环直到超过结束日期的月份（注意：这里使用endDateDate而不是endDate）
+        while (!currentDate.isAfter(endDateDate)) {
+            String monthStr = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+            months.add(monthStr);
+            currentDate = currentDate.plusMonths(1); // 移动到下一个月份的第一天
+        }
+        return months;
+    }
+
+    @Test
+    public void test290() {
+        System.out.println(getMonthsInRange("2024-05-06 10:10:10", "2024-05-06 10:10:09"));
+    }
+
+    @Test
+    public void test291() {
+        BigDecimal peakSeason = isPeakSeason(BigDecimal.valueOf(5.5));
+        System.out.println(peakSeason);
+    }
+
+    public BigDecimal isPeakSeason(BigDecimal source) {
+        if (null == source || BigDecimal.ZERO.compareTo(source) == 0) {
+            return source;
+        }
+        DateTime date = DateUtil.date();
+        int current = DateUtil.month(date) + 1;
+        int day = DateUtil.dayOfMonth(date);
+        if (Objects.equals(10, current)) {
+            return BigDecimal.valueOf(3).multiply(source);
+        }
+        if (Objects.equals(11, current)) {
+            if (day <= 15) {
+                return BigDecimal.valueOf(3).multiply(source);
+            }
+        }
+        if (Objects.equals(1, current)) {
+            return source.divide(BigDecimal.valueOf(3), 8, RoundingMode.HALF_UP);
+        }
+        if (Objects.equals(2, current)) {
+            if (day <= 15) {
+                return source.divide(BigDecimal.valueOf(3), 8, RoundingMode.HALF_UP);
+            }
+        }
+        return source;
+    }
+
+    @Test
+    public void test292() {
+        LocalDateTime dateTime = LocalDateTime.now();
+        int dayOfMonth = dateTime.getDayOfMonth();
+        LocalDateTime dateTime1 = dateTime.plusMonths(-1);
+        System.out.println(dayOfMonth);
+        System.out.println(dateTime1);
+    }
+
+    @Test
+    public void test293() {
+        String input = "2024-06-01 00:00:00";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dateTime = LocalDateTime.parse(input, formatter);
+        System.out.println(dateTime);
+    }
+
+    @Test
+    public void test294() {
+//        DateTime parse = DateUtil.parse("2024-05-06 00:00:00", DatePattern.NORM_DATETIME_PATTERN);
+        System.out.println(LocalDateTime.parse("2024-02-06 00:00:00", DATE_TIME_FORMATTER)
+                .toLocalDate()
+                .lengthOfMonth());
+    }
+
+    public static void main(String[] args) throws Exception {
+//        workInvestmentExport();
+//        create();
+
+        CellReference cellReference = new CellReference(11, 12);
+        System.out.println(Arrays.toString(cellReference.getCellRefParts()));
+        System.out.println(cellReference.formatAsString());
+    }
+
+    public static void workInvestmentExport() throws Exception {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+
+        XSSFCellStyle cellStyle = workbook.createCellStyle();
+        XSSFFont font = workbook.createFont();
+        font.setFontName("宋体");
+        font.setFontHeightInPoints((short) 10); // 设置字体大小为三号（16pt）
+
+        cellStyle.setFont(font);
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+// 设置为单元格样式
+
+
+        XSSFSheet sheet = workbook.createSheet("sheet");
+//        sheet.setColumnWidth(0, 11);
+        XSSFRow fileRow = sheet.createRow(0);
+        fileRow.setHeightInPoints(28);
+        XSSFCell fileCell = fileRow.createCell(0);
+        fileCell.setCellValue("合计");
+        fileCell.setCellStyle(cellStyle);
+
+
+        // 基础表头
+//        XSSFRow fileRow = sheet.createRow(0);
+
+
+        ByteArrayOutputStream baot = new ByteArrayOutputStream();
+        workbook.write(baot);
+        FileUtils.writeByteArrayToFile(new File("D:\\12wrwerwerwerwerwerwer.xlsx"), baot.toByteArray());
+
+    }
+
+    public static void create() {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+
+        // 合计样式
+        XSSFCellStyle cellStyle = workbook.createCellStyle();
+        XSSFFont font = workbook.createFont();
+        font.setFontName("宋体");
+        font.setFontHeightInPoints((short) 10); // 设置字体大小为三号（16pt）
+
+        cellStyle.setFont(font);
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        cellStyle.setBorderBottom(BorderStyle.THIN); // 下边框
+        cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+
+        cellStyle.setBorderLeft(BorderStyle.THIN); // 左边框
+        cellStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
+        cellStyle.setBorderRight(BorderStyle.THIN); // 右边框
+        cellStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
+
+        cellStyle.setBorderTop(BorderStyle.THIN); // 上边框
+        cellStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        // 设置为单元格样式
+        XSSFSheet sheet = workbook.createSheet("sheet");
+        for (int i = 0; i < 100; i++) {
+            sheet.setColumnWidth(i, 12 * 256);
+        }
+        sheet.setDefaultRowHeightInPoints(28);
+        XSSFRow fileRow = sheet.createRow(0);
+        XSSFCell fileCell = fileRow.createCell(0);
+        fileCell.setCellValue("合计");
+        fileCell.setCellStyle(cellStyle);
+
+        for (int i = 1; i <= 7; i++) {
+            XSSFCell labelCell = fileRow.createCell(i);
+            labelCell.setCellStyle(cellStyle);
+            //给单元格设置公式
+            labelCell.setCellFormula("SUMPRODUCT(B5:B7,H5:H7)");
+//设置格式生效
+            XSSFFormulaEvaluator formulaEvaluator = workbook.getCreationHelper().createFormulaEvaluator();
+            formulaEvaluator.evaluateFormulaCell(labelCell);
+        }
+
+        // 基础信息样式
+        XSSFCellStyle nextCellStyle = workbook.createCellStyle();
+        XSSFFont nextFont = workbook.createFont();
+        nextFont.setFontName("楷体");
+        nextFont.setBold(true);
+        nextFont.setFontHeightInPoints((short) 12);
+
+        nextCellStyle.setFont(nextFont);
+        nextCellStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        nextCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        nextCellStyle.setAlignment(HorizontalAlignment.CENTER);
+        nextCellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+
+        nextCellStyle.setBorderBottom(BorderStyle.THIN); // 下边框
+        nextCellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+
+        nextCellStyle.setBorderLeft(BorderStyle.THIN); // 左边框
+        nextCellStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
+        nextCellStyle.setBorderRight(BorderStyle.THIN); // 右边框
+        nextCellStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
+
+        nextCellStyle.setBorderTop(BorderStyle.THIN); // 上边框
+        nextCellStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
+
+        // 基础信息行
+        XSSFRow threeRow = sheet.createRow(2);
+        XSSFCell cell1 = threeRow.createCell(0);
+        cell1.setCellValue("姓名");
+
+        XSSFCell cell = threeRow.createCell(1);
+        cell.setCellValue("基础数据");
+        sheet.addMergedRegion(new CellRangeAddress(2, 2, 1, 7));
+
+        XSSFRow dataHeaderRow = sheet.createRow(3);
+        XSSFCell cell2 = dataHeaderRow.createCell(0);
+        cell2.setCellStyle(nextCellStyle);
+        cell2.setCellValue("姓名");
+
+        XSSFCell cell3 = dataHeaderRow.createCell(1);
+        cell3.setCellStyle(nextCellStyle);
+        cell3.setCellValue("基本工资");
+
+        XSSFCell cell4 = dataHeaderRow.createCell(2);
+        cell4.setCellStyle(nextCellStyle);
+        cell4.setCellValue("绩效工资");
+
+        XSSFCell cell5 = dataHeaderRow.createCell(3);
+        cell5.setCellStyle(nextCellStyle);
+        cell5.setCellValue("其他项工资");
+
+        XSSFCell cell6 = dataHeaderRow.createCell(4);
+        cell6.setCellStyle(nextCellStyle);
+        cell6.setCellValue("社保-公司");
+
+        XSSFCell cell7 = dataHeaderRow.createCell(5);
+        cell7.setCellStyle(nextCellStyle);
+        cell7.setCellValue("公积金-公司");
+
+        // 注意：原描述中缺少了"G"列的具体标题，这里跳过
+        XSSFCell cell8 = dataHeaderRow.createCell(6);
+        cell8.setCellStyle(nextCellStyle);
+        cell8.setCellValue("以前年度绩效");
+
+        XSSFCell cell9 = dataHeaderRow.createCell(7);
+        cell9.setCellStyle(nextCellStyle);
+        cell9.setCellValue("比例合计");
+
+        sheet.addMergedRegion(new CellRangeAddress(2, 3, 0, 0));
+
+        cell1.setCellStyle(nextCellStyle);
+        cell.setCellStyle(nextCellStyle);
+
+        try {
+            ByteArrayOutputStream baot = new ByteArrayOutputStream();
+            workbook.write(baot);
+            FileUtils.writeByteArrayToFile(new File("D:\\12wrwerwerwerwerwerwer.xlsx"), baot.toByteArray());
+        } catch (Exception e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    @Test
+    public void test295() {
+        List<Person> personList = Lists.newArrayList();
+        personList.add(new Person(1L, "1", "1"));
+        personList.add(new Person(1L, "1", "1"));
+        personList.add(new Person(2L, "1", "1"));
+        personList.add(new Person(2L, "1", "1"));
+        personList.add(new Person(2L, "1", "1"));
+//
+        personList.stream().filter(item->Objects.equals(2L,item.getId())).forEach(item->item.setAge("6666"));
+        System.out.println(personList);
+//        Map<Long, List<Person>> collect = personList.stream().collect(Collectors.groupingBy(Person::getId));
+//        collect.forEach((k, v) -> {
+//            if (Objects.equals(k, 2L)) {
+//                for (Person person : v) {
+//                    person.setName("2");
+//                    person.setAge("2");
+//                }
+//            }
+//        });
+//
+//        System.out.println(personList);
+    }
+
+
+    @Test
+    public void test296() {
+        Map<Long, BigDecimal> map = Maps.newHashMap();
+
+        map.put(1L, BigDecimal.valueOf(1.23));
+        map.put(2L, BigDecimal.valueOf(2.69));
+        map.put(3L, BigDecimal.valueOf(4.39));
+        map.put(4L, BigDecimal.valueOf(7.69));
+        map.put(5L, BigDecimal.valueOf(2.2));
+
+        BigDecimal bigDecimal = map.values()
+                .stream()
+                .max(BigDecimal::compareTo)
+                .get();
+        System.out.println(map);
+    }
+
+    @Test
+    public void test297() throws Exception {
+        // 解析公钥
+        PublicKey publicKey = parsePublicKey(PUBLIC_KEY_B64);
+
+        // 要加密的字符串
+        String originalText = "1";
+
+        // 使用公钥加密
+        String encryptedText = encrypt(originalText, publicKey);
+        System.out.println("Encrypted Text: " + encryptedText);
+    }
+
+    // 给定的公钥（Base64编码）
+    private static final String PUBLIC_KEY_B64 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA88sGKeVSiGgTLzvzXhyV" +
+            "ZNH0pyDOLt2R8ECw7OkvQo49Gl/EHf0ciZ+XBXpf2vn6LKLzZSRKu+lpVO6bbL6n" +
+            "vkXFzxnmOIwKUcyth0QOvxFqAol80Jn5k+WXBW8HLa6R5JAnEuJL43Laolm15LAo" +
+            "MqDVsK6IroS+LuPbrDnpgh5gvKmKEKgvbwdYHymmzW51TTW58ErEpCeNb2c2jYu5" +
+            "zohaoU1aNx7u/4VJywTcTA8D/XjzqVEt678bKQ4btHzbhArvftEikgG1gzmf+Mct" +
+            "TS+jg+cYRxfxU6C2Ytwt8ehmtIKKMchXqJwZFnQj8BRBzGKYKRO3X7rCoZfqwPpV" +
+            "YQIDAQAB";
+
+
+    // 解析Base64编码的X.509公钥
+    private static PublicKey parsePublicKey(String base64PublicKey) throws Exception {
+        byte[] keyBytes = Base64.getDecoder().decode(base64PublicKey);
+        X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        return keyFactory.generatePublic(spec);
+    }
+
+    // 使用RSA-OAEP加密方法
+    private static String encrypt(String plainText, PublicKey publicKey) throws Exception {
+        Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+        byte[] cipherText = cipher.doFinal(plainText.getBytes(StandardCharsets.UTF_8));
+        return Base64.getEncoder().encodeToString(cipherText);
+    }
+
 }
+
