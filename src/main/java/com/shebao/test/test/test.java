@@ -72,6 +72,7 @@ import java.math.RoundingMode;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
+import java.security.interfaces.RSAPublicKey;
 import java.security.spec.MGF1ParameterSpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
@@ -3615,5 +3616,49 @@ public class test {
         return Base64.getEncoder().encodeToString(cipherText);
     }
 
+
+
+    @Test
+    public void test298() throws Exception{
+            // 公钥
+            String publicKeyStr = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA88sGKeVSiGgTLzvzXhyVZNH0pyDOLt2R8ECw7OkvQo49Gl/EHf0ciZ+XBXpf2vn6LKLzZSRKu+lpVO6bbL6n" +
+                    "vkXFzxnmOIwKUcyth0QOvxFqAol80Jn5k+WXBW8HLa6R5JAnEuJL43Laolm15LAoMqDVsK6IroS+LuPbrDnpgh5gvKmKEKgvbwdYHymmzW51TTW58ErEpCeNb2c2jYu5" +
+                    "zohaoU1aNx7u/4VJywTcTA8D/XjzqVEt678bKQ4btHzbhArvftEikgG1gzmf+MctTS+jg+cYRxfxU6C2Ytwt8ehmtIKKMchXqJwZFnQj8BRBzGKYKRO3X7rCoZfqwPpV" +
+                    "YQIDAQAB";
+
+            // 要加密的明文
+            String plaintext = "1";
+
+            // 转换公钥字符串为RSAPublicKey
+            RSAPublicKey publicKey = getPublicKeyFromString(publicKeyStr);
+
+            // 使用RSA-OAEP加密
+            byte[] encryptedData = rsaEncrypt(publicKey, plaintext.getBytes(), "SHA-256", "MGF1");
+
+            // 输出加密结果（Base64编码）
+            System.out.println("Encrypted Data (Base64): " + Base64.getEncoder().encodeToString(encryptedData));
+
+
+    }
+
+    // 将公钥字符串转为RSAPublicKey对象
+    private static RSAPublicKey getPublicKeyFromString(String key) throws Exception {
+        byte[] keyBytes = Base64.getDecoder().decode(key);
+        X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        return (RSAPublicKey) keyFactory.generatePublic(keySpec);
+    }
+
+    // 使用RSA-OAEP加密
+    private static byte[] rsaEncrypt(RSAPublicKey publicKey, byte[] data, String hashAlgorithm, String mgfHashAlgorithm) throws Exception {
+        Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWith" + hashAlgorithm + "And" + mgfHashAlgorithm + "Padding");
+
+        // 初始化加密器
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+
+        // 执行加密
+        return cipher.doFinal(data);
+    }
 }
+
 
